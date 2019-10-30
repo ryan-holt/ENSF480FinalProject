@@ -1,11 +1,14 @@
 
 # Property Rental Management System (PRMS)
+
+### Tasks
+
+* Write a short paragraph for each actor
+* For each actor write a possible flow of events
+* Draw use-case diagram
+* Make list of possible interfaces
+
 ### Actors
-**Tasks**
-*Write a short paragraph for each actor*
-*For each actor write a possible flow of events*
-*Draw use-case diagram*
-*Make list of possible interfaces*
 
 * Landlords
 * Manager
