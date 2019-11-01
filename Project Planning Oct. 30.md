@@ -13,10 +13,15 @@
 * Landlord
 
 	* The **owner** of the property being rented that **registers** the property to the online management system and **pays** a fee to have the property ad posted which can be viewed by renters. The fee is charged for the amount of the time the owner wants the ad to remain on the system.
+	* List of major events:
+
+		* registration of property to system
+		* payment of fees
 
 * Manager
 
 	
+
 
 * Renters
 	* Registered Renters
