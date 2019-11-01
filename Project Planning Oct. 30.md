@@ -76,9 +76,9 @@
 * Stores the data of the system and can be used by managers to fetch information on other entities as well as retrieves periodical reports of the system.
 * Major Events:
 
-	* Store of data
-	* Fetch of data
-	* Change of data
+	* Store of query under users
+	* Storing new listing
+	* Changing status of listing 
 	* Computing periodical report
 
 
