@@ -17,7 +17,7 @@ and design artefacts in the following order:
         * Process that landlord posts his/her property
     
     * System interaction diagrams for each use case. You only should draw a new use-case diagram if a use
-    case introduces a new object. This will be discussed in the class.
+    case introduces a new object. This will be discussed in the class. (Sequence Diagram like the ATM example)
     * A design level detailed class specifications that includes:
     
         * A class diagram without attributes and behavior that only shows the class name and the
