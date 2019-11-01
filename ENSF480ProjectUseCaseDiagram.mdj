@@ -41,7 +41,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1145,
+									"left": 1146,
 									"top": 652,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -62,7 +62,7 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 1134,
+									"left": 1135,
 									"top": 641,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -83,7 +83,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1166,
+									"left": 1167,
 									"top": 673,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -104,7 +104,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 963,
+									"left": 964,
 									"top": 834,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -125,7 +125,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 956,
+									"left": 957,
 									"top": 823,
 									"height": 13,
 									"alpha": 0.7853981633974483,
@@ -146,7 +146,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 980,
+									"left": 981,
 									"top": 856,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -257,7 +257,7 @@
 								"$ref": "AAAAAAFuJ8b73Z2V3qg="
 							},
 							"lineStyle": 1,
-							"points": "956:869;1357:470",
+							"points": "957:869;1357:470",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFuJ8b73J0LYxY="
@@ -2627,9 +2627,9 @@
 											"font": "Arial;13;1",
 											"left": 858.5,
 											"top": 892,
-											"width": 140,
+											"width": 142,
 											"height": 13,
-											"text": "Fetch periodical report"
+											"text": "Fetch system analytics"
 										},
 										{
 											"_type": "LabelView",
@@ -2662,7 +2662,7 @@
 									"font": "Arial;13;0",
 									"left": 853.5,
 									"top": 885,
-									"width": 150.86083984375,
+									"width": 152.34619140625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFuJ8b73Z2XESs="
@@ -2762,7 +2762,7 @@
 							"containerChangeable": true,
 							"left": 822,
 							"top": 870,
-							"width": 213,
+							"width": 215,
 							"height": 56,
 							"nameCompartment": {
 								"$ref": "AAAAAAFuJ8b73Z2WDJ4="
@@ -3559,7 +3559,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 728,
+									"left": 729,
 									"top": 831,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -3579,7 +3579,7 @@
 										"$ref": "AAAAAAFuJ5f0zzHIRhU="
 									},
 									"font": "Arial;13;0",
-									"left": 698,
+									"left": 700,
 									"top": 831,
 									"width": 53.49169921875,
 									"height": 13,
@@ -3602,7 +3602,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 739,
+									"left": 740,
 									"top": 802,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -3621,7 +3621,7 @@
 								"$ref": "AAAAAAFuJ8b73Z2V3qg="
 							},
 							"lineStyle": 1,
-							"points": "855:869;614:777",
+							"points": "856:869;614:777",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFuJ8b73Z3IVSQ="
@@ -20315,7 +20315,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFuHU0ABHzqHU0="
 					},
-					"name": "Fetch periodical report",
+					"name": "Fetch system analytics",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
