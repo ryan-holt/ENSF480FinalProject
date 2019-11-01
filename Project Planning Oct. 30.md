@@ -41,7 +41,7 @@
 
 
 ### Renters
-* Regular Renters
+* **Regular Renters**
 
 	* These renters are like **observers** of the system that **don't need to login** and are allowed to **search** the system for listings. Regular renters can also send email to the landord without seeing their info.
 	* List of Major Events:
@@ -49,7 +49,7 @@
 		* Search query for listings
 		* Send email to landlord
 
-* Registered Renters
+* **Registered Renters**
 
 	* These rents **must login** to the system and can **search** for listings with the same critera listed below. However, registered renters will be **notified** when new listings are posted that match their critera. Registered renters can also send email to the landord without seeing their info.
 	* List of Major Events:
