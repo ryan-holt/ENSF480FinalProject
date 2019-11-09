@@ -5,9 +5,9 @@
 * In this phase you should submit a Design Document that includes a clear description of system’s requirements,
 and design artefacts in the following order:
     
-    * Systems use case diagram
-    * Systems activity diagram 
-    * A state transition diagram for each of the following objects in your system:
+    * **Systems use case diagram**
+    * **Systems activity diagram** *(contract and meetings)*  
+    * A **state transition diagram** for each of the following objects in your system: *(only one object?)*
         
         * Property object
         * Process that landlord posts his/her property
