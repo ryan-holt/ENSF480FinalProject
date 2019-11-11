@@ -10,8 +10,9 @@ public class GUITester {
         //testLoginView();
         //testMainView(new ManagerMainView());
         //testSearchListingView();
-        testCreateListingView();
-        PeriodicalReportView();
+        //testCreateListingView();
+        testListingView();
+        //PeriodicalReportView();
     }
 
     public void PeriodicalReportView() {
@@ -27,6 +28,11 @@ public class GUITester {
     public void testCreateListingView() {
         CreateListingView clv = new CreateListingView();
         clv.display();
+    }
+
+    public void testListingView(){
+        ListingView listView = new ListingView();
+        listView.display();
     }
 
     public void testMainView(MainView mainView){
