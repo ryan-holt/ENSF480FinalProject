@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
  */
 public class SearchListingView extends JFrame {
 
+
     //MEMBER VARIABLES
 
     private JPanel titlePanel, centerPanel, buttonPanel;
