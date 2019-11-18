@@ -1,14 +1,18 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
- *
  * @author Gary Wu
  */
-public class ListingView extends javax.swing.JFrame {
+public class ListingView extends JFrame {
 
-    private javax.swing.JButton backToMenuButton;
-    private javax.swing.JLabel listingLab;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable listingTable;
+    private JButton backToMenuButton;
+    private JLabel listingLab;
+    private JScrollPane jScrollPane1;
+    private JTable listingTable;
+
     /**
      * Creates new form ListingView
      */
@@ -24,40 +28,39 @@ public class ListingView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        jScrollPane1 = new JScrollPane();
+        listingTable = new JTable();
+        listingLab = new JLabel();
+        backToMenuButton = new JButton();
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listingTable = new javax.swing.JTable();
-        listingLab = new javax.swing.JLabel();
-        backToMenuButton = new javax.swing.JButton();
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(854, 664));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(854, 664));
-
-        listingTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        listingTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {"Gary", "attached",  new Integer(2),  new Integer(2), "Yes", "garfdaf"},
+        listingTable.setFont(new Font("Tahoma", Font.PLAIN, 12)); // NOI18N
+        listingTable.setModel(new DefaultTableModel(
+                new Object[][]{
+                        {"Gary", "attached", 2, 2, "Yes", "garywu@gmail.com"},
                         {null, null, null, null, null, null},
                         {null, null, null, null, null, null},
                         {null, null, null, null, null, null}
                 },
-                new String [] {
+                new String[]{
                         "Landlord ", "Type of Apartment", "Number of Bedrooms", "Number of Bathrooms", "City Quadrant", "Email"
                 }
         ) {
-            Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            Class[] types = new Class[]{
+                    String.class, String.class, Integer.class, Integer.class, String.class, String.class
             };
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean[]{
                     false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane1.setViewportView(listingTable);
@@ -70,10 +73,10 @@ public class ListingView extends javax.swing.JFrame {
             listingTable.getColumnModel().getColumn(5).setMaxWidth(250);
         }
 
-        listingLab.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        listingLab.setFont(new Font("Tahoma", 1, 18)); // NOI18N
         listingLab.setText("Listings");
 
-        backToMenuButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        backToMenuButton.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         backToMenuButton.setText("Back to Menu");
         backToMenuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,31 +84,33 @@ public class ListingView extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(393, 393, 393)
                                 .addComponent(listingLab)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(23, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 812, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(19, 19, 19))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addComponent(backToMenuButton)
                                                 .addGap(361, 361, 361))))
         );
+
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(32, 32, 32)
                                 .addComponent(listingLab)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addGap(74, 74, 74)
                                 .addComponent(backToMenuButton)
                                 .addContainerGap(73, Short.MAX_VALUE))

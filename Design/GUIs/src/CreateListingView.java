@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -5,19 +8,19 @@
  */
 public class CreateListingView extends javax.swing.JFrame {
 
-    private javax.swing.JButton doneButton;
-    private javax.swing.JComboBox<String> houseTypeJBox;
-    private javax.swing.JComboBox<String> numBedRoomsBox;
-    private javax.swing.JComboBox<String> numBathroomsBox;
-    private javax.swing.JComboBox<String> FurnishedBox;
-    private javax.swing.JComboBox<String> cityQuadBox;
-    private javax.swing.JLabel createListingLabel;
-    private javax.swing.JLabel houseTypeLabel;
-    private javax.swing.JLabel numBedroomsLabel;
-    private javax.swing.JLabel numBathroomLabel;
-    private javax.swing.JLabel Furnished;
-    private javax.swing.JLabel cityQuadLabel;
-    private javax.swing.JLabel doneStatemeneetLabel;
+    private JButton doneButton;
+    private JComboBox<String> houseTypeJBox;
+    private JComboBox<String> numBedRoomsBox;
+    private JComboBox<String> numBathroomsBox;
+    private JComboBox<String> FurnishedBox;
+    private JComboBox<String> cityQuadBox;
+    private JLabel createListingLabel;
+    private JLabel houseTypeLabel;
+    private JLabel numBedroomsLabel;
+    private JLabel numBathroomLabel;
+    private JLabel Furnished;
+    private JLabel cityQuadLabel;
+    private JLabel doneStatemeneetLabel;
 
     /**
      * Creates new form listing
@@ -32,124 +35,104 @@ public class CreateListingView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        createListingLabel = new javax.swing.JLabel();
-        houseTypeJBox = new javax.swing.JComboBox<>();
-        houseTypeLabel = new javax.swing.JLabel();
-        numBedroomsLabel = new javax.swing.JLabel();
-        numBedRoomsBox = new javax.swing.JComboBox<>();
-        numBathroomLabel = new javax.swing.JLabel();
-        numBathroomsBox = new javax.swing.JComboBox<>();
-        Furnished = new javax.swing.JLabel();
-        FurnishedBox = new javax.swing.JComboBox<>();
-        cityQuadLabel = new javax.swing.JLabel();
-        cityQuadBox = new javax.swing.JComboBox<>();
-        doneButton = new javax.swing.JButton();
-        doneStatemeneetLabel = new javax.swing.JLabel();
+        createListingLabel = new JLabel();
+        houseTypeJBox = new JComboBox<>();
+        houseTypeLabel = new JLabel();
+        numBedroomsLabel = new JLabel();
+        numBedRoomsBox = new JComboBox<>();
+        numBathroomLabel = new JLabel();
+        numBathroomsBox = new JComboBox<>();
+        Furnished = new JLabel();
+        FurnishedBox = new JComboBox<>();
+        cityQuadLabel = new JLabel();
+        cityQuadBox = new JComboBox<>();
+        doneButton = new JButton();
+        doneStatemeneetLabel = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        createListingLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        createListingLabel.setFont(new Font("Tahoma", Font.BOLD, 18)); // NOI18N
         createListingLabel.setText("Create Listing Form");
 
-        houseTypeJBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        houseTypeJBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Appartment", "Attached", "Detached", "Townhouse" }));
-        houseTypeJBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+        houseTypeJBox.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
+        houseTypeJBox.setModel(new DefaultComboBoxModel<>(new String[] { "Apartment", "Attached", "Detached", "Townhouse" }));
+        houseTypeJBox.addActionListener(this::jComboBox1ActionPerformed);
 
-        houseTypeLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        houseTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
         houseTypeLabel.setText("House type");
 
-        numBedroomsLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        numBedroomsLabel.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
         numBedroomsLabel.setText("Number of Bedrooms");
 
-        numBedRoomsBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        numBedRoomsBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5+" }));
-        numBedRoomsBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
+        numBedRoomsBox.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        numBedRoomsBox.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5+" }));
+        numBedRoomsBox.addActionListener(this::jComboBox2ActionPerformed);
 
-        numBathroomLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        numBathroomLabel.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
         numBathroomLabel.setText("Number of Bathrooms");
 
-        numBathroomsBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        numBathroomsBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5+" }));
-        numBathroomsBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
-            }
-        });
+        numBathroomsBox.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
+        numBathroomsBox.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5+" }));
+        numBathroomsBox.addActionListener(this::jComboBox3ActionPerformed);
 
-        Furnished.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Furnished.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
         Furnished.setText("Furnished");
 
-        FurnishedBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        FurnishedBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
-        FurnishedBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
-            }
-        });
+        FurnishedBox.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
+        FurnishedBox.setModel(new DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
+        FurnishedBox.addActionListener(this::jComboBox4ActionPerformed);
 
-        cityQuadLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cityQuadLabel.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
         cityQuadLabel.setText("City Quadrant");
 
-        cityQuadBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cityQuadBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SW", "NW", "NE", "SE" }));
-        cityQuadBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox5ActionPerformed(evt);
-            }
-        });
+        cityQuadBox.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
+        cityQuadBox.setModel(new DefaultComboBoxModel<>(new String[] { "SW", "NW", "NE", "SE" }));
+        cityQuadBox.addActionListener(this::jComboBox5ActionPerformed);
 
-        doneButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        doneButton.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
         doneButton.setText("Done");
 
-        doneStatemeneetLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        doneStatemeneetLabel.setFont(new Font("Tahoma", Font.BOLD, 14)); // NOI18N
         doneStatemeneetLabel.setText("Click Done when finished");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(houseTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(houseTypeJBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(houseTypeLabel, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(houseTypeJBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(Furnished, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(Furnished, GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(18, 18, 18)
-                                                                .addComponent(FurnishedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(FurnishedBox, GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(numBedroomsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(numBedroomsLabel, GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(18, 18, 18)
-                                                                .addComponent(numBedRoomsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(numBedRoomsBox, GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGap(39, 39, 39)
                                                                 .addComponent(createListingLabel))
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(numBathroomLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(numBathroomLabel, GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(18, 18, 18)
-                                                                .addComponent(numBathroomsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(numBathroomsBox, GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                                                 .addComponent(doneStatemeneetLabel)
                                                                 .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(cityQuadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(cityQuadLabel, GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addGap(18, 18, 18)
-                                                                        .addComponent(cityQuadBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                                        .addComponent(cityQuadBox, GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                                 .addGap(0, 45, Short.MAX_VALUE)))
                                 .addContainerGap())
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(doneButton)
                                 .addGap(119, 119, 119))
         );
