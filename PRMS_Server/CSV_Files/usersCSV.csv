@@ -1,0 +1,4 @@
+﻿username,password,userType,firstName,lastName
+testRenter,123,registeredRenter,Test,Renter
+testManager,123,manager,Test,Manager
+testLandlord,123,landlord,Test,Landlord

@@ -1,5 +1,7 @@
 package Domain.Controllers;
 
+import Utils.*;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -63,7 +65,27 @@ public class ServerCommunicationController implements Runnable {
      * has entered a valid username and password
      */
     public void verifyLogin(){
-        // TODO Verify client login
+        try {
+            boolean verified = false;
+
+            while (!verified) {
+                User readUser = (User) socketIn.readObject();
+                User databaseResponseUser = managementSystemController.getDatabaseController().getDatabaseModel().verifyUser(readUser);
+                if (databaseResponseUser != null) {
+                    socketOut.writeObject(databaseResponseUser);
+                    System.out.println("Login Success!");
+                    verified = true;
+                    return;
+                } else {
+                    socketOut.writeObject(null);
+                }
+
+                socketOut.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

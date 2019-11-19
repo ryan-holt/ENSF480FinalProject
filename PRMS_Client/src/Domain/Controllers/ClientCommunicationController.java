@@ -1,6 +1,8 @@
 package Domain.Controllers;
 
 import Presentation.Views.*;
+import Utils.User;
+import Utils.UserTypes;
 import com.sun.tools.javac.Main;
 
 import java.io.*;
@@ -16,7 +18,7 @@ import java.net.*;
  * @version 4.10.0
  * @since April 5, 2019
  */
-public class ClientCommunicationController {
+public class ClientCommunicationController implements UserTypes {
 
     //MEMBER VARIABLES
     private ObjectOutputStream socketOut;
@@ -55,9 +57,32 @@ public class ClientCommunicationController {
         ClientCommunicationController ccc = new ClientCommunicationController("localhost", 7000);
     }
 
-    public void showMainWindow(){
-        System.out.println("displaying view");
+    public void showMainWindow(User user){
+        String userType = user.getUserType();
+        switch (userType){
+            case REG_RENTER:
+                showRenterMainWindow();
+                break;
+            case MANAGER:
+                showManagerMainWindow();
+                break;
+            case LANDLORD:
+                showLandlordMainWindow();
+                break;
+        }
         mainController.displayView();
+    }
+
+    public void showRenterMainWindow(){
+        setMainController(new MainController(new RenterMainView(), this));
+    }
+
+    public void showManagerMainWindow(){
+        setMainController(new MainController(new ManagerMainView(), this));
+    }
+
+    public void showLandlordMainWindow(){
+        setMainController(new MainController(new LandlordMainView(), this));
     }
 
     //GETTERS AND SETTERS
@@ -71,5 +96,9 @@ public class ClientCommunicationController {
 
     public void setMainController(Controller mainController) {
         this.mainController = mainController;
+    }
+
+    public Controller getMainController() {
+        return mainController;
     }
 }

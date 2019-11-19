@@ -1,6 +1,9 @@
 package Domain.Controllers;
 
 import Presentation.Views.*;
+import Utils.User;
+
+import javax.swing.*;
 
 /**
  * This class is responsible for controlling the login view
@@ -38,16 +41,32 @@ public class LoginController extends Controller{
             String username = loginView.getUsernameField().getText();
             String password = loginView.getPasswordField().getText();
 
-            // TODO Communicate login with server
+            clientCommunicationController.getSocketOut().writeObject(new User(username, password));
+
+            User serverResponseUser = (User) clientCommunicationController.getSocketIn().readObject();
+
+            if(serverResponseUser != null){
+                this.hideView();
+                verified = true;
+                System.out.println("User logged in!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Invalid User!");
+            }
+
+            if(verified && serverResponseUser != null) {
+                clientCommunicationController.showMainWindow(serverResponseUser);
+            }
+
+            clientCommunicationController.getSocketOut().flush();
         }catch(Exception f){
             f.printStackTrace();
         }
     }
 
     public void regularRenterListen(){
-        clientCommunicationController.setMainController(new MainController(new RenterMainView(), clientCommunicationController));
         this.hideView();
-        clientCommunicationController.showMainWindow();
+        clientCommunicationController.showRenterMainWindow();
+        clientCommunicationController.getMainController().displayView();
     }
 
     @Override
