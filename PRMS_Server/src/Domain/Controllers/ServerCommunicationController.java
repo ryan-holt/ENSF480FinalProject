@@ -69,18 +69,27 @@ public class ServerCommunicationController implements Runnable {
             boolean verified = false;
 
             while (!verified) {
-                User readUser = (User) socketIn.readObject();
-                User databaseResponseUser = managementSystemController.getDatabaseController().getDatabaseModel().verifyUser(readUser);
-                if (databaseResponseUser != null) {
-                    socketOut.writeObject(databaseResponseUser);
-                    System.out.println("Login Success!");
-                    verified = true;
-                    return;
-                } else {
-                    socketOut.writeObject(null);
-                }
+                String action = (String) socketIn.readObject();
+                switch (action) {
+                    case "login":
+                        User readUser = (User) socketIn.readObject();
+                        User databaseResponseUser = managementSystemController.getDatabaseController().getDatabaseModel().verifyUser(readUser);
+                        if (databaseResponseUser != null) {
+                            socketOut.writeObject(databaseResponseUser);
+                            System.out.println("Login Success!");
+                            verified = true;
+                            return;
+                        } else {
+                            socketOut.writeObject(null);
+                        }
 
-                socketOut.flush();
+                        socketOut.flush();
+                        break;
+                    case "create":
+                        User newUser = (User) socketIn.readObject();
+                        managementSystemController.getDatabaseController().getDatabaseModel().createUser(newUser);
+                        break;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

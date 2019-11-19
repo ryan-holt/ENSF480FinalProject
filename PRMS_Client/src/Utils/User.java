@@ -7,8 +7,8 @@ public class User implements UserTypes, Serializable {
     private static final long serialVersionUID = 3L;
     private String username;
     private String password;
-    private String firstName;
-    private String lastName;
+    private Name name;
+    private Address address;
     private String userType;
 
     public User(String username, String password){
@@ -16,12 +16,12 @@ public class User implements UserTypes, Serializable {
         this.password = password;
     }
 
-    public User(String username, String password, String firstName, String lastName, String userType){
+    public User(String username, String password, Name name, String userType, Address address){
         this.username = username;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.userType = userType;
+        this.address = address;
     }
 
     // Getters and Setters
@@ -31,14 +31,6 @@ public class User implements UserTypes, Serializable {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public String getUserType() {

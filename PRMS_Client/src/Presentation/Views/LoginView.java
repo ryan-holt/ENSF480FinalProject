@@ -19,10 +19,10 @@ public class LoginView extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
 
-    private JButton loginButton, regularRenterButton;
+    private JButton loginButton, regularRenterButton, createAccountButton;
 
     private final int width = 250;
-    private final int height = 175;
+    private final int height = 180;
 
     /**
      * Creates a LoginView object
@@ -34,6 +34,7 @@ public class LoginView extends JFrame {
 
         loginButton = new JButton("Login");
         regularRenterButton = new JButton("Regular Renter");
+        createAccountButton = new JButton("Register");
 
         setTitle("Login Window");
         setSize(width, height);
@@ -60,9 +61,11 @@ public class LoginView extends JFrame {
         centrePanel.add(passwordLabel);
         centrePanel.add(passwordField);
 
+        centrePanel.add(loginButton);
+
         // Button Panel
-        buttonPanel.add(loginButton);
         buttonPanel.add(regularRenterButton);
+        buttonPanel.add(createAccountButton);
 
         pack();
         setSize(width, height);
@@ -86,6 +89,10 @@ public class LoginView extends JFrame {
      */
     public void addRegularRenterListener(ActionListener listenForRegularRenterButton){
         regularRenterButton.addActionListener(listenForRegularRenterButton);
+    }
+
+    public void addCreateAccountListener(ActionListener listenForCreateAccountButton){
+        createAccountButton.addActionListener(listenForCreateAccountButton);
     }
 
     /**

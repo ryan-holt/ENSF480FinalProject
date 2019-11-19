@@ -1,9 +1,10 @@
 package Domain.Controllers;
 
 import Presentation.Views.*;
-import Utils.User;
+import Utils.*;
 
 import javax.swing.*;
+import java.io.IOException;
 
 /**
  * This class is responsible for controlling the login view
@@ -18,6 +19,7 @@ public class LoginController extends Controller{
     //MEMBER VARIABLES
 
     private LoginView loginView;
+    private AccountCreationView accountCreationView;
     private boolean verified;
 
     /**
@@ -31,6 +33,7 @@ public class LoginController extends Controller{
 
         loginView.addLoginListener(e -> loginListen());
         loginView.addRegularRenterListener(e -> regularRenterListen());
+        loginView.addCreateAccountListener(e -> registerListen());
     }
 
     /**
@@ -41,6 +44,9 @@ public class LoginController extends Controller{
             String username = loginView.getUsernameField().getText();
             String password = loginView.getPasswordField().getText();
 
+            // Sending action to server
+            clientCommunicationController.getSocketOut().writeObject("login");
+            // Sending user credentials to server
             clientCommunicationController.getSocketOut().writeObject(new User(username, password));
 
             User serverResponseUser = (User) clientCommunicationController.getSocketIn().readObject();
@@ -69,6 +75,51 @@ public class LoginController extends Controller{
         clientCommunicationController.getMainController().displayView();
     }
 
+    public void registerListen(){
+        this.hideView();
+        accountCreationView = new AccountCreationView();
+
+        accountCreationView.addBackToLoginListener(e -> backToLoginListen());
+        accountCreationView.addCreateAccountListener(e -> createAccountListen());
+
+        accountCreationView.display();
+    }
+
+    public void backToLoginListen(){
+        accountCreationView.setVisible(false);
+        accountCreationView = null;
+        this.displayView();
+    }
+
+    public void createAccountListen(){
+        try {
+            // Sending action to server
+            clientCommunicationController.getSocketOut().writeObject("create");
+            // Sending user object to server
+            String[] addressArray = accountCreationView.getAddressField().getText().split(" ");
+            String streetName = "";
+            for(int i = 1; i < addressArray.length - 1; i++){
+                streetName += addressArray[i];
+            }
+
+            Address newUserAddress = new Address(Integer.parseInt(addressArray[0]), streetName, addressArray[addressArray.length - 1]);
+            String accountType = (String)accountCreationView.getAccountTypeList().getSelectedItem();
+            User newUser = new User(accountCreationView.getUsernameField().getText(),
+                                    accountCreationView.getPasswordField().getText(),
+                                    new Name(accountCreationView.getFirstNameField().getText(), accountCreationView.getLastNameField().getText()),
+                                    accountType.toLowerCase(),
+                                    newUserAddress);
+
+            clientCommunicationController.getSocketOut().writeObject(newUser);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        JOptionPane.showMessageDialog(null, "Account Created! Please login!");
+        accountCreationView.hide();
+        this.displayView();
+    }
+
     @Override
     public void displayView() {
         loginView.display();
@@ -79,7 +130,8 @@ public class LoginController extends Controller{
         loginView.hide();
     }
 
-    //getters and
+    //getters and setters
+
     public boolean isVerified() {
         return verified;
     }

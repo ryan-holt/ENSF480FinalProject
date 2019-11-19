@@ -1,3 +1,5 @@
+package Presentation.Views;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -9,7 +11,6 @@ import java.awt.event.ActionListener;
  * @since November 10, 2019
  */
 public class SearchListingView extends JFrame {
-
 
     //MEMBER VARIABLES
 

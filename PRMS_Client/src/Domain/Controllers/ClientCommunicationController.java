@@ -1,9 +1,7 @@
 package Domain.Controllers;
 
 import Presentation.Views.*;
-import Utils.User;
-import Utils.UserTypes;
-import com.sun.tools.javac.Main;
+import Utils.*;
 
 import java.io.*;
 import java.net.*;
@@ -18,7 +16,7 @@ import java.net.*;
  * @version 4.10.0
  * @since April 5, 2019
  */
-public class ClientCommunicationController implements UserTypes {
+public class ClientCommunicationController implements UserTypes{
 
     //MEMBER VARIABLES
     private ObjectOutputStream socketOut;
@@ -58,7 +56,7 @@ public class ClientCommunicationController implements UserTypes {
     }
 
     public void showMainWindow(User user){
-        String userType = user.getUserType();
+        String userType = user.getUserType().toLowerCase();
         switch (userType){
             case REG_RENTER:
                 showRenterMainWindow();
