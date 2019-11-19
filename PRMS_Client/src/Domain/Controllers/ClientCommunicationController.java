@@ -1,5 +1,8 @@
 package Domain.Controllers;
 
+import Presentation.Views.*;
+import com.sun.tools.javac.Main;
+
 import java.io.*;
 import java.net.*;
 
@@ -20,7 +23,7 @@ public class ClientCommunicationController {
     private Socket aSocket;
     private ObjectInputStream socketIn;
 
-    // TODO Add controllers
+    private Controller loginController, mainController;
 
     /**
      * Constructs a Client controller object
@@ -35,9 +38,9 @@ public class ClientCommunicationController {
             socketIn = new ObjectInputStream(aSocket.getInputStream());
             socketOut = new ObjectOutputStream(aSocket.getOutputStream());
 
-            // TODO Create views
+            LoginView loginView = new LoginView();
 
-            // TODO Create controllers using views
+            loginController = new LoginController(loginView, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +52,12 @@ public class ClientCommunicationController {
      * @param args command line arguments
      */
     public static void main(String[] args) {
+        ClientCommunicationController ccc = new ClientCommunicationController("localhost", 7000);
+    }
 
+    public void showMainWindow(){
+        System.out.println("displaying view");
+        mainController.displayView();
     }
 
     //GETTERS AND SETTERS
@@ -59,5 +67,9 @@ public class ClientCommunicationController {
 
     public ObjectInputStream getSocketIn() {
         return socketIn;
+    }
+
+    public void setMainController(Controller mainController) {
+        this.mainController = mainController;
     }
 }

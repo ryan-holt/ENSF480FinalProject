@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
  */
 public class ManagementSystemController {
 
-    private static final int PORT = 9000;
+    private static final int PORT = 7000;
     private ServerSocket serverSocket;
     private DatabaseController databaseController;
     private ExecutorService pool;
