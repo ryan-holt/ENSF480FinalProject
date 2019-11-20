@@ -57,6 +57,7 @@ public class ClientCommunicationController implements UserTypes{
 
     public void showMainWindow(User user){
         String userType = user.getUserType().toLowerCase();
+        System.out.println(userType);
         switch (userType){
             case REG_RENTER:
                 showRenterMainWindow();
@@ -98,5 +99,9 @@ public class ClientCommunicationController implements UserTypes{
 
     public Controller getMainController() {
         return mainController;
+    }
+
+    public Controller getLoginController() {
+        return loginController;
     }
 }

@@ -1,5 +1,6 @@
 package Domain.Controllers;
 
+import Database.Messages;
 import Utils.*;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.net.*;
  * @author Harsohail Brar
  * @since April 12, 2019
  */
-public class ServerCommunicationController implements Runnable {
+public class ServerCommunicationController implements Runnable, Messages {
 
     private Socket aSocket;
     private ObjectInputStream socketIn;
@@ -71,7 +72,7 @@ public class ServerCommunicationController implements Runnable {
             while (!verified) {
                 String action = (String) socketIn.readObject();
                 switch (action) {
-                    case "login":
+                    case LOGIN:
                         User readUser = (User) socketIn.readObject();
                         User databaseResponseUser = managementSystemController.getDatabaseController().getDatabaseModel().verifyUser(readUser);
                         if (databaseResponseUser != null) {
@@ -85,9 +86,14 @@ public class ServerCommunicationController implements Runnable {
 
                         socketOut.flush();
                         break;
-                    case "create":
+                    case CREATE:
                         User newUser = (User) socketIn.readObject();
-                        managementSystemController.getDatabaseController().getDatabaseModel().createUser(newUser);
+                        boolean accountCreated = managementSystemController.getDatabaseController().getDatabaseModel().createUser(newUser);
+                        if(accountCreated){
+                            socketOut.writeObject(SUCCESS);
+                        }else{
+                            socketOut.writeObject(FAILED);
+                        }
                         break;
                 }
             }

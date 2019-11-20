@@ -14,7 +14,7 @@ import java.io.IOException;
  * @version 4.10.0
  * @since April 5, 2019
  */
-public class LoginController extends Controller{
+public class LoginController extends Controller implements Messages{
 
     //MEMBER VARIABLES
 
@@ -45,7 +45,7 @@ public class LoginController extends Controller{
             String password = loginView.getPasswordField().getText();
 
             // Sending action to server
-            clientCommunicationController.getSocketOut().writeObject("login");
+            clientCommunicationController.getSocketOut().writeObject(LOGIN);
             // Sending user credentials to server
             clientCommunicationController.getSocketOut().writeObject(new User(username, password));
 
@@ -94,12 +94,12 @@ public class LoginController extends Controller{
     public void createAccountListen(){
         try {
             // Sending action to server
-            clientCommunicationController.getSocketOut().writeObject("create");
+            clientCommunicationController.getSocketOut().writeObject(CREATE);
             // Sending user object to server
             String[] addressArray = accountCreationView.getAddressField().getText().split(" ");
             String streetName = "";
             for(int i = 1; i < addressArray.length - 1; i++){
-                streetName += addressArray[i];
+                streetName += addressArray[i] + " ";
             }
 
             Address newUserAddress = new Address(Integer.parseInt(addressArray[0]), streetName, addressArray[addressArray.length - 1]);
@@ -111,13 +111,20 @@ public class LoginController extends Controller{
                                     newUserAddress);
 
             clientCommunicationController.getSocketOut().writeObject(newUser);
-        }catch (IOException e){
+
+            // Reads account creation verification
+            String accountCreation = (String) clientCommunicationController.getSocketIn().readObject();
+
+            if(accountCreation.equals(SUCCESS)) {
+                JOptionPane.showMessageDialog(null, "Account Created! Please login!");
+                accountCreationView.hide();
+                this.displayView();
+            }else{
+                JOptionPane.showMessageDialog(null, "User already exists. Try again!");
+            }
+        }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
-
-        JOptionPane.showMessageDialog(null, "Account Created! Please login!");
-        accountCreationView.hide();
-        this.displayView();
     }
 
     @Override

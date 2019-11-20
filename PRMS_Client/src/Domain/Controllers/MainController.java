@@ -10,7 +10,12 @@ public class MainController extends Controller{
         super(ccc);
         mainView = mv;
 
-        // TODO add action listeners
+        mainView.addLogoutListener(e -> logoutListen());
+    }
+
+    public void logoutListen(){
+        // TODO return to login window (server has to also go to verify login)
+        System.exit(1);
     }
 
     @Override

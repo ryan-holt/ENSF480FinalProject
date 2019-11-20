@@ -17,7 +17,7 @@ public class AccountCreationView extends JFrame{
     private JPasswordField passwordField;
 
     private final int width = 250;
-    private final int height = 275;
+    private final int height = 300;
 
     public AccountCreationView(){
         titlePanel = new JPanel();
@@ -84,7 +84,7 @@ public class AccountCreationView extends JFrame{
     }
 
     public void addAccountTypeSelector(){
-        String[] typeOfAccounts = {"Renter", "Landlord"};
+        String[] typeOfAccounts = {"RegisteredRenter", "Landlord"};
         accountTypeList = createSelector(typeOfAccounts, "Type of Account:");
         accountTypeList.setSelectedIndex(0);
         centerPanel.add(accountTypeList);
