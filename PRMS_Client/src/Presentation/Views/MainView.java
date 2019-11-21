@@ -60,4 +60,5 @@ public abstract class MainView extends JFrame{
     public void addLogoutListener(ActionListener listenForLogoutButton){
         logoutButton.addActionListener(listenForLogoutButton);
     }
+
 }

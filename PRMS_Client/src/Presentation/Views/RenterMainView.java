@@ -16,11 +16,15 @@ public class RenterMainView extends MainView{
 
     private JButton searchListingButton, unsubscribeButton;
 
-    public RenterMainView(){
+    public RenterMainView(boolean registeredRenter){
         super(200, 150);
 
         searchListingButton = new JButton("Search Listing");
         unsubscribeButton = new JButton("Unsubscribe");
+
+        if(!registeredRenter){
+            unsubscribeButton.setEnabled(false);
+        }
 
         centerPanel.add(searchListingButton);
         centerPanel.add(unsubscribeButton);

@@ -24,6 +24,7 @@ public class ClientCommunicationController implements UserTypes{
     private ObjectInputStream socketIn;
 
     private Controller loginController, mainController;
+    private User user;
 
     /**
      * Constructs a Client controller object
@@ -55,12 +56,17 @@ public class ClientCommunicationController implements UserTypes{
         ClientCommunicationController ccc = new ClientCommunicationController("localhost", 7000);
     }
 
-    public void showMainWindow(User user){
-        String userType = user.getUserType().toLowerCase();
-        System.out.println(userType);
+    public void showMainWindow(){
+        String userType;
+        if(user != null) {
+            userType = user.getUserType().toLowerCase();
+        }else{
+            userType = REGULAR_RENTER;
+        }
+
         switch (userType){
-            case REG_RENTER:
-                showRenterMainWindow();
+            case REGISTERED_RENTER:
+                showRenterMainWindow(true);
                 break;
             case MANAGER:
                 showManagerMainWindow();
@@ -68,12 +74,14 @@ public class ClientCommunicationController implements UserTypes{
             case LANDLORD:
                 showLandlordMainWindow();
                 break;
+            default:
+                showRenterMainWindow(false);
         }
         mainController.displayView();
     }
 
-    public void showRenterMainWindow(){
-        setMainController(new MainController(new RenterMainView(), this));
+    public void showRenterMainWindow(boolean registeredRenter){
+        setMainController(new MainController(new RenterMainView(registeredRenter), this));
     }
 
     public void showManagerMainWindow(){
@@ -103,5 +111,13 @@ public class ClientCommunicationController implements UserTypes{
 
     public Controller getLoginController() {
         return loginController;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

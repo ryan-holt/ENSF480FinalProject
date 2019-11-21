@@ -50,6 +50,7 @@ public class LoginController extends Controller implements Messages{
             clientCommunicationController.getSocketOut().writeObject(new User(username, password));
 
             User serverResponseUser = (User) clientCommunicationController.getSocketIn().readObject();
+            clientCommunicationController.setUser(serverResponseUser);
 
             if(serverResponseUser != null){
                 this.hideView();
@@ -60,7 +61,7 @@ public class LoginController extends Controller implements Messages{
             }
 
             if(verified && serverResponseUser != null) {
-                clientCommunicationController.showMainWindow(serverResponseUser);
+                clientCommunicationController.showMainWindow();
             }
 
             clientCommunicationController.getSocketOut().flush();
@@ -70,9 +71,7 @@ public class LoginController extends Controller implements Messages{
     }
 
     public void regularRenterListen(){
-        this.hideView();
-        clientCommunicationController.showRenterMainWindow();
-        clientCommunicationController.getMainController().displayView();
+        clientCommunicationController.showMainWindow();
     }
 
     public void registerListen(){
@@ -141,5 +140,9 @@ public class LoginController extends Controller implements Messages{
 
     public boolean isVerified() {
         return verified;
+    }
+
+    public MainView getView(){
+        return null;
     }
 }

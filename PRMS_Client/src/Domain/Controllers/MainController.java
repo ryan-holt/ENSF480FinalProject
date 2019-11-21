@@ -27,4 +27,9 @@ public class MainController extends Controller{
     public void hideView() {
         mainView.hide();
     }
+
+    // Getters and setters
+    public MainView getMainView() {
+        return mainView;
+    }
 }

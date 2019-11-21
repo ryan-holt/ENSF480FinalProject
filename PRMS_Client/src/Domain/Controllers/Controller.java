@@ -1,5 +1,7 @@
 package Domain.Controllers;
 
+import Presentation.Views.MainView;
+
 public abstract class Controller {
 
     /**
@@ -26,5 +28,4 @@ public abstract class Controller {
     public void setClientCommunicationController(ClientCommunicationController c){
         clientCommunicationController = c;   // 2-way association with CC
     }
-
 }
