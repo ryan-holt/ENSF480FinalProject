@@ -29,6 +29,8 @@ public class RenterMainView extends MainView{
         centerPanel.add(searchListingButton);
         centerPanel.add(unsubscribeButton);
         addLogoutButton();
+
+        setVisible(false);
     }
 
     /**

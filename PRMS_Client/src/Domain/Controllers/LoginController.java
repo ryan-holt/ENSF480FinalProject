@@ -71,6 +71,7 @@ public class LoginController extends Controller implements Messages{
     }
 
     public void regularRenterListen(){
+        this.hideView();
         clientCommunicationController.showMainWindow();
     }
 

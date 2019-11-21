@@ -23,7 +23,7 @@ public class ClientCommunicationController implements UserTypes{
     private Socket aSocket;
     private ObjectInputStream socketIn;
 
-    private Controller loginController, mainController;
+    private Controller loginController, mainController, searchListingController;
     private User user;
 
     /**
@@ -66,30 +66,34 @@ public class ClientCommunicationController implements UserTypes{
 
         switch (userType){
             case REGISTERED_RENTER:
-                showRenterMainWindow(true);
+                createRenterMainWindow(true);
                 break;
             case MANAGER:
-                showManagerMainWindow();
+                createManagerMainWindow();
                 break;
             case LANDLORD:
-                showLandlordMainWindow();
+                createLandlordMainWindow();
                 break;
             default:
-                showRenterMainWindow(false);
+                createRenterMainWindow(false);
         }
         mainController.displayView();
     }
 
-    public void showRenterMainWindow(boolean registeredRenter){
-        setMainController(new MainController(new RenterMainView(registeredRenter), this));
+    public void createRenterMainWindow(boolean registeredRenter){
+        setMainController(new RenterMainController(new RenterMainView(registeredRenter), this));
     }
 
-    public void showManagerMainWindow(){
+    public void createManagerMainWindow(){
         setMainController(new MainController(new ManagerMainView(), this));
     }
 
-    public void showLandlordMainWindow(){
+    public void createLandlordMainWindow(){
         setMainController(new MainController(new LandlordMainView(), this));
+    }
+
+    public void createSearchListingWindow(){
+        setSearchListingController(new SearchListingController(new SearchListingView(), this));
     }
 
     //GETTERS AND SETTERS
@@ -103,6 +107,14 @@ public class ClientCommunicationController implements UserTypes{
 
     public void setMainController(Controller mainController) {
         this.mainController = mainController;
+    }
+
+    public void setSearchListingController(Controller searchListingController) {
+        this.searchListingController = searchListingController;
+    }
+
+    public Controller getSearchListingController() {
+        return searchListingController;
     }
 
     public Controller getMainController() {
