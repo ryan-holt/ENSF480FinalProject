@@ -89,22 +89,24 @@ public class ListingView extends JFrame {
     }
 
     public void updateListingTableModel(ArrayList<Listing> listings){
-        String[][] data = new String[listings.size()][6];
-        String[] header = {"Type", "Bedrooms", "Bathrooms", "Quadrant", "Furnished", "Landlord Email"};
+        String[][] data = new String[listings.size()][8];
+        String[] header = {"Listing ID", "Type", "Bedrooms", "Bathrooms", "Quadrant", "Furnished", "State", "Landlord Email"};
 
         Listing listing;
         for(int i = 0; i < listings.size(); i++){
             listing = listings.get(i);
-            data[i][0] = listing.getType();
-            data[i][1] = String.valueOf(listing.getNumOfBedrooms());
-            data[i][2] = String.valueOf(listing.getNumOfBathrooms());
-            data[i][3] = listing.getQuadrant();
+            data[i][0] = String.valueOf(listing.getListingID());
+            data[i][1] = listing.getType();
+            data[i][2] = String.valueOf(listing.getNumOfBedrooms());
+            data[i][3] = String.valueOf(listing.getNumOfBathrooms());
+            data[i][4] = listing.getQuadrant();
             if(listing.isFurnished()){
-                data[i][4] = "Yes";
+                data[i][5] = "Yes";
             }else{
-                data[i][4] = "No";
+                data[i][5] = "No";
             }
-            data[i][5] = listing.getLandlordEmail();
+            data[i][6] = listing.getState();
+            data[i][7] = listing.getLandlordEmail();
         }
 
         DefaultTableModel tableModel = new DefaultTableModel(data, header){
@@ -145,6 +147,22 @@ public class ListingView extends JFrame {
         emailLandlordButton.addActionListener(listenForEmailLandlordButton);
     }
 
+    /**
+     * Adds an action listener to the email landlord button
+     * @param listenForMakePaymentButton
+     */
+    public void addMakePaymentListener(ActionListener listenForMakePaymentButton){
+        makePaymentButton.addActionListener(listenForMakePaymentButton);
+    }
+
+    /**
+     * Adds an action listener to the email landlord button
+     * @param listenForEditListingButton
+     */
+    public void addEditListingListener(ActionListener listenForEditListingButton){
+        editListingButton.addActionListener(listenForEditListingButton);
+    }
+
 
     // Getters and setters
 
@@ -154,5 +172,9 @@ public class ListingView extends JFrame {
 
     public JTable getListingTable() {
         return listingTable;
+    }
+
+    public DefaultTableModel getListingTableModel() {
+        return listingTableModel;
     }
 }

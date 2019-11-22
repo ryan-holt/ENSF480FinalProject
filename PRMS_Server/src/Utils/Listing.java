@@ -13,8 +13,9 @@ public class Listing implements Serializable {
     private String state;
     private double fee;
     private String landlordEmail;
+    private int listingID;
 
-    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, double fee, String landlordEmail){
+    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, double fee, String landlordEmail, int id){
         this.type = type;
         numOfBedrooms = bedrooms;
         numOfBathrooms = bathrooms;
@@ -23,6 +24,7 @@ public class Listing implements Serializable {
         this.state = state;
         this.fee = fee;
         this.landlordEmail = landlordEmail;
+        listingID = id;
     }
 
     // Getters and Setters
@@ -56,5 +58,9 @@ public class Listing implements Serializable {
 
     public String getLandlordEmail() {
         return landlordEmail;
+    }
+
+    public void setListingID(int listingID) {
+        this.listingID = listingID;
     }
 }

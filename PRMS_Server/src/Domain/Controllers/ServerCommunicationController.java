@@ -60,9 +60,39 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                     case SEARCH_LISTINGS_BY_LANDLORD:
                         searchListingsByLandlord();
                         break;
+                    case GET_LISTING_FEE:
+                        getListingFee();
+                        break;
+                    case ACTIVATE_LISTING:
+                        activateListing();
+                        break;
                 }
             }
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void activateListing(){
+        try{
+            // Receive listing id from client
+            int listingID = (Integer) socketIn.readObject();
+            // Query database
+            managementSystemController.getDatabaseController().getDatabaseModel().activateListing(listingID);
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getListingFee(){
+        try{
+            // Receive listing id from client
+            int listingID = (Integer) socketIn.readObject();
+            // Query database
+            double fee = managementSystemController.getDatabaseController().getDatabaseModel().queryListingFeeByID(listingID);
+            // Send response to client
+            socketOut.writeObject(fee);
+        }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
     }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes {
 
     private Connection myConnection;
+    private static int listingID = 5;
 
     public DatabaseModel(Connection c){
         myConnection = c;
@@ -110,7 +111,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                              rs.getString("quadrant"),
                                              rs.getString("state"),
                                              rs.getDouble("fee"),
-                                             rs.getString("landlordEmail")));
+                                             rs.getString("landlordEmail"),
+                                             rs.getInt("listingID")));
                 }
             }
 
@@ -136,16 +138,39 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                             rs.getString("quadrant"),
                             rs.getString("state"),
                             rs.getDouble("fee"),
-                            rs.getString("landlordEmail")));
+                            rs.getString("landlordEmail"),
+                            rs.getInt("listingID")));
                 }
             }
 
             return listings;
         } catch (SQLException e) {
-            System.out.println("Getting items from DB error");
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void activateListing(int id){
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_ACTIVATE_LISTING)) {
+            pStmt.setInt(1, id);
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public double queryListingFeeByID(int id){
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_GET_LISTING_BY_ID)) {
+            pStmt.setInt(1, id);
+            try (ResultSet rs = pStmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("fee");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public void addListing(Listing listing){
@@ -158,6 +183,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
             pStmt.setString(6, listing.getState());
             pStmt.setDouble(7, listing.getFee());
             pStmt.setString(8, listing.getLandlordEmail());
+            pStmt.setInt(9, listingID);
+            listingID++;
             pStmt.executeUpdate();
 
             System.out.println("New listing created!");

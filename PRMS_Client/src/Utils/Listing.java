@@ -13,6 +13,7 @@ public class Listing implements Serializable, ListingStates {
     private String state;
     private double fee;
     private String landlordEmail;
+    private int listingID;
 
     public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, double fee, String landlordEmail){
         this.type = type;
@@ -23,6 +24,18 @@ public class Listing implements Serializable, ListingStates {
         this.state = state;
         this.fee = fee;
         this.landlordEmail = landlordEmail;
+    }
+
+    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, double fee, String landlordEmail, int id){
+        this.type = type;
+        numOfBedrooms = bedrooms;
+        numOfBathrooms = bathrooms;
+        this.furnished = furnished;
+        this.quadrant = quadrant;
+        this.state = state;
+        this.fee = fee;
+        this.landlordEmail = landlordEmail;
+        listingID = id;
     }
 
     // Getters and Setters
@@ -56,6 +69,10 @@ public class Listing implements Serializable, ListingStates {
 
     public String getLandlordEmail() {
         return landlordEmail;
+    }
+
+    public int getListingID() {
+        return listingID;
     }
 }
 
