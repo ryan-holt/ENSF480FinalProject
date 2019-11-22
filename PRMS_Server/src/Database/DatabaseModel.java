@@ -181,13 +181,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages{
 
     public ArrayList<Listing> filterListingsByFurnishing(ArrayList<Listing> listings, String furnishing){
         if(furnishing.equals(NO_INPUT)) return listings;
-
-        boolean furnished;
-        if(furnishing.equals("Yes")){
-            furnished = true;
-        }else{
-            furnished = false;
-        }
+        System.out.println(furnishing);
+        boolean furnished = furnishing.equals("Furnished");
 
         ArrayList<Listing> filteredListings = new ArrayList<>();
 

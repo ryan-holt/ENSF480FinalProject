@@ -21,7 +21,7 @@ public class ListingView extends JFrame {
     //MEMBER VARIABLES
     private JPanel titlePanel, centrePanel, buttonPanel;
 
-    private JButton backToMenuButton;
+    private JButton backToMenuButton, emailLandlordButton;
 
     private DefaultTableModel listingTableModel;
     private JScrollPane listingScrollPane;
@@ -44,6 +44,7 @@ public class ListingView extends JFrame {
         buttonPanel = new JPanel();
 
         backToMenuButton = new JButton("Back To Menu");
+        emailLandlordButton = new JButton("Email Landlord");
 
         setTitle("Main Window");
         setSize(width, height);
@@ -55,6 +56,7 @@ public class ListingView extends JFrame {
         titlePanel.add(new Label("Listings"));
 
         buttonPanel.add(backToMenuButton);
+        buttonPanel.add(emailLandlordButton);
 
         pack();
         setSize(width, height);
@@ -126,10 +128,22 @@ public class ListingView extends JFrame {
         backToMenuButton.addActionListener(listenForBackToMenuButton);
     }
 
+    /**
+     * Adds an action listener to the email landlord button
+     * @param listenForEmailLandlordButton
+     */
+    public void addEmailLandlordListener(ActionListener listenForEmailLandlordButton){
+        emailLandlordButton.addActionListener(listenForEmailLandlordButton);
+    }
+
 
     // Getters and setters
 
     public void setListingTableModel(DefaultTableModel listingTableModel) {
         this.listingTableModel = listingTableModel;
+    }
+
+    public JTable getListingTable() {
+        return listingTable;
     }
 }
