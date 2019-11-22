@@ -2,7 +2,7 @@ package Utils;
 
 import java.io.Serializable;
 
-public class Listing implements Serializable {
+public class Listing implements Serializable, ListingStates {
 
     private static final long serialVersionUID = 6L;
     private String type;

@@ -100,7 +100,7 @@ public class LoginController extends Controller implements Messages, UserTypes{
     public void createAccountListen(){
         try {
             // Sending action to server
-            clientCommunicationController.getSocketOut().writeObject(CREATE);
+            clientCommunicationController.getSocketOut().writeObject(CREATE_USER);
             // Sending user object to server
             String[] addressArray = accountCreationView.getAddressField().getText().split(" ");
             String streetName = "";

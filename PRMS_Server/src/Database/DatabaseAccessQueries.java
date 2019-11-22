@@ -9,4 +9,6 @@ public interface DatabaseAccessQueries {
                                                             "userType, quadrant) values(?,?,?,?,?,?,?,?)";
     static final String SQL_SEARCH_LISTINGS = "SELECT * FROM listings WHERE bedrooms =? AND bathrooms =? AND type =? AND quadrant =? AND furnished =?";
     static final String SQL_GET_ALL_LISTINGS = "SELECT * FROM listings";
+    public static final String SQL_ADD_LISTING = "INSERT INTO listings (bedrooms, bathrooms, type, quadrant, furnished, state, fee, landlordEmail) values(?,?,?,?,?,?,?,?)";
+
 }

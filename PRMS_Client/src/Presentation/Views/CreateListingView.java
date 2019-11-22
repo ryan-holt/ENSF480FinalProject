@@ -2,7 +2,7 @@ package Presentation.Views;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -10,9 +10,9 @@ import java.awt.event.ActionEvent;
  */
 public class CreateListingView extends javax.swing.JFrame {
 
-    private JButton doneButton;
+    private JButton createListingButton;
     private JComboBox<String> houseTypeJBox;
-    private JComboBox<String> numBedRoomsBox;
+    private JComboBox<String> numBedroomsBox;
     private JComboBox<String> numBathroomsBox;
     private JComboBox<String> FurnishedBox;
     private JComboBox<String> cityQuadBox;
@@ -22,7 +22,7 @@ public class CreateListingView extends javax.swing.JFrame {
     private JLabel numBathroomLabel;
     private JLabel Furnished;
     private JLabel cityQuadLabel;
-    private JLabel doneStatemeneetLabel;
+    private JLabel doneStatementLabel;
 
     /**
      * Creates new form listing
@@ -41,15 +41,15 @@ public class CreateListingView extends javax.swing.JFrame {
         houseTypeJBox = new JComboBox<>();
         houseTypeLabel = new JLabel();
         numBedroomsLabel = new JLabel();
-        numBedRoomsBox = new JComboBox<>();
+        numBedroomsBox = new JComboBox<>();
         numBathroomLabel = new JLabel();
         numBathroomsBox = new JComboBox<>();
         Furnished = new JLabel();
         FurnishedBox = new JComboBox<>();
         cityQuadLabel = new JLabel();
         cityQuadBox = new JComboBox<>();
-        doneButton = new JButton();
-        doneStatemeneetLabel = new JLabel();
+        createListingButton = new JButton();
+        doneStatementLabel = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,9 +66,9 @@ public class CreateListingView extends javax.swing.JFrame {
         numBedroomsLabel.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
         numBedroomsLabel.setText("Number of Bedrooms");
 
-        numBedRoomsBox.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        numBedRoomsBox.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5+" }));
-        numBedRoomsBox.addActionListener(this::jComboBox2ActionPerformed);
+        numBedroomsBox.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        numBedroomsBox.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5+" }));
+        numBedroomsBox.addActionListener(this::jComboBox2ActionPerformed);
 
         numBathroomLabel.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
         numBathroomLabel.setText("Number of Bathrooms");
@@ -91,11 +91,11 @@ public class CreateListingView extends javax.swing.JFrame {
         cityQuadBox.setModel(new DefaultComboBoxModel<>(new String[] { "SW", "NW", "NE", "SE" }));
         cityQuadBox.addActionListener(this::jComboBox5ActionPerformed);
 
-        doneButton.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
-        doneButton.setText("Done");
+        createListingButton.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
+        createListingButton.setText("Create Listing");
 
-        doneStatemeneetLabel.setFont(new Font("Tahoma", Font.BOLD, 14)); // NOI18N
-        doneStatemeneetLabel.setText("Click Done when finished");
+        doneStatementLabel.setFont(new Font("Tahoma", Font.BOLD, 14)); // NOI18N
+        doneStatementLabel.setText("Click Done when finished");
 
         javax.swing.GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,7 +117,7 @@ public class CreateListingView extends javax.swing.JFrame {
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(numBedroomsLabel, GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(18, 18, 18)
-                                                                .addComponent(numBedRoomsBox, GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(numBedroomsBox, GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGap(39, 39, 39)
                                                                 .addComponent(createListingLabel))
@@ -126,7 +126,7 @@ public class CreateListingView extends javax.swing.JFrame {
                                                                 .addGap(18, 18, 18)
                                                                 .addComponent(numBathroomsBox, GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                                .addComponent(doneStatemeneetLabel)
+                                                                .addComponent(doneStatementLabel)
                                                                 .addGroup(layout.createSequentialGroup()
                                                                         .addComponent(cityQuadLabel, GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addGap(18, 18, 18)
@@ -135,7 +135,7 @@ public class CreateListingView extends javax.swing.JFrame {
                                 .addContainerGap())
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(doneButton)
+                                .addComponent(createListingButton)
                                 .addGap(119, 119, 119))
         );
         layout.setVerticalGroup(
@@ -149,7 +149,7 @@ public class CreateListingView extends javax.swing.JFrame {
                                         .addComponent(houseTypeLabel))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(numBedRoomsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(numBedroomsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(numBedroomsLabel))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -164,9 +164,9 @@ public class CreateListingView extends javax.swing.JFrame {
                                         .addComponent(cityQuadBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(cityQuadLabel))
                                 .addGap(18, 18, 18)
-                                .addComponent(doneStatemeneetLabel)
+                                .addComponent(doneStatementLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(doneButton)
+                                .addComponent(createListingButton)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -198,5 +198,40 @@ public class CreateListingView extends javax.swing.JFrame {
         setVisible(true);
     }
 
+    /**
+     * adds action listener to the search button
+     * @param listenForCreateListingButton
+     */
+    public void addCreateListingListener(ActionListener listenForCreateListingButton){
+        createListingButton.addActionListener(listenForCreateListingButton);
+    }
 
+    public boolean getFurnishedSelectorItem(){
+        String furnished = (String)getFurnishedBox().getSelectedItem();
+        if(furnished.equals("Yes"))
+            return true;
+        else
+            return false;
+    }
+
+    // Getters and setters
+    public JComboBox<String> getHouseTypeJBox() {
+        return houseTypeJBox;
+    }
+
+    public JComboBox<String> getNumBedroomsBox() {
+        return numBedroomsBox;
+    }
+
+    public JComboBox<String> getNumBathroomsBox() {
+        return numBathroomsBox;
+    }
+
+    public JComboBox<String> getFurnishedBox() {
+        return FurnishedBox;
+    }
+
+    public JComboBox<String> getCityQuadBox() {
+        return cityQuadBox;
+    }
 }

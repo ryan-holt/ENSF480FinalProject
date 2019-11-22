@@ -28,6 +28,7 @@ public class ClientCommunicationController implements UserTypes{
     private Controller mainController;
     private SearchListingController searchListingController;
     private ListingController listingController;
+    private CreateListingController createListingController;
 
     private User user;
 
@@ -49,6 +50,7 @@ public class ClientCommunicationController implements UserTypes{
             loginController = new LoginController(loginView, this);
             searchListingController = new SearchListingController(new SearchListingView(), this);
             listingController = new ListingController(new ListingView(), this);
+            createListingController = new CreateListingController(new CreateListingView(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,7 +98,7 @@ public class ClientCommunicationController implements UserTypes{
     }
 
     public void createLandlordMainWindow(){
-        setMainController(new MainController(new LandlordMainView(), this));
+        setMainController(new LandlordMainController(new LandlordMainView(), this));
     }
 
     //GETTERS AND SETTERS
@@ -124,7 +126,15 @@ public class ClientCommunicationController implements UserTypes{
         return listingController;
     }
 
+    public CreateListingController getCreateListingController() {
+        return createListingController;
+    }
+
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

@@ -1,9 +1,6 @@
 package Database;
 
-import Utils.Address;
-import Utils.Listing;
-import Utils.Name;
-import Utils.User;
+import Utils.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DatabaseModel implements DatabaseAccessQueries, Messages{
+public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes {
 
     private Connection myConnection;
 
@@ -125,6 +122,24 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void addListing(Listing listing){
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_ADD_LISTING)) {
+            pStmt.setInt(1, listing.getNumOfBedrooms());
+            pStmt.setInt(2, listing.getNumOfBathrooms());
+            pStmt.setString(3, listing.getType());
+            pStmt.setString(4, listing.getQuadrant());
+            pStmt.setBoolean(5, listing.isFurnished());
+            pStmt.setString(6, listing.getState());
+            pStmt.setDouble(7, listing.getFee());
+            pStmt.setString(8, listing.getLandlordEmail());
+            pStmt.executeUpdate();
+
+            System.out.println("New listing created!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Listing> filterListingsByBedroom(ArrayList<Listing> listings, String bedrooms){

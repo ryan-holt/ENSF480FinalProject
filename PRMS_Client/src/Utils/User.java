@@ -10,6 +10,7 @@ public class User implements UserTypes, Serializable {
     private Name name;
     private Address address;
     private String userType;
+    private String email;
 
     public User(String username, String password){
         this.username = username;
@@ -24,6 +25,15 @@ public class User implements UserTypes, Serializable {
         this.address = address;
     }
 
+    public User(String username, String password, Name name, String userType, Address address, String email){
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.userType = userType;
+        this.address = address;
+        this.email = email;
+    }
+
     // Getters and Setters
     public String getUsername() {
         return username;
@@ -35,5 +45,9 @@ public class User implements UserTypes, Serializable {
 
     public String getUserType() {
         return userType;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

@@ -54,6 +54,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                     case SEARCH_LISTINGS:
                         searchListings();
                         break;
+                    case CREATE_LISTING:
+                        createListing();
+                        break;
                 }
             }
         }catch (Exception e){
@@ -69,6 +72,17 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
             ArrayList<Listing> listings = managementSystemController.getDatabaseController().getDatabaseModel().queryListings(listingsQuery);
             // Send queried listings to client
             socketOut.writeObject(listings);
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void createListing(){
+        try{
+            // Receive listing from client
+            Listing newListing = (Listing) socketIn.readObject();
+            // Query database to add the new listing
+            managementSystemController.getDatabaseController().getDatabaseModel().addListing(newListing);
         }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
@@ -111,7 +125,7 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
 
                         socketOut.flush();
                         break;
-                    case CREATE:
+                    case CREATE_USER:
                         User newUser = (User) socketIn.readObject();
                         boolean accountCreated = managementSystemController.getDatabaseController().getDatabaseModel().createUser(newUser);
                         if(accountCreated){
