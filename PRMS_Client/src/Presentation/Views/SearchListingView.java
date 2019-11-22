@@ -84,14 +84,14 @@ public class SearchListingView extends JFrame {
     }
 
     public void addNumBedroomsSelector(){
-        String[] numOfRooms = {"-", "1", "2", "3", "4", "5+"};
+        String[] numOfRooms = {"-", "1", "2", "3", "4", "5"};
         numOfBedroomsList = createSelector(numOfRooms, "Number of Bedrooms:");
         numOfBedroomsList.setSelectedIndex(0);
         centerPanel.add(numOfBedroomsList);
     }
 
     public void addNumBathroomsSelector(){
-        String[] numOfRooms = {"-", "1", "2", "3", "4", "5+"};
+        String[] numOfRooms = {"-", "1", "2", "3", "4", "5"};
         numOfBathroomsList = createSelector(numOfRooms, "Number of Bedrooms:");
         numOfBathroomsList.setSelectedIndex(0);
         centerPanel.add(numOfBathroomsList);

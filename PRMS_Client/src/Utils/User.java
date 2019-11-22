@@ -8,7 +8,7 @@ public class User implements UserTypes, Serializable {
     private String username;
     private String password;
     private Name name;
-    private Address address;
+    private String address;
     private String userType;
     private String email;
 
@@ -17,7 +17,7 @@ public class User implements UserTypes, Serializable {
         this.password = password;
     }
 
-    public User(String username, String password, Name name, String userType, Address address){
+    public User(String username, String password, Name name, String userType, String address){
         this.username = username;
         this.password = password;
         this.name = name;
@@ -25,7 +25,7 @@ public class User implements UserTypes, Serializable {
         this.address = address;
     }
 
-    public User(String username, String password, Name name, String userType, Address address, String email){
+    public User(String username, String password, Name name, String userType, String address, String email){
         this.username = username;
         this.password = password;
         this.name = name;
@@ -45,6 +45,14 @@ public class User implements UserTypes, Serializable {
 
     public String getUserType() {
         return userType;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public String getEmail() {

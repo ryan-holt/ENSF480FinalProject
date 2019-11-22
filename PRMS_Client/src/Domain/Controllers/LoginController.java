@@ -102,19 +102,13 @@ public class LoginController extends Controller implements Messages, UserTypes{
             // Sending action to server
             clientCommunicationController.getSocketOut().writeObject(CREATE_USER);
             // Sending user object to server
-            String[] addressArray = accountCreationView.getAddressField().getText().split(" ");
-            String streetName = "";
-            for(int i = 1; i < addressArray.length - 1; i++){
-                streetName += addressArray[i] + " ";
-            }
 
-            Address newUserAddress = new Address(Integer.parseInt(addressArray[0]), streetName, addressArray[addressArray.length - 1]);
             String accountType = (String)accountCreationView.getAccountTypeList().getSelectedItem();
             User newUser = new User(accountCreationView.getUsernameField().getText(),
                                     accountCreationView.getPasswordField().getText(),
                                     new Name(accountCreationView.getFirstNameField().getText(), accountCreationView.getLastNameField().getText()),
                                     accountType.toLowerCase(),
-                                    newUserAddress);
+                                    accountCreationView.getAddressField().getText());
 
             clientCommunicationController.getSocketOut().writeObject(newUser);
 

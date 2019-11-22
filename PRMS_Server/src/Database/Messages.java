@@ -10,5 +10,6 @@ public interface Messages {
     static final String NO_INPUT = "-";
     static final String GET_ALL_LISTINGS = "getAllListings";
     static final String CREATE_LISTING = "createListing";
+    static final String SEARCH_LISTINGS_BY_LANDLORD = "searchListingsByLandlord";
 
 }

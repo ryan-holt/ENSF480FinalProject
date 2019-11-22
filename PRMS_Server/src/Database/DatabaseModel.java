@@ -2,10 +2,7 @@ package Database;
 
 import Utils.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes {
@@ -33,7 +30,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                     rs.getString("password"),
                                     new Name(rs.getString("firstName"), rs.getString("lastName")),
                                     rs.getString("userType"),
-                                    new Address(rs.getInt("houseNum"), rs.getString("streetName"), rs.getString("quadrant")));
+                                    rs.getString("address"),
+                                    rs.getString("email"));
                 }
             }
         } catch (SQLException e) {
@@ -51,7 +49,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                             rs.getString("password"),
                             new Name(rs.getString("firstName"), rs.getString("lastName")),
                             rs.getString("userType"),
-                            new Address(rs.getInt("houseNum"), rs.getString("streetName"), rs.getString("quadrant")));
+                            rs.getString("address"),
+                            rs.getString("email"));
                 }
             }
         } catch (SQLException e) {
@@ -69,10 +68,9 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                 pStmt.setString(2, user.getPassword());
                 pStmt.setString(3, user.getName().getFirstName());
                 pStmt.setString(4, user.getName().getLastName());
-                pStmt.setInt(5, user.getAddress().getHouseNum());
-                pStmt.setString(6, user.getAddress().getStreetName());
-                pStmt.setString(7, user.getUserType());
-                pStmt.setString(8, user.getAddress().getQuadrant());
+                pStmt.setString(5, user.getUserType());
+                pStmt.setString(6, user.getAddress());
+                pStmt.setString(7, user.getUsername() + "@gmail.com");
                 pStmt.executeUpdate();
 
                 System.out.println("New User " + user.getUsername() + " created!");
@@ -113,6 +111,32 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                              rs.getString("state"),
                                              rs.getDouble("fee"),
                                              rs.getString("landlordEmail")));
+                }
+            }
+
+            return listings;
+        } catch (SQLException e) {
+            System.out.println("Getting items from DB error");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Listing> queryListingsByLandlord(String landlordEmail){
+        ArrayList<Listing> listings = new ArrayList<>();
+
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_GET_LISTINGS_BY_LANDLORD)) {
+            pStmt.setString(1, landlordEmail);
+            try (ResultSet rs = pStmt.executeQuery()) {
+                while (rs.next()) {
+                    listings.add(new Listing(rs.getString("type"),
+                            rs.getInt("bedrooms"),
+                            rs.getInt("bathrooms"),
+                            rs.getBoolean("furnished"),
+                            rs.getString("quadrant"),
+                            rs.getString("state"),
+                            rs.getDouble("fee"),
+                            rs.getString("landlordEmail")));
                 }
             }
 

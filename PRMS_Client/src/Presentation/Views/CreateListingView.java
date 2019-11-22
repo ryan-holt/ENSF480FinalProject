@@ -67,14 +67,14 @@ public class CreateListingView extends javax.swing.JFrame {
         numBedroomsLabel.setText("Number of Bedrooms");
 
         numBedroomsBox.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        numBedroomsBox.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5+" }));
+        numBedroomsBox.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         numBedroomsBox.addActionListener(this::jComboBox2ActionPerformed);
 
         numBathroomLabel.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
         numBathroomLabel.setText("Number of Bathrooms");
 
         numBathroomsBox.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
-        numBathroomsBox.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5+" }));
+        numBathroomsBox.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         numBathroomsBox.addActionListener(this::jComboBox3ActionPerformed);
 
         Furnished.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N

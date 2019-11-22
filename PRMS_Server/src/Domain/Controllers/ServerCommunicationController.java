@@ -57,9 +57,25 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                     case CREATE_LISTING:
                         createListing();
                         break;
+                    case SEARCH_LISTINGS_BY_LANDLORD:
+                        searchListingsByLandlord();
+                        break;
                 }
             }
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void searchListingsByLandlord(){
+        try {
+            // Receive landlord email from client
+            String landlordEmail = (String) socketIn.readObject();
+            // Query database
+            ArrayList<Listing> listings = managementSystemController.getDatabaseController().getDatabaseModel().queryListingsByLandlord(landlordEmail);
+            // Send listings to client
+            socketOut.writeObject(listings);
+        }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
     }
