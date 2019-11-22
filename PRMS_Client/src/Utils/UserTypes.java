@@ -6,5 +6,6 @@ public interface UserTypes {
     static final String REGULAR_RENTER = "regularrenter";
     static final String MANAGER = "manager";
     static final String LANDLORD = "landlord";
+    static final String REGULAR = "regular";
 
 }

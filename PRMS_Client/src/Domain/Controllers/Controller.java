@@ -1,7 +1,5 @@
 package Domain.Controllers;
 
-import Presentation.Views.MainView;
-
 public abstract class Controller {
 
     /**

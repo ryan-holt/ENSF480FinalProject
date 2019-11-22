@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
  * @author Harsohail Brar
  * @since April 12, 2019
  */
-public class ManagementSystemController {
+public class ManagementSystemController implements Fee{
 
     private static final int PORT = 7000;
     private ServerSocket serverSocket;

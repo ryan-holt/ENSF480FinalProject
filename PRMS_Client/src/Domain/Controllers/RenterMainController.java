@@ -16,7 +16,6 @@ public class RenterMainController extends Controller{
 
     public void searchListingListen(){
         clientCommunicationController.getMainController().hideView();
-        clientCommunicationController.createSearchListingWindow();
         clientCommunicationController.getSearchListingController().displayView();
     }
 

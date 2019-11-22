@@ -7,5 +7,6 @@ public interface DatabaseAccessQueries {
     static final String SQL_ADD_USER = "INSERT INTO users (username, password, firstName, " +
                                                             "lastName, houseNum, streetName," +
                                                             "userType, quadrant) values(?,?,?,?,?,?,?,?)";
-
+    static final String SQL_SEARCH_LISTINGS = "SELECT * FROM listings WHERE bedrooms =? AND bathrooms =? AND type =? AND quadrant =? AND furnished =?";
+    static final String SQL_GET_ALL_LISTINGS = "SELECT * FROM listings";
 }

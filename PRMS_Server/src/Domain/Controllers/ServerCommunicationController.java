@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
+import java.util.ArrayList;
 
 /**
  * This class is responsible for communicating with the client.
@@ -15,7 +16,7 @@ import java.net.*;
  * @author Harsohail Brar
  * @since April 12, 2019
  */
-public class ServerCommunicationController implements Runnable, Messages {
+public class ServerCommunicationController implements Runnable, Messages, UserTypes{
 
     private Socket aSocket;
     private ObjectInputStream socketIn;
@@ -44,8 +45,32 @@ public class ServerCommunicationController implements Runnable, Messages {
     }
 
     public void communicate(){
-        while(true){
-            // TODO communicate with client
+        try {
+            String action;
+            while (true) {
+                action = (String) socketIn.readObject();
+
+                switch (action){
+                    case SEARCH_LISTINGS:
+                        searchListings();
+                        break;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void searchListings(){
+        try {
+            // Receive query from client
+            ArrayList<String> listingsQuery = (ArrayList<String>) socketIn.readObject();
+            // Query database
+            ArrayList<Listing> listings = managementSystemController.getDatabaseController().getDatabaseModel().queryListings(listingsQuery);
+            // Send queried listings to client
+            socketOut.writeObject(listings);
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
         }
     }
 
@@ -95,6 +120,8 @@ public class ServerCommunicationController implements Runnable, Messages {
                             socketOut.writeObject(FAILED);
                         }
                         break;
+                    case REGULAR:
+                        return;
                 }
             }
         } catch (Exception e) {

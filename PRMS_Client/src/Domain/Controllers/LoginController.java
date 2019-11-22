@@ -14,7 +14,7 @@ import java.io.IOException;
  * @version 4.10.0
  * @since April 5, 2019
  */
-public class LoginController extends Controller implements Messages{
+public class LoginController extends Controller implements Messages, UserTypes{
 
     //MEMBER VARIABLES
 
@@ -71,6 +71,12 @@ public class LoginController extends Controller implements Messages{
     }
 
     public void regularRenterListen(){
+        try {
+            // Send action to server that no verification is needed
+            clientCommunicationController.getSocketOut().writeObject(REGULAR);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
         this.hideView();
         clientCommunicationController.showMainWindow();
     }

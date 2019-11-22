@@ -140,12 +140,24 @@ public class SearchListingView extends JFrame {
         searchForListingsButton.addActionListener(listenForSearchListingButton);
     }
 
-    /**
-     * Return the current selected item in the selector
-     * @param selector
-     * @return String object currently selected
-     */
-    public String getSelected(JComboBox selector){
-        return (String)selector.getSelectedItem();
+    // Getters and setters
+    public JComboBox getTypeOfHousesList() {
+        return typeOfHousesList;
+    }
+
+    public JComboBox getNumOfBedroomsList() {
+        return numOfBedroomsList;
+    }
+
+    public JComboBox getNumOfBathroomsList() {
+        return numOfBathroomsList;
+    }
+
+    public JComboBox getFurnishingList() {
+        return furnishingList;
+    }
+
+    public JComboBox getQuadrantList() {
+        return quadrantList;
     }
 }

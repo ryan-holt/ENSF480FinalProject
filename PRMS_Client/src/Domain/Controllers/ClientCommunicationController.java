@@ -2,6 +2,7 @@ package Domain.Controllers;
 
 import Presentation.Views.*;
 import Utils.*;
+import com.sun.tools.javac.Main;
 
 import java.io.*;
 import java.net.*;
@@ -23,7 +24,11 @@ public class ClientCommunicationController implements UserTypes{
     private Socket aSocket;
     private ObjectInputStream socketIn;
 
-    private Controller loginController, mainController, searchListingController;
+    private LoginController loginController;
+    private Controller mainController;
+    private SearchListingController searchListingController;
+    private ListingController listingController;
+
     private User user;
 
     /**
@@ -42,6 +47,8 @@ public class ClientCommunicationController implements UserTypes{
             LoginView loginView = new LoginView();
 
             loginController = new LoginController(loginView, this);
+            searchListingController = new SearchListingController(new SearchListingView(), this);
+            listingController = new ListingController(new ListingView(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,10 +99,6 @@ public class ClientCommunicationController implements UserTypes{
         setMainController(new MainController(new LandlordMainView(), this));
     }
 
-    public void createSearchListingWindow(){
-        setSearchListingController(new SearchListingController(new SearchListingView(), this));
-    }
-
     //GETTERS AND SETTERS
     public ObjectOutputStream getSocketOut() {
         return socketOut;
@@ -109,11 +112,7 @@ public class ClientCommunicationController implements UserTypes{
         this.mainController = mainController;
     }
 
-    public void setSearchListingController(Controller searchListingController) {
-        this.searchListingController = searchListingController;
-    }
-
-    public Controller getSearchListingController() {
+    public SearchListingController getSearchListingController() {
         return searchListingController;
     }
 
@@ -121,12 +120,8 @@ public class ClientCommunicationController implements UserTypes{
         return mainController;
     }
 
-    public Controller getLoginController() {
-        return loginController;
-    }
-
-    public User getUser() {
-        return user;
+    public ListingController getListingController() {
+        return listingController;
     }
 
     public void setUser(User user) {
