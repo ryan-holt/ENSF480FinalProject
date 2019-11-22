@@ -124,6 +124,58 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         return null;
     }
 
+    public void editListing(Listing listingToBeEdited){
+        System.out.println(listingToBeEdited.getListingID());
+        System.out.println(listingToBeEdited.getType());
+        System.out.println(listingToBeEdited.getNumOfBedrooms());
+        System.out.println(listingToBeEdited.getNumOfBathrooms());
+        System.out.println(listingToBeEdited.getQuadrant());
+        // Edit listing type
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_TYPE)) {
+            pStmt.setString(1, listingToBeEdited.getType());
+            pStmt.setInt(2, listingToBeEdited.getListingID());
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Edit listing bedrooms
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_BEDROOMS)) {
+            pStmt.setInt(1, listingToBeEdited.getNumOfBedrooms());
+            pStmt.setInt(2, listingToBeEdited.getListingID());
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Edit listing bathrooms
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_BATHROOMS)) {
+            pStmt.setInt(1, listingToBeEdited.getNumOfBathrooms());
+            pStmt.setInt(2, listingToBeEdited.getListingID());
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Edit listing quadrant
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_QUADRANT)) {
+            pStmt.setString(1, listingToBeEdited.getQuadrant());
+            pStmt.setInt(2, listingToBeEdited.getListingID());
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Edit listing furnishing
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_FURNISHED)) {
+            if(listingToBeEdited.isFurnished())
+                pStmt.setBoolean(1, true);
+            else
+                pStmt.setBoolean(1, false);
+            pStmt.setInt(2, listingToBeEdited.getListingID());
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public ArrayList<Listing> queryListingsByLandlord(String landlordEmail){
         ArrayList<Listing> listings = new ArrayList<>();
 

@@ -63,4 +63,8 @@ public class Listing implements Serializable {
     public void setListingID(int listingID) {
         this.listingID = listingID;
     }
+
+    public int getListingID() {
+        return listingID;
+    }
 }

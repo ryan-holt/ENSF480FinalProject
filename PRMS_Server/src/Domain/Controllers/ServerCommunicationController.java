@@ -66,6 +66,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                     case ACTIVATE_LISTING:
                         activateListing();
                         break;
+                    case EDIT_LISTING:
+                        editListing();
+                        break;
                 }
             }
         }catch (Exception e){
@@ -79,6 +82,17 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
             int listingID = (Integer) socketIn.readObject();
             // Query database
             managementSystemController.getDatabaseController().getDatabaseModel().activateListing(listingID);
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editListing(){
+        try{
+            // Receive listing from client
+            Listing listingToBeEdited = (Listing) socketIn.readObject();
+            // Query database
+            managementSystemController.getDatabaseController().getDatabaseModel().editListing(listingToBeEdited);
         }catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

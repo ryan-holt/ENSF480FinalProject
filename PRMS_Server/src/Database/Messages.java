@@ -13,5 +13,6 @@ public interface Messages {
     static final String SEARCH_LISTINGS_BY_LANDLORD = "searchListingsByLandlord";
     static final String GET_LISTING_FEE = "getListingFee";
     static final String ACTIVATE_LISTING = "activateListing";
+    static final String EDIT_LISTING = "editListing";
 
 }

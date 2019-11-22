@@ -33,10 +33,7 @@ public class ListingView extends JFrame {
     /**
      * This is the constructor for the MainView Class
      * which starts by making the GUI by adding JPanel and then adding values
-     * to different aspects of the GUI such as buttons
-     *
-     * @param width  width of GUI
-     * @param height height of GUI
+     * to different aspects of the GUI such as button
      */
     public ListingView() {
         titlePanel = new JPanel();

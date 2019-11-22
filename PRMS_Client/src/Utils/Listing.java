@@ -15,6 +15,17 @@ public class Listing implements Serializable, ListingStates {
     private String landlordEmail;
     private int listingID;
 
+    public Listing(int id, String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, String landlordEmail){
+        listingID = id;
+        this.type = type;
+        numOfBedrooms = bedrooms;
+        numOfBathrooms = bathrooms;
+        this.furnished = furnished;
+        this.quadrant = quadrant;
+        this.state = state;
+        this.landlordEmail = landlordEmail;
+    }
+
     public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, double fee, String landlordEmail){
         this.type = type;
         numOfBedrooms = bedrooms;
@@ -55,6 +66,14 @@ public class Listing implements Serializable, ListingStates {
         return furnished;
     }
 
+    public String isFurnishedString() {
+        if(furnished){
+            return "Yes";
+        }else{
+            return "No";
+        }
+    }
+
     public String getQuadrant() {
         return quadrant;
     }
@@ -73,6 +92,30 @@ public class Listing implements Serializable, ListingStates {
 
     public int getListingID() {
         return listingID;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setNumOfBedrooms(int numOfBedrooms) {
+        this.numOfBedrooms = numOfBedrooms;
+    }
+
+    public void setNumOfBathrooms(int numOfBathrooms) {
+        this.numOfBathrooms = numOfBathrooms;
+    }
+
+    public void setFurnished(boolean furnished) {
+        this.furnished = furnished;
+    }
+
+    public void setFurnishedString(String furnishing) {
+        furnished = furnishing.equals("Yes");
+    }
+
+    public void setQuadrant(String quadrant) {
+        this.quadrant = quadrant;
     }
 }
 
