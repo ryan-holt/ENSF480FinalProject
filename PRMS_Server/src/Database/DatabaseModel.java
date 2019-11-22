@@ -125,11 +125,6 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
     }
 
     public void editListing(Listing listingToBeEdited){
-        System.out.println(listingToBeEdited.getListingID());
-        System.out.println(listingToBeEdited.getType());
-        System.out.println(listingToBeEdited.getNumOfBedrooms());
-        System.out.println(listingToBeEdited.getNumOfBathrooms());
-        System.out.println(listingToBeEdited.getQuadrant());
         // Edit listing type
         try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_TYPE)) {
             pStmt.setString(1, listingToBeEdited.getType());
