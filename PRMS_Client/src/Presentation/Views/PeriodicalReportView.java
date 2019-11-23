@@ -1,6 +1,5 @@
 package Presentation.Views;
 
-import javax.swing.*;
 import java.awt.event.ActionListener;
 
 /**
@@ -11,9 +10,9 @@ public class PeriodicalReportView extends javax.swing.JFrame {
 
 
     private javax.swing.JButton closeReportButton;
-    private javax.swing.JLabel peridicalDateLab;
-    private javax.swing.JLabel dateLab;
+    private javax.swing.JLabel periodicalReportTitleLabel;
     private javax.swing.JLabel numHousesPeriLab;
+    private javax.swing.JLabel dateLab;
     private javax.swing.JLabel numHouseRentedLab;
     private javax.swing.JLabel numOfActiveListingsCurrentlyLabel;
     private javax.swing.JLabel listOfhouseRentLab;
@@ -36,9 +35,9 @@ public class PeriodicalReportView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        peridicalDateLab = new javax.swing.JLabel();
-        dateLab = new javax.swing.JLabel();
+        periodicalReportTitleLabel = new javax.swing.JLabel();
         numHousesPeriLab = new javax.swing.JLabel();
+        dateLab = new javax.swing.JLabel();
         numHouseRentedLab = new javax.swing.JLabel();
         numOfActiveListingsCurrentlyLabel = new javax.swing.JLabel();
         listOfhouseRentLab = new javax.swing.JLabel();
@@ -48,14 +47,14 @@ public class PeriodicalReportView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        peridicalDateLab.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        peridicalDateLab.setText("Periodical Report");
+        periodicalReportTitleLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        periodicalReportTitleLabel.setText("Periodical Report");
 
-        dateLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        dateLab.setText("Total number of houses listed in the period: ");
+        numHousesPeriLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        numHousesPeriLab.setText("Total number of houses listed in the period: ");
 
-        numHousesPeriLab.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        numHousesPeriLab.setText("for Date - Date");
+        dateLab.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        dateLab.setText("for Date - Date");
 
         numHouseRentedLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         numHouseRentedLab.setText("Total number of houses rented in the period: ");
@@ -106,7 +105,7 @@ public class PeriodicalReportView extends javax.swing.JFrame {
                                 .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(numHouseRentedLab)
-                                        .addComponent(dateLab)
+                                        .addComponent(numHousesPeriLab)
                                         .addComponent(numOfActiveListingsCurrentlyLabel))
                                 .addContainerGap(225, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -114,10 +113,10 @@ public class PeriodicalReportView extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(peridicalDateLab, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(periodicalReportTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGap(10, 10, 10)
-                                                                .addComponent(numHousesPeriLab)))
+                                                                .addComponent(dateLab)))
                                                 .addGap(174, 174, 174))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addComponent(listOfhouseRentLab)
@@ -133,11 +132,11 @@ public class PeriodicalReportView extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(peridicalDateLab)
+                                .addComponent(periodicalReportTitleLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(numHousesPeriLab)
-                                .addGap(18, 18, 18)
                                 .addComponent(dateLab)
+                                .addGap(18, 18, 18)
+                                .addComponent(numHousesPeriLab)
                                 .addGap(18, 18, 18)
                                 .addComponent(numHouseRentedLab)
                                 .addGap(18, 18, 18)
