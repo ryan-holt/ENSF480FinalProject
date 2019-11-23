@@ -9,9 +9,11 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
 
     private Connection myConnection;
     private static int listingID = 5;
+    private Fee fee;
 
     public DatabaseModel(Connection c){
         myConnection = c;
+        fee = new Fee(5, 7);
     }
 
     /**
@@ -110,7 +112,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                              rs.getBoolean("furnished"),
                                              rs.getString("quadrant"),
                                              rs.getString("state"),
-                                             rs.getDouble("fee"),
+                                             new Fee(rs.getDouble("fee")),
                                              rs.getString("landlordEmail"),
                                              rs.getInt("listingID")));
                 }
@@ -124,51 +126,41 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         return null;
     }
 
-    public void editListing(Listing listingToBeEdited){
-        // Edit listing type
-        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_TYPE)) {
-            pStmt.setString(1, listingToBeEdited.getType());
-            pStmt.setInt(2, listingToBeEdited.getListingID());
-            pStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        // Edit listing bedrooms
-        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_BEDROOMS)) {
-            pStmt.setInt(1, listingToBeEdited.getNumOfBedrooms());
-            pStmt.setInt(2, listingToBeEdited.getListingID());
-            pStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        // Edit listing bathrooms
-        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_BATHROOMS)) {
-            pStmt.setInt(1, listingToBeEdited.getNumOfBathrooms());
-            pStmt.setInt(2, listingToBeEdited.getListingID());
-            pStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        // Edit listing quadrant
-        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_QUADRANT)) {
-            pStmt.setString(1, listingToBeEdited.getQuadrant());
-            pStmt.setInt(2, listingToBeEdited.getListingID());
-            pStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        // Edit listing furnishing
-        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING_FURNISHED)) {
-            if(listingToBeEdited.isFurnished())
-                pStmt.setBoolean(1, true);
-            else
-                pStmt.setBoolean(1, false);
-            pStmt.setInt(2, listingToBeEdited.getListingID());
-            pStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public ArrayList<User> queryAllUsers(){
+        ArrayList<User> users = new ArrayList<>();
 
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_GET_ALL_USERS)) {
+            try (ResultSet rs = pStmt.executeQuery()) {
+                while (rs.next()) {
+                    users.add(new User(rs.getString("username"),
+                                        rs.getString("password"),
+                                        new Name(rs.getString("firstName"), rs.getString("lastName")),
+                                        rs.getString("userType"),
+                                        rs.getString("address"),
+                                        rs.getString("email")));
+                }
+            }
+            return users;
+        } catch (SQLException e) {
+            System.out.println("Getting items from DB error");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void editListing(Listing listingToBeEdited){
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING)) {
+            pStmt.setString(1, listingToBeEdited.getType());
+            pStmt.setInt(2, listingToBeEdited.getNumOfBedrooms());
+            pStmt.setInt(3, listingToBeEdited.getNumOfBathrooms());
+            pStmt.setString(4, listingToBeEdited.getQuadrant());
+            pStmt.setBoolean(5, listingToBeEdited.isFurnished());
+            pStmt.setString(6, listingToBeEdited.getState());
+            pStmt.setInt(7, listingToBeEdited.getListingID());
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Listing> queryListingsByLandlord(String landlordEmail){
@@ -184,7 +176,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                             rs.getBoolean("furnished"),
                             rs.getString("quadrant"),
                             rs.getString("state"),
-                            rs.getDouble("fee"),
+                            new Fee(rs.getDouble("fee")),
                             rs.getString("landlordEmail"),
                             rs.getInt("listingID")));
                 }
@@ -228,7 +220,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
             pStmt.setString(4, listing.getQuadrant());
             pStmt.setBoolean(5, listing.isFurnished());
             pStmt.setString(6, listing.getState());
-            pStmt.setDouble(7, listing.getFee());
+            pStmt.setDouble(7, fee.getFeeAmount());
             pStmt.setString(8, listing.getLandlordEmail());
             pStmt.setInt(9, listingID);
             listingID++;
@@ -306,5 +298,9 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         }
 
         return filteredListings;
+    }
+
+    public Fee getFee() {
+        return fee;
     }
 }

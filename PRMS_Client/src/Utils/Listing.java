@@ -2,7 +2,7 @@ package Utils;
 
 import java.io.Serializable;
 
-public class Listing implements Serializable, ListingStates {
+public class Listing implements Serializable{
 
     private static final long serialVersionUID = 6L;
     private String type;
@@ -11,7 +11,7 @@ public class Listing implements Serializable, ListingStates {
     private boolean furnished;
     private String quadrant;
     private String state;
-    private double fee;
+    private Fee fee;
     private String landlordEmail;
     private int listingID;
 
@@ -26,7 +26,7 @@ public class Listing implements Serializable, ListingStates {
         this.landlordEmail = landlordEmail;
     }
 
-    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, double fee, String landlordEmail){
+    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail){
         this.type = type;
         numOfBedrooms = bedrooms;
         numOfBathrooms = bathrooms;
@@ -37,7 +37,7 @@ public class Listing implements Serializable, ListingStates {
         this.landlordEmail = landlordEmail;
     }
 
-    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, double fee, String landlordEmail, int id){
+    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id){
         this.type = type;
         numOfBedrooms = bedrooms;
         numOfBathrooms = bathrooms;
@@ -82,7 +82,7 @@ public class Listing implements Serializable, ListingStates {
         return state;
     }
 
-    public double getFee() {
+    public Fee getFee() {
         return fee;
     }
 
@@ -117,5 +117,8 @@ public class Listing implements Serializable, ListingStates {
     public void setQuadrant(String quadrant) {
         this.quadrant = quadrant;
     }
-}
 
+    public void setState(String state) {
+        this.state = state;
+    }
+}

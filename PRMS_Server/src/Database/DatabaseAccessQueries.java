@@ -12,10 +12,7 @@ public interface DatabaseAccessQueries {
     static final String SQL_GET_LISTINGS_BY_LANDLORD = "SELECT * FROM listings WHERE landlordEmail = ?";
     static final String SQL_GET_LISTING_BY_ID = "SELECT * FROM listings WHERE listingID = ?";
     static final String SQL_ACTIVATE_LISTING = "UPDATE listings SET state = 'Active' WHERE listingID = ?";
-    static final String SQL_EDIT_LISTING_TYPE = "UPDATE listings SET type = ? WHERE listingID = ?";
-    static final String SQL_EDIT_LISTING_BEDROOMS = "UPDATE listings SET bedrooms = ? WHERE listingID = ?";
-    static final String SQL_EDIT_LISTING_BATHROOMS = "UPDATE listings SET bathrooms = ? WHERE listingID = ?";
-    static final String SQL_EDIT_LISTING_QUADRANT = "UPDATE listings SET quadrant = ? WHERE listingID = ?";
-    static final String SQL_EDIT_LISTING_FURNISHED = "UPDATE listings SET furnished = ? WHERE listingID = ?";
+    static final String SQL_EDIT_LISTING = "UPDATE listings SET type = ?, bedrooms =?, bathrooms=?, quadrant=?, furnished=?, state=? WHERE listingID=?";
+    static final String SQL_GET_ALL_USERS = "SELECT * FROM users";
 
 }

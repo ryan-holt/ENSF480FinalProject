@@ -41,4 +41,8 @@ public class User implements UserTypes, Serializable {
     public String getAddress() {
         return address;
     }
+
+    public String getEmail() {
+        return email;
+    }
 }

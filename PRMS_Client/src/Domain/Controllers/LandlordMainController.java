@@ -18,6 +18,7 @@ public class LandlordMainController extends Controller implements Messages{
         landlordMainView.addCreateListingListener(e -> createListingListen());
         landlordMainView.addMakePaymentListener(e -> showLandlordListings());
         landlordMainView.addEditListingListener(e -> showLandlordListings());
+        landlordMainView.addLogoutListener(e -> logoutListen());
     }
 
     public void showLandlordListings(){
@@ -40,6 +41,10 @@ public class LandlordMainController extends Controller implements Messages{
     public void createListingListen(){
         clientCommunicationController.getMainController().hideView();
         clientCommunicationController.getCreateListingController().displayView();
+    }
+
+    public void logoutListen(){
+        System.exit(1);
     }
 
     @Override

@@ -2,6 +2,7 @@ package Domain.Controllers;
 
 import Presentation.Views.*;
 import Utils.Listing;
+import Utils.ListingStates;
 import javafx.scene.control.ComboBox;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ListingController extends Controller implements Messages{
+public class ListingController extends Controller implements Messages, ListingStates {
 
     private ListingView listingView;
 
@@ -21,7 +22,8 @@ public class ListingController extends Controller implements Messages{
         listingView.addBackToMenuListener(e -> backToMenuListen());
         listingView.addEmailLandlordListener(e -> emailLandlordListen());
         listingView.addMakePaymentListener(e -> makePaymentListen());
-        listingView.addEditListingListener(e -> editListingListen());
+        listingView.addEditListingListener(e -> editListingListen(false));
+        listingView.addEditListingStateListener(e -> editListingListen(true));
     }
 
     public void makePaymentListen(){
@@ -67,7 +69,7 @@ public class ListingController extends Controller implements Messages{
         }
     }
 
-    public void editListingListen(){
+    public void editListingListen(boolean editStateOnly){
         int selectedRow = listingView.getListingTable().getSelectedRow();
 
         if(selectedRow < 0){    // nothing selected
@@ -75,7 +77,12 @@ public class ListingController extends Controller implements Messages{
             return;
         }else {
             Listing selectedListing = getSelectedListing(selectedRow);
-            Listing editedListing = editListing(selectedListing);
+            Listing editedListing;
+            if(editStateOnly){
+                editedListing = editListingState(selectedListing);
+            }else {
+                editedListing = editListing(selectedListing);
+            }
             try {
                 // Send action to server
                 clientCommunicationController.getSocketOut().writeObject(EDIT_LISTING);
@@ -96,17 +103,6 @@ public class ListingController extends Controller implements Messages{
         String[] bathrooms = { "1", "2", "3", "4", "5" };
         String[] furnished = { "Yes", "No" };
         String[] quadrant = { "SW", "NW", "NE", "SE" };
-
-        JComboBox typeBox = new JComboBox(type);
-        typeBox.setSelectedIndex(getIndex(type, listing.getType()));
-        JComboBox bedroomsBox = new JComboBox(bedrooms);
-        bedroomsBox.setSelectedIndex(getIndex(bedrooms, String.valueOf(listing.getNumOfBedrooms())));
-        JComboBox bathroomsBox = new JComboBox(bathrooms);
-        bathroomsBox.setSelectedIndex(getIndex(bathrooms, String.valueOf(listing.getNumOfBathrooms())));
-        JComboBox furnishedBox = new JComboBox(furnished);
-        furnishedBox.setSelectedIndex(getIndex(furnished, listing.isFurnishedString()));
-        JComboBox quadrantBox = new JComboBox(quadrant);
-        quadrantBox.setSelectedIndex(getIndex(quadrant, listing.getQuadrant()));
 
         String editType = (String) JOptionPane.showInputDialog(null, "Select Type:",
                                                                 editListing, JOptionPane.QUESTION_MESSAGE, null,
@@ -130,6 +126,21 @@ public class ListingController extends Controller implements Messages{
         listing.setFurnishedString(editFurnished);
         listing.setQuadrant(editQuadrant);
 
+        return listing;
+    }
+
+    public Listing editListingState(Listing listing){
+        String editListingState = "Edit Listing State";
+        String[] listingStates = new String[]{NOT_ACTIVE, ACTIVE, RENTED, CANCELLED, SUSPENDED};
+
+        JComboBox typeBox = new JComboBox(listingStates);
+        typeBox.setSelectedIndex(getIndex(listingStates, listing.getState()));
+
+        String editState = (String) JOptionPane.showInputDialog(null, "Select State:",
+                editListingState, JOptionPane.QUESTION_MESSAGE, null,
+                listingStates, listingStates[getIndex(listingStates, listing.getState())]);
+
+        listing.setState(editState);
         return listing;
     }
 

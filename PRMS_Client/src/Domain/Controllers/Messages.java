@@ -14,5 +14,7 @@ public interface Messages {
     static final String GET_LISTING_FEE = "getListingFee";
     static final String ACTIVATE_LISTING = "activateListing";
     static final String EDIT_LISTING = "editListing";
+    static final String EDIT_FEE = "editFee";
+    static final String GET_ALL_USERS = "getAllUsers";
 
 }

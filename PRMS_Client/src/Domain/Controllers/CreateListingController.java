@@ -1,6 +1,7 @@
 package Domain.Controllers;
 
 import Presentation.Views.CreateListingView;
+import Utils.Fee;
 import Utils.Listing;
 import Utils.ListingStates;
 
@@ -27,7 +28,7 @@ public class CreateListingController extends Controller implements Messages, Lis
         String cityQuadrant = (String)createListingView.getCityQuadBox().getSelectedItem();
         String landlordEmail = clientCommunicationController.getUser().getEmail();
 
-        Listing newListing = new Listing(houseType, numOfBedrooms, numOfBathrooms, furnished, cityQuadrant, NOT_ACTIVE, FEE, landlordEmail);
+        Listing newListing = new Listing(0, houseType, numOfBedrooms, numOfBathrooms, furnished, cityQuadrant, NOT_ACTIVE, landlordEmail);
 
         try {
             // Send action to server

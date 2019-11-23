@@ -21,7 +21,7 @@ public class ListingView extends JFrame {
     //MEMBER VARIABLES
     private JPanel titlePanel, centrePanel, buttonPanel;
 
-    private JButton backToMenuButton, emailLandlordButton, editListingButton, makePaymentButton;
+    private JButton backToMenuButton, emailLandlordButton, editListingButton, makePaymentButton, editListingStateButton;
 
     private DefaultTableModel listingTableModel;
     private JScrollPane listingScrollPane;
@@ -44,6 +44,7 @@ public class ListingView extends JFrame {
         emailLandlordButton = new JButton("Email Landlord");
         editListingButton = new JButton("Edit Listing");
         makePaymentButton = new JButton("Make Payment");
+        editListingStateButton = new JButton("Edit Listing State");
 
         setTitle("Main Window");
         setSize(width, height);
@@ -121,6 +122,12 @@ public class ListingView extends JFrame {
         revalidate();
     }
 
+    public void updateListingViewForManager(){
+        buttonPanel.remove(emailLandlordButton);
+        buttonPanel.add(editListingStateButton);
+        revalidate();
+    }
+
     /**
      * displays the listing view
      */
@@ -158,6 +165,14 @@ public class ListingView extends JFrame {
      */
     public void addEditListingListener(ActionListener listenForEditListingButton){
         editListingButton.addActionListener(listenForEditListingButton);
+    }
+
+    /**
+     * Adds an action listener to the email landlord button
+     * @param listenForEditListingStateButton
+     */
+    public void addEditListingStateListener(ActionListener listenForEditListingStateButton){
+        editListingStateButton.addActionListener(listenForEditListingStateButton);
     }
 
 

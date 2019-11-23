@@ -14,7 +14,6 @@ public class MainController extends Controller{
     }
 
     public void logoutListen(){
-        // TODO return to login window (server has to also go to verify login)
         System.exit(1);
     }
 

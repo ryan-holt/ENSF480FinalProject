@@ -1,6 +1,7 @@
 package Domain.Controllers;
 
 import Database.*;
+import Utils.Fee;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -17,7 +18,7 @@ import java.util.concurrent.Executors;
  * @author Harsohail Brar
  * @since April 12, 2019
  */
-public class ManagementSystemController implements Fee{
+public class ManagementSystemController{
 
     private static final int PORT = 7000;
     private ServerSocket serverSocket;
@@ -74,4 +75,5 @@ public class ManagementSystemController implements Fee{
     public DatabaseController getDatabaseController() {
         return databaseController;
     }
+
 }

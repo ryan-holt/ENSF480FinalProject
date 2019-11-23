@@ -60,6 +60,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                     case SEARCH_LISTINGS_BY_LANDLORD:
                         searchListingsByLandlord();
                         break;
+                    case GET_ALL_LISTINGS:
+                        getAllListings();
+                        break;
                     case GET_LISTING_FEE:
                         getListingFee();
                         break;
@@ -69,9 +72,48 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                     case EDIT_LISTING:
                         editListing();
                         break;
+                    case EDIT_FEE:
+                        editFee();
+                        break;
+                    case GET_ALL_USERS:
+                        getAllUsers();
+                        break;
                 }
             }
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void getAllUsers(){
+        //Query database
+        ArrayList<User> users = managementSystemController.getDatabaseController().getDatabaseModel().queryAllUsers();
+        try{
+            socketOut.writeObject(users);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void getAllListings(){
+        //Query database
+        ArrayList<Listing> listings = managementSystemController.getDatabaseController().getDatabaseModel().queryAllListings();
+        try{
+            socketOut.writeObject(listings);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void editFee(){
+        try{
+            // Receive fee variables from client
+            double newFeeAmount = (Double)socketIn.readObject();
+            int newFeePeriod = (Integer) socketIn.readObject();
+            // Edit fee object
+            managementSystemController.getDatabaseController().getDatabaseModel().getFee().setFeeAmount(newFeeAmount);
+            managementSystemController.getDatabaseController().getDatabaseModel().getFee().setFeePeriod(newFeePeriod);
+        }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
     }
