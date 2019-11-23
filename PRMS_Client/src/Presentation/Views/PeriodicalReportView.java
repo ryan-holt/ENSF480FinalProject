@@ -1,5 +1,8 @@
 package Presentation.Views;
 
+import javax.swing.*;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Gary Wu
@@ -12,10 +15,11 @@ public class PeriodicalReportView extends javax.swing.JFrame {
     private javax.swing.JLabel dateLab;
     private javax.swing.JLabel numHousesPeriLab;
     private javax.swing.JLabel numHouseRentedLab;
-    private javax.swing.JLabel activeListingCurrLab;
+    private javax.swing.JLabel numOfActiveListingsCurrentlyLabel;
     private javax.swing.JLabel listOfhouseRentLab;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable listTable;
+    private int numOfActiveListings = 0;
 
     /**
      * Creates new form PeriodicalReportView
@@ -28,8 +32,6 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         setVisible(true);
     }
 
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -38,7 +40,7 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         dateLab = new javax.swing.JLabel();
         numHousesPeriLab = new javax.swing.JLabel();
         numHouseRentedLab = new javax.swing.JLabel();
-        activeListingCurrLab = new javax.swing.JLabel();
+        numOfActiveListingsCurrentlyLabel = new javax.swing.JLabel();
         listOfhouseRentLab = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listTable = new javax.swing.JTable();
@@ -58,8 +60,8 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         numHouseRentedLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         numHouseRentedLab.setText("Total number of houses rented in the period: ");
 
-        activeListingCurrLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        activeListingCurrLab.setText("Total number of active listings currently: ");
+        numOfActiveListingsCurrentlyLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        numOfActiveListingsCurrentlyLabel.setText("Total number of active listings currently: " + numOfActiveListings);
 
         listOfhouseRentLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         listOfhouseRentLab.setText("List of houses rented in the period ");
@@ -105,7 +107,7 @@ public class PeriodicalReportView extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(numHouseRentedLab)
                                         .addComponent(dateLab)
-                                        .addComponent(activeListingCurrLab))
+                                        .addComponent(numOfActiveListingsCurrentlyLabel))
                                 .addContainerGap(225, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -139,7 +141,7 @@ public class PeriodicalReportView extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(numHouseRentedLab)
                                 .addGap(18, 18, 18)
-                                .addComponent(activeListingCurrLab)
+                                .addComponent(numOfActiveListingsCurrentlyLabel)
                                 .addGap(18, 18, 18)
                                 .addComponent(listOfhouseRentLab)
                                 .addGap(18, 18, 18)
@@ -153,6 +155,19 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setNumOfActiveListings(int numOfActiveListings){
+        remove(numOfActiveListingsCurrentlyLabel);
+        this.numOfActiveListings = numOfActiveListings;
+        initComponents();
+        revalidate();
+    }
 
-
+    // Action Listeners
+    /**
+     * adds action listener to the edit listing button
+     * @param listenForCloseReportButton
+     */
+    public void addCloseReportButtonListener(ActionListener listenForCloseReportButton){
+        closeReportButton.addActionListener(listenForCloseReportButton);
+    }
 }

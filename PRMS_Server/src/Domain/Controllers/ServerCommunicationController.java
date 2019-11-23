@@ -78,6 +78,8 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                     case GET_ALL_USERS:
                         getAllUsers();
                         break;
+                    case GET_NUM_ACTIVE_LISTINGS:
+                        getNumberOfActiveListings();
                 }
             }
         }catch (Exception e){
@@ -85,9 +87,21 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    public void getNumberOfActiveListings(){
+        // Query database
+        int numOfActiveListings = managementSystemController.getDatabaseController().getDatabaseModel().queryNumOfActiveListings();
+        // Send to client
+        try{
+            socketOut.writeObject(numOfActiveListings);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void getAllUsers(){
         //Query database
         ArrayList<User> users = managementSystemController.getDatabaseController().getDatabaseModel().queryAllUsers();
+        // Send to client
         try{
             socketOut.writeObject(users);
         }catch (IOException e){

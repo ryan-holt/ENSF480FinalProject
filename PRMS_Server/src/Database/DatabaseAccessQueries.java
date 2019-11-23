@@ -14,5 +14,6 @@ public interface DatabaseAccessQueries {
     static final String SQL_ACTIVATE_LISTING = "UPDATE listings SET state = 'Active' WHERE listingID = ?";
     static final String SQL_EDIT_LISTING = "UPDATE listings SET type = ?, bedrooms =?, bathrooms=?, quadrant=?, furnished=?, state=? WHERE listingID=?";
     static final String SQL_GET_ALL_USERS = "SELECT * FROM users";
+    static final String SQL_GET_ACTIVE_LISTINGS = "SELECT * FROM listings WHERE state = 'Active'";
 
 }

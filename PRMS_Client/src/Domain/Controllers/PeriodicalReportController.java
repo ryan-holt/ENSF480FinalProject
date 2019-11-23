@@ -9,6 +9,13 @@ public class PeriodicalReportController extends Controller {
     public PeriodicalReportController(PeriodicalReportView prv, ClientCommunicationController ccc){
         super(ccc);
         periodicalReportView = prv;
+
+        periodicalReportView.addCloseReportButtonListener(e -> closeReportListen());
+    }
+
+    public void closeReportListen(){
+        periodicalReportView.setVisible(false);
+        clientCommunicationController.getMainController().displayView();
     }
 
     @Override
@@ -19,5 +26,9 @@ public class PeriodicalReportController extends Controller {
     @Override
     public void hideView() {
         periodicalReportView.hide();
+    }
+
+    public PeriodicalReportView getPeriodicalReportView() {
+        return periodicalReportView;
     }
 }

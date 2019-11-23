@@ -232,6 +232,22 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         }
     }
 
+    public int queryNumOfActiveListings(){
+        int numOfActiveListings = 0;
+
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_GET_ACTIVE_LISTINGS)) {
+            try (ResultSet rs = pStmt.executeQuery()) {
+                while (rs.next()) {
+                    numOfActiveListings++;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return numOfActiveListings;
+    }
+
     public ArrayList<Listing> filterListingsByBedroom(ArrayList<Listing> listings, String bedrooms){
         if(bedrooms.equals(NO_INPUT)) return listings;
         ArrayList<Listing> filteredListings = new ArrayList<>();

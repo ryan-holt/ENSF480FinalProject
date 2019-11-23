@@ -134,6 +134,10 @@ public class ClientCommunicationController implements UserTypes{
         return createListingController;
     }
 
+    public PeriodicalReportController getPeriodicalReportController() {
+        return periodicalReportController;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }

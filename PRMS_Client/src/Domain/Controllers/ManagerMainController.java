@@ -6,6 +6,7 @@ import Utils.User;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ManagerMainController extends Controller implements Messages{
@@ -60,7 +61,29 @@ public class ManagerMainController extends Controller implements Messages{
    }
 
    public void getReportListen(){
-       // TODO get report listen
+       clientCommunicationController.getMainController().hideView();
+       // TODO prompt for period and get stuff in period
+       // Get number of Active listings
+       int currentNumberOfActiveListings = getCurrentNumberOfActiveListings();
+       // Update Periodical Report View
+       clientCommunicationController.getPeriodicalReportController().getPeriodicalReportView().setNumOfActiveListings(currentNumberOfActiveListings);
+       // Display View
+       clientCommunicationController.getPeriodicalReportController().displayView();
+   }
+
+   public int getCurrentNumberOfActiveListings(){
+       int numOfActiveListings = 0;
+
+       try {
+           // Send action to server
+           clientCommunicationController.getSocketOut().writeObject(GET_NUM_ACTIVE_LISTINGS);
+           // Receive number of active listings from server
+           numOfActiveListings = (Integer) clientCommunicationController.getSocketIn().readObject();
+       }catch (IOException | ClassNotFoundException e){
+           e.printStackTrace();
+       }
+
+       return numOfActiveListings;
    }
 
     public void getListingViewForManager(){
