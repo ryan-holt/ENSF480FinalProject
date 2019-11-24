@@ -1,6 +1,8 @@
 package Utils;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Listing implements Serializable{
 
@@ -14,28 +16,8 @@ public class Listing implements Serializable{
     private Fee fee;
     private String landlordEmail;
     private int listingID;
-
-    public Listing(int id, String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, String landlordEmail){
-        listingID = id;
-        this.type = type;
-        numOfBedrooms = bedrooms;
-        numOfBathrooms = bathrooms;
-        this.furnished = furnished;
-        this.quadrant = quadrant;
-        this.state = state;
-        this.landlordEmail = landlordEmail;
-    }
-
-    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail){
-        this.type = type;
-        numOfBedrooms = bedrooms;
-        numOfBathrooms = bathrooms;
-        this.furnished = furnished;
-        this.quadrant = quadrant;
-        this.state = state;
-        this.fee = fee;
-        this.landlordEmail = landlordEmail;
-    }
+    private Calendar creationDate;
+    private Calendar rentedDate;
 
     public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id){
         this.type = type;
@@ -47,6 +29,7 @@ public class Listing implements Serializable{
         this.fee = fee;
         this.landlordEmail = landlordEmail;
         listingID = id;
+        creationDate = Calendar.getInstance();
     }
 
     // Getters and Setters

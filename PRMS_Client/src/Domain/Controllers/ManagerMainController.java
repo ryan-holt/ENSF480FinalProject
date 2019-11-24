@@ -1,12 +1,12 @@
 package Domain.Controllers;
 
 import Presentation.Views.ManagerMainView;
+import Presentation.Views.PeriodicalReportView;
 import Utils.Listing;
 import Utils.User;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ManagerMainController extends Controller implements Messages{
@@ -62,28 +62,32 @@ public class ManagerMainController extends Controller implements Messages{
 
    public void getReportListen(){
        clientCommunicationController.getMainController().hideView();
-       // TODO prompt for period and get stuff in period
-       // Get number of Active listings
-       int currentNumberOfActiveListings = getCurrentNumberOfActiveListings();
-       // Update Periodical Report View
-       clientCommunicationController.getPeriodicalReportController().getPeriodicalReportView().setNumOfActiveListings(currentNumberOfActiveListings);
-       // Display View
-       clientCommunicationController.getPeriodicalReportController().displayView();
-   }
 
-   public int getCurrentNumberOfActiveListings(){
-       int numOfActiveListings = 0;
+       // Get input from user
+       ArrayList<String> dates = getPeriodicalReportDates();
+       if(dates == null){
+           clientCommunicationController.getMainController().displayView();
+           return;
+       }
 
        try {
            // Send action to server
-           clientCommunicationController.getSocketOut().writeObject(GET_NUM_ACTIVE_LISTINGS);
-           // Receive number of active listings from server
-           numOfActiveListings = (Integer) clientCommunicationController.getSocketIn().readObject();
-       }catch (IOException | ClassNotFoundException e){
+           clientCommunicationController.getSocketOut().writeObject(GET_REPORT_DATA);
+           // Send dates to server
+            clientCommunicationController.getSocketOut().writeObject(dates);
+           // Receive number of houses listed in period
+           int numOfHousesListed = (Integer)clientCommunicationController.getSocketIn().readObject();
+           // Receive number of houses rented in period
+           ArrayList<Listing> rentedListingsInPeriod = (ArrayList<Listing>) clientCommunicationController.getSocketIn().readObject();
+           // Receive total number of current active listings
+           int currActiveListings = (Integer)clientCommunicationController.getSocketIn().readObject();
+           // Update Periodical Report View
+           clientCommunicationController.getPeriodicalReportController().setPeriodicalReportView(new PeriodicalReportView(currActiveListings, numOfHousesListed, rentedListingsInPeriod.size(), rentedListingsInPeriod));
+           // Display View
+           clientCommunicationController.getPeriodicalReportController().displayView();
+       }catch (IOException | ClassNotFoundException e) {
            e.printStackTrace();
        }
-
-       return numOfActiveListings;
    }
 
     public void getListingViewForManager(){
@@ -117,6 +121,27 @@ public class ManagerMainController extends Controller implements Messages{
 
     public void logoutListen(){
         System.exit(1);
+    }
+
+    public ArrayList<String> getPeriodicalReportDates(){
+       ArrayList<String> dates = new ArrayList<>();
+
+       JTextField startDateField = new JTextField();
+       JTextField endDateField = new JTextField();
+       Object[] message = {
+               "Period Start Date: (MM/DD/YY)", startDateField,
+               "Period End Date: (MM/DD/YY)", endDateField,
+       };
+       int option = JOptionPane.showConfirmDialog(null, message, "Periodical Report Criteria", JOptionPane.OK_CANCEL_OPTION);
+       if (option == JOptionPane.OK_OPTION)
+       {
+           dates.add(startDateField.getText());
+           dates.add(endDateField.getText());
+       }else{
+           return null;
+       }
+
+       return dates;
     }
 
     @Override

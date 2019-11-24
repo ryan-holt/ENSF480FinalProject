@@ -31,4 +31,9 @@ public class PeriodicalReportController extends Controller {
     public PeriodicalReportView getPeriodicalReportView() {
         return periodicalReportView;
     }
+
+    public void setPeriodicalReportView(PeriodicalReportView periodicalReportView) {
+        this.periodicalReportView = periodicalReportView;
+        periodicalReportView.addCloseReportButtonListener(e -> closeReportListen());
+    }
 }

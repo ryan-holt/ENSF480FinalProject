@@ -154,7 +154,7 @@ public class ListingController extends Controller implements Messages, ListingSt
         String state = (String)listingView.getListingTableModel().getValueAt(selectedRow, 6);
         String email = (String)listingView.getListingTableModel().getValueAt(selectedRow, 7);
 
-        return new Listing(selectedListingID, type,  bedrooms, bathrooms, furnished, quadrant, state, email);
+        return new Listing(type,  bedrooms, bathrooms, furnished, quadrant,  state, null, email, selectedListingID);
     }
 
     public void backToMenuListen(){

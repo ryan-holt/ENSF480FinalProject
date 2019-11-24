@@ -78,8 +78,8 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                     case GET_ALL_USERS:
                         getAllUsers();
                         break;
-                    case GET_NUM_ACTIVE_LISTINGS:
-                        getNumberOfActiveListings();
+                    case GET_REPORT_DATA:
+                        getReportData();
                 }
             }
         }catch (Exception e){
@@ -87,13 +87,23 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
-    public void getNumberOfActiveListings(){
-        // Query database
-        int numOfActiveListings = managementSystemController.getDatabaseController().getDatabaseModel().queryNumOfActiveListings();
-        // Send to client
-        try{
-            socketOut.writeObject(numOfActiveListings);
-        }catch (IOException e){
+    public void getReportData(){
+        try {
+            // Receive dates from client
+            ArrayList<String> dates = (ArrayList<String>) socketIn.readObject();
+            // Query total number of houses listed in the period
+            int numOfHousesListed = managementSystemController.getDatabaseController().getDatabaseModel().queryNumOfHousesListedInPeriod(dates);
+            // Send total number of houses listed to client
+            socketOut.writeObject(numOfHousesListed);
+            // Query total number houses rented to client
+            ArrayList<Listing> rentedListingsInPeriod = managementSystemController.getDatabaseController().getDatabaseModel().queryHousesRentedInPeriod(dates);
+            // Send total number of houses rented to client
+            socketOut.writeObject(rentedListingsInPeriod);
+            // Query total number active listings currently
+            int totalActiveListingsCurr = managementSystemController.getDatabaseController().getDatabaseModel().queryNumOfActiveListings();
+            // Send total number active listings currently to client
+            socketOut.writeObject(totalActiveListingsCurr);
+        }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
     }
@@ -198,7 +208,7 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
             // Receive listing from client
             Listing newListing = (Listing) socketIn.readObject();
             // Query database to add the new listing
-            managementSystemController.getDatabaseController().getDatabaseModel().addListing(newListing);
+            managementSystemController.getDatabaseController().getDatabaseModel().createListing(newListing);
         }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }

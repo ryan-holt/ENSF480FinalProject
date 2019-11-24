@@ -1,6 +1,10 @@
 package Utils;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Listing implements Serializable{
 
@@ -14,28 +18,9 @@ public class Listing implements Serializable{
     private Fee fee;
     private String landlordEmail;
     private int listingID;
-
-    public Listing(int id, String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, String landlordEmail){
-        listingID = id;
-        this.type = type;
-        numOfBedrooms = bedrooms;
-        numOfBathrooms = bathrooms;
-        this.furnished = furnished;
-        this.quadrant = quadrant;
-        this.state = state;
-        this.landlordEmail = landlordEmail;
-    }
-
-    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail){
-        this.type = type;
-        numOfBedrooms = bedrooms;
-        numOfBathrooms = bathrooms;
-        this.furnished = furnished;
-        this.quadrant = quadrant;
-        this.state = state;
-        this.fee = fee;
-        this.landlordEmail = landlordEmail;
-    }
+    private Calendar creationDate;
+    private Calendar rentedDate;
+    private DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
     public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id){
         this.type = type;
@@ -47,6 +32,47 @@ public class Listing implements Serializable{
         this.fee = fee;
         this.landlordEmail = landlordEmail;
         listingID = id;
+        creationDate = Calendar.getInstance();
+    }
+
+    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id, String cDate, String rDate){
+        this.type = type;
+        numOfBedrooms = bedrooms;
+        numOfBathrooms = bathrooms;
+        this.furnished = furnished;
+        this.quadrant = quadrant;
+        this.state = state;
+        this.fee = fee;
+        this.landlordEmail = landlordEmail;
+        listingID = id;
+        try {
+            creationDate = Calendar.getInstance();
+            rentedDate = Calendar.getInstance();
+            if(cDate != null)
+                creationDate.setTime(df.parse(cDate));
+            if(rDate != null)
+                rentedDate.setTime(df.parse(rDate));
+        }catch (ParseException p){
+            p.printStackTrace();
+        }
+    }
+
+    public boolean isListingInPeriod(String startPeriodDate, String endPeriodDate){
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+
+        try {
+            startDate.setTime(df.parse(startPeriodDate));
+            endDate.setTime(df.parse(endPeriodDate));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        return creationDate.after(startDate) && creationDate.before(endDate);
+    }
+
+    public String getDateString(Calendar date){
+        return date.get(Calendar.MONTH) + "/" + date.get(Calendar.DATE) + "/" + date.get(Calendar.YEAR);
     }
 
     // Getters and Setters
@@ -116,5 +142,13 @@ public class Listing implements Serializable{
 
     public void setQuadrant(String quadrant) {
         this.quadrant = quadrant;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Calendar getCreationDate() {
+        return creationDate;
     }
 }

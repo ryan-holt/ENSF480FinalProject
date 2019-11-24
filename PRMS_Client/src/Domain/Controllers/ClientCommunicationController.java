@@ -6,6 +6,8 @@ import com.sun.tools.javac.Main;
 
 import java.io.*;
 import java.net.*;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * This class is responsible for communicating with the server

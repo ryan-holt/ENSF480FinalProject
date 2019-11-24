@@ -1,6 +1,10 @@
 package Presentation.Views;
 
+import Utils.Listing;
+
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  *
@@ -11,19 +15,34 @@ public class PeriodicalReportView extends javax.swing.JFrame {
 
     private javax.swing.JButton closeReportButton;
     private javax.swing.JLabel periodicalReportTitleLabel;
-    private javax.swing.JLabel numHousesPeriLab;
+    private javax.swing.JLabel numHousesListedLabel;
     private javax.swing.JLabel dateLab;
-    private javax.swing.JLabel numHouseRentedLab;
+    private javax.swing.JLabel numHousesRentedLabel;
     private javax.swing.JLabel numOfActiveListingsCurrentlyLabel;
     private javax.swing.JLabel listOfhouseRentLab;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane tableScrollPane;
     private javax.swing.JTable listTable;
-    private int numOfActiveListings = 0;
+    private DefaultTableModel listTableModel;
+    private int numOfActiveListings;
+    private int numOfHousesListed;
+    private int numOfRentedListings;
+
+    public PeriodicalReportView(int activeListings, int housesListed, int rentedListings, ArrayList<Listing> rentedListingsArray){
+        updateTableModel(rentedListingsArray);
+        numOfActiveListings = activeListings;
+        numOfHousesListed = housesListed;
+        numOfRentedListings = rentedListings;
+        initComponents();
+    }
 
     /**
      * Creates new form PeriodicalReportView
      */
     public PeriodicalReportView() {
+        numOfActiveListings = 0;
+        numOfHousesListed = 0;
+        numOfRentedListings = 0;
+        listTableModel = new DefaultTableModel();
         initComponents();
     }
 
@@ -36,12 +55,12 @@ public class PeriodicalReportView extends javax.swing.JFrame {
     private void initComponents() {
 
         periodicalReportTitleLabel = new javax.swing.JLabel();
-        numHousesPeriLab = new javax.swing.JLabel();
+        numHousesListedLabel = new javax.swing.JLabel();
         dateLab = new javax.swing.JLabel();
-        numHouseRentedLab = new javax.swing.JLabel();
+        numHousesRentedLabel = new javax.swing.JLabel();
         numOfActiveListingsCurrentlyLabel = new javax.swing.JLabel();
         listOfhouseRentLab = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        tableScrollPane = new javax.swing.JScrollPane();
         listTable = new javax.swing.JTable();
         closeReportButton = new javax.swing.JButton();
 
@@ -50,14 +69,14 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         periodicalReportTitleLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         periodicalReportTitleLabel.setText("Periodical Report");
 
-        numHousesPeriLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        numHousesPeriLab.setText("Total number of houses listed in the period: ");
+        numHousesListedLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        numHousesListedLabel.setText("Total number of houses listed in the period: " + numOfHousesListed);
 
         dateLab.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         dateLab.setText("for Date - Date");
 
-        numHouseRentedLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        numHouseRentedLab.setText("Total number of houses rented in the period: ");
+        numHousesRentedLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        numHousesRentedLabel.setText("Total number of houses rented in the period: " + numOfRentedListings);
 
         numOfActiveListingsCurrentlyLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         numOfActiveListingsCurrentlyLabel.setText("Total number of active listings currently: " + numOfActiveListings);
@@ -66,33 +85,8 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         listOfhouseRentLab.setText("List of houses rented in the period ");
 
         listTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        listTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {"Gary",  new Integer(342), "no clure dlfjadfklajdflafdjasdlfjadfadsf"},
-                        {null, null, null},
-                        {null, null, null},
-                        {null, null, null}
-                },
-                new String [] {
-                        "Landlord Name", "House ID Number", "Address"
-                }
-        ) {
-            Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.Integer.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                    false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(listTable);
+        listTable.setModel(listTableModel);
+        tableScrollPane.setViewportView(listTable);
 
         closeReportButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         closeReportButton.setText("Close Report");
@@ -104,8 +98,8 @@ public class PeriodicalReportView extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(numHouseRentedLab)
-                                        .addComponent(numHousesPeriLab)
+                                        .addComponent(numHousesRentedLabel)
+                                        .addComponent(numHousesListedLabel)
                                         .addComponent(numOfActiveListingsCurrentlyLabel))
                                 .addContainerGap(225, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -122,7 +116,7 @@ public class PeriodicalReportView extends javax.swing.JFrame {
                                                 .addComponent(listOfhouseRentLab)
                                                 .addGap(150, 150, 150))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(46, 46, 46))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addComponent(closeReportButton)
@@ -136,15 +130,15 @@ public class PeriodicalReportView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(dateLab)
                                 .addGap(18, 18, 18)
-                                .addComponent(numHousesPeriLab)
+                                .addComponent(numHousesListedLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(numHouseRentedLab)
+                                .addComponent(numHousesRentedLabel)
                                 .addGap(18, 18, 18)
                                 .addComponent(numOfActiveListingsCurrentlyLabel)
                                 .addGap(18, 18, 18)
                                 .addComponent(listOfhouseRentLab)
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
                                 .addComponent(closeReportButton)
                                 .addContainerGap(31, Short.MAX_VALUE))
@@ -159,6 +153,42 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         this.numOfActiveListings = numOfActiveListings;
         initComponents();
         revalidate();
+    }
+
+    public void setNumOfListed(int numOfHousesListed){
+        remove(numHousesListedLabel);
+        this.numOfHousesListed = numOfHousesListed;
+        initComponents();
+        revalidate();
+    }
+
+    public void setNumOfRented(int numOfRentedListings){
+        remove(numHousesRentedLabel);
+        this.numOfRentedListings = numOfRentedListings;
+        initComponents();
+        revalidate();
+    }
+
+    public void updateTableModel(ArrayList<Listing> listings){
+        String[][] data = new String[listings.size()][3];
+        String[] header = {"Landlord Name", "House Address", "House ID"};
+
+        Listing listing;
+        for(int i = 0; i < listings.size(); i++){
+            listing = listings.get(i);
+            data[i][0] = listing.getLandlordEmail();
+            data[i][1] = listing.getState();
+            data[i][2] = String.valueOf(listing.getListingID());
+        }
+
+        DefaultTableModel tableModel = new DefaultTableModel(data, header){
+            public boolean isCellEditable(int rowIndex, int mColIndex){
+                return false;
+            }
+        };
+        listTableModel = tableModel;
+
+        repaint();
     }
 
     // Action Listeners

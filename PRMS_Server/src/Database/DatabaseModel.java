@@ -3,12 +3,15 @@ package Database;
 import Utils.*;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes {
 
     private Connection myConnection;
-    private static int listingID = 5;
     private Fee fee;
 
     public DatabaseModel(Connection c){
@@ -149,6 +152,10 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
     }
 
     public void editListing(Listing listingToBeEdited){
+        if(listingToBeEdited.getState().equals("Rented")){
+            setRentedDate(listingToBeEdited.getListingID());
+        }
+
         try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EDIT_LISTING)) {
             pStmt.setString(1, listingToBeEdited.getType());
             pStmt.setInt(2, listingToBeEdited.getNumOfBedrooms());
@@ -157,6 +164,19 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
             pStmt.setBoolean(5, listingToBeEdited.isFurnished());
             pStmt.setString(6, listingToBeEdited.getState());
             pStmt.setInt(7, listingToBeEdited.getListingID());
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setRentedDate(int listingID){
+        Calendar rentedDate = Calendar.getInstance();
+        String rentedDateString = rentedDate.get(Calendar.MONTH) + "/" + rentedDate.get(Calendar.DATE) + "/" + rentedDate.get(Calendar.YEAR);
+
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_SET_RENTED_DATE)) {
+            pStmt.setString(1, rentedDateString);
+            pStmt.setInt(2, listingID);
             pStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -178,7 +198,9 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                             rs.getString("state"),
                             new Fee(rs.getDouble("fee")),
                             rs.getString("landlordEmail"),
-                            rs.getInt("listingID")));
+                            rs.getInt("listingID"),
+                            rs.getString("creationDate"),
+                            rs.getString("rentedDate")));
                 }
             }
 
@@ -212,7 +234,21 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         return -1;
     }
 
-    public void addListing(Listing listing){
+    public void createListing(Listing listing){
+        ArrayList<Listing> allListings = queryAllListings();
+        int newListingID = 1;
+        if(allListings != null){
+            int largestID = -1;
+            Listing currListing;
+            for(int i = 0; i < allListings.size(); i++){
+                currListing = allListings.get(i);
+                if(currListing.getListingID() > largestID){
+                    largestID = currListing.getListingID();
+                }
+            }
+            newListingID = largestID + 1;
+        }
+
         try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_ADD_LISTING)) {
             pStmt.setInt(1, listing.getNumOfBedrooms());
             pStmt.setInt(2, listing.getNumOfBathrooms());
@@ -222,8 +258,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
             pStmt.setString(6, listing.getState());
             pStmt.setDouble(7, fee.getFeeAmount());
             pStmt.setString(8, listing.getLandlordEmail());
-            pStmt.setInt(9, listingID);
-            listingID++;
+            pStmt.setInt(9, newListingID);
+            pStmt.setString(10, listing.getDateString(listing.getCreationDate()));
             pStmt.executeUpdate();
 
             System.out.println("New listing created!");
@@ -244,9 +280,44 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(numOfActiveListings);
 
         return numOfActiveListings;
     }
+
+    public int queryNumOfHousesListedInPeriod(ArrayList<String> dates){
+        String startPeriodDate = dates.get(0);
+        String endPeriodDate = dates.get(1);
+
+        ArrayList<Listing> allListings = queryAllListings();
+        ArrayList<Listing> filteredListings = new ArrayList<>();
+
+        for(Listing currListing: allListings){
+            if(currListing.isListingInPeriod(startPeriodDate, endPeriodDate)){
+                filteredListings.add(currListing);
+            }
+        }
+
+        return filteredListings.size();
+    }
+
+    public ArrayList<Listing> queryHousesRentedInPeriod(ArrayList<String> dates){
+        String startPeriodDate = dates.get(0);
+        String endPeriodDate = dates.get(1);
+
+        ArrayList<Listing> allListings = queryAllListings();
+        ArrayList<Listing> filteredListings = new ArrayList<>();
+
+        for(Listing currListing: allListings){
+            if(currListing.isListingInPeriod(startPeriodDate, endPeriodDate) && currListing.getState().equals("Rented")){
+                filteredListings.add(currListing);
+            }
+        }
+
+        return filteredListings;
+    }
+
+    /******* FILTERING *******/
 
     public ArrayList<Listing> filterListingsByBedroom(ArrayList<Listing> listings, String bedrooms){
         if(bedrooms.equals(NO_INPUT)) return listings;
