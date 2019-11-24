@@ -108,7 +108,8 @@ public class LoginController extends Controller implements Messages, UserTypes{
                                     accountCreationView.getPasswordField().getText(),
                                     new Name(accountCreationView.getFirstNameField().getText(), accountCreationView.getLastNameField().getText()),
                                     accountType.toLowerCase(),
-                                    accountCreationView.getAddressField().getText());
+                                    accountCreationView.getAddressField().getText(),
+                                    accountCreationView.getEmailField().getText());
 
             clientCommunicationController.getSocketOut().writeObject(newUser);
 

@@ -76,7 +76,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                 pStmt.setString(4, user.getName().getLastName());
                 pStmt.setString(5, user.getUserType());
                 pStmt.setString(6, user.getAddress());
-                pStmt.setString(7, user.getUsername() + "@gmail.com");
+                pStmt.setString(7, user.getEmail());
                 pStmt.executeUpdate();
 
                 System.out.println("New User " + user.getUsername() + " created!");
@@ -280,7 +280,6 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(numOfActiveListings);
 
         return numOfActiveListings;
     }

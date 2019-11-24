@@ -13,11 +13,11 @@ public class AccountCreationView extends JFrame{
 
     private JComboBox accountTypeList;
 
-    private JTextField usernameField, firstNameField, lastNameField, addressField;
+    private JTextField usernameField, firstNameField, lastNameField, addressField, emailField;
     private JPasswordField passwordField;
 
-    private final int width = 250;
-    private final int height = 300;
+    private final int width = 225;
+    private final int height = 325;
 
     public AccountCreationView(){
         titlePanel = new JPanel();
@@ -41,6 +41,7 @@ public class AccountCreationView extends JFrame{
         firstNameField = new JTextField(10);
         lastNameField = new JTextField(10);
         addressField = new JTextField(10);
+        emailField = new JTextField(10);
 
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setLabelFor(usernameField);
@@ -61,6 +62,11 @@ public class AccountCreationView extends JFrame{
         lastNameLabel.setLabelFor(lastNameField);
         centerPanel.add(lastNameLabel);
         centerPanel.add(lastNameField);
+
+        JLabel emailLabel = new JLabel("Email:");
+        lastNameLabel.setLabelFor(emailField);
+        centerPanel.add(emailLabel);
+        centerPanel.add(emailField);
 
         JLabel addressLabel = new JLabel("Address:");
         addressLabel.setLabelFor(addressField);
@@ -139,5 +145,9 @@ public class AccountCreationView extends JFrame{
 
     public JPasswordField getPasswordField() {
         return passwordField;
+    }
+
+    public JTextField getEmailField() {
+        return emailField;
     }
 }

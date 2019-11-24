@@ -83,7 +83,7 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                 }
             }
         }catch (Exception e){
-            e.printStackTrace();
+            System.out.println("User logged out!");
         }
     }
 
