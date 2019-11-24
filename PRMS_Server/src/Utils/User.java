@@ -54,10 +54,12 @@ public class User implements UserTypes, Serializable, Observer {
     @Override
     public void update(Listing newListing) {
         EmailSender emailSender = new EmailSender();
-        try {
-            emailSender.sendMail(email, "New Listing matching your searches!", "PRMS_Notifier", newListing);
-        }catch (MessagingException e){
-            e.printStackTrace();
-        }
+        Thread sendEmailThread = new Thread(() -> {
+            try {
+                emailSender.sendMail(email, "New Listing matching your searches!", "PRMS_Notifier", newListing);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

@@ -86,15 +86,21 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                     case GET_REPORT_DATA:
                         getReportData();
                     case SEND_EMAIL:
+                        Thread sendEmailThread = new Thread(() -> sendEmail());
                         sendEmail();
+                    case UNSUBSCRIBE:
+                        unsubscribe();
                 }
 
                 expireListings();
             }
         }catch (Exception e){
-            e.printStackTrace();
             System.out.println("User logged out!");
         }
+    }
+
+    public void unsubscribe(){
+        managementSystemController.getDatabaseController().getDatabaseModel().removeObserver(user);
     }
 
     public void expireListings(){

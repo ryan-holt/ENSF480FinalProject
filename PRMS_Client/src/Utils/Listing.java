@@ -13,13 +13,16 @@ public class Listing implements Serializable{
     private boolean furnished;
     private String quadrant;
     private String state;
+    private String address;
+
     private Fee fee;
     private String landlordEmail;
     private int listingID;
+
     private Calendar creationDate;
     private Calendar rentedDate;
 
-    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id){
+    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id, String address){
         this.type = type;
         numOfBedrooms = bedrooms;
         numOfBathrooms = bathrooms;
@@ -30,6 +33,7 @@ public class Listing implements Serializable{
         this.landlordEmail = landlordEmail;
         listingID = id;
         creationDate = Calendar.getInstance();
+        this.address = address;
     }
 
     // Getters and Setters
@@ -103,5 +107,9 @@ public class Listing implements Serializable{
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }

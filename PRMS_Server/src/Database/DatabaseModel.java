@@ -164,7 +164,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                              rs.getString("state"),
                                              new Fee(rs.getDouble("fee")),
                                              rs.getString("landlordEmail"),
-                                             rs.getInt("listingID")));
+                                             rs.getInt("listingID"),
+                                             rs.getString("address")));
                 }
             }
 
@@ -248,7 +249,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                             rs.getInt("listingID"),
                             rs.getString("creationDate"),
                             rs.getString("rentedDate"),
-                            rs.getString("expirationDate")));
+                            rs.getString("expirationDate"),
+                            rs.getString("address")));
                 }
             }
 
@@ -330,7 +332,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                             rs.getString("state"),
                             new Fee(rs.getDouble("fee")),
                             rs.getString("landlordEmail"),
-                            rs.getInt("listingID"));
+                            rs.getInt("listingID"),
+                            rs.getString("address"));
                 }
             }
         } catch (SQLException e) {
@@ -367,6 +370,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
             pStmt.setString(8, listing.getLandlordEmail());
             pStmt.setInt(9, newListingID);
             pStmt.setString(10, listing.getDateString(listing.getCreationDate()));
+            pStmt.setString(11, listing.getAddress());
             pStmt.executeUpdate();
 
             System.out.println("New listing created!");

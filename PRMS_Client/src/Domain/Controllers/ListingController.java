@@ -158,7 +158,7 @@ public class ListingController extends Controller implements Messages, ListingSt
         boolean furnished = listingView.getListingTableModel().getValueAt(selectedRow, 5).equals("Yes");
         String state = (String)listingView.getListingTableModel().getValueAt(selectedRow, 6);
 
-        return new Listing(type,  bedrooms, bathrooms, furnished, quadrant,  state, null, null, selectedListingID);
+        return new Listing(type,  bedrooms, bathrooms, furnished, quadrant,  state, null, null, selectedListingID, null);
     }
 
     public void backToMenuListen(){

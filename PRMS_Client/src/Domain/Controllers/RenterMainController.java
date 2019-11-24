@@ -2,7 +2,10 @@ package Domain.Controllers;
 
 import Presentation.Views.RenterMainView;
 
-public class RenterMainController extends Controller{
+import javax.swing.*;
+import java.io.IOException;
+
+public class RenterMainController extends Controller implements Messages{
 
     private RenterMainView renterMainView;
 
@@ -12,6 +15,18 @@ public class RenterMainController extends Controller{
 
         renterMainView.addLogoutListener(e -> logoutListen());
         renterMainView.addSearchListingListener(e -> searchListingListen());
+        renterMainView.addUnsubscribeListener(e -> unsubscribeListen());
+    }
+
+    public void unsubscribeListen(){
+        try {
+            // Send action to server
+            clientCommunicationController.getSocketOut().writeObject(UNSUBSCRIBE);
+
+            JOptionPane.showMessageDialog(null, "Unsubscribed!");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void searchListingListen(){

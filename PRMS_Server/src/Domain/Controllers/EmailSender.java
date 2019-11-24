@@ -45,12 +45,15 @@ public class EmailSender {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
             message.setSubject("DO NOT REPLY PRMS Property Email");
             message.setText("Email from: " + clientEmail + "\n" +
+                            "---------------------" + "\n" +
                             "For Listing ID: " + listing.getListingID() + "\n" +
-                            "Listing Type: " + listing.getType() + "\n"+
-                            "Listing Bedrooms: " + listing.getNumOfBedrooms() + "\n"+
-                            "Listing Bathrooms: " + listing.getNumOfBathrooms() + "\n"+
-                            "Listing Furnished: " + listing.isFurnishedString() + "\n"+
-                            "Listing Quadrant: " + listing.getQuadrant() + "\n"+
+                            "Type: " + listing.getType() + "\n"+
+                            "Bedrooms: " + listing.getNumOfBedrooms() + "\n"+
+                            "Bathrooms: " + listing.getNumOfBathrooms() + "\n"+
+                            "Furnished: " + listing.isFurnishedString() + "\n"+
+                            "Quadrant: " + listing.getQuadrant() + "\n"+
+                            "Address: " + listing.getAddress() + "\n" +
+                            "---------------------" + "\n" +
                             clientMessage + "\n");
             num++;
             return message;

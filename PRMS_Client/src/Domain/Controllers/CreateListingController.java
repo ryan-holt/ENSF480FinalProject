@@ -27,8 +27,9 @@ public class CreateListingController extends Controller implements Messages, Lis
         boolean furnished = createListingView.getFurnishedSelectorItem();
         String cityQuadrant = (String)createListingView.getCityQuadBox().getSelectedItem();
         String landlordEmail = clientCommunicationController.getUser().getEmail();
+        String address = createListingView.getAddressField().getText();
 
-        Listing newListing = new Listing(houseType, numOfBedrooms, numOfBathrooms, furnished, cityQuadrant, NOT_ACTIVE, null, landlordEmail, 0);
+        Listing newListing = new Listing(houseType, numOfBedrooms, numOfBathrooms, furnished, cityQuadrant, NOT_ACTIVE, null, landlordEmail, 0, address);
 
         try {
             // Send action to server

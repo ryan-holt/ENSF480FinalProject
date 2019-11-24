@@ -16,15 +16,18 @@ public class Listing implements Serializable{
     private boolean furnished;
     private String quadrant;
     private String state;
+    private String address;
+
     private Fee fee;
     private String landlordEmail;
     private int listingID;
+
     private Calendar creationDate;
     private Calendar rentedDate;
     private Calendar expirationDate;
     private DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
-    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id){
+    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id, String address){
         this.type = type;
         numOfBedrooms = bedrooms;
         numOfBathrooms = bathrooms;
@@ -35,9 +38,10 @@ public class Listing implements Serializable{
         this.landlordEmail = landlordEmail;
         listingID = id;
         creationDate = Calendar.getInstance();
+        this.address = address;
     }
 
-    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id, String cDate, String rDate, String eDate){
+    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id, String cDate, String rDate, String eDate, String address){
         this.type = type;
         numOfBedrooms = bedrooms;
         numOfBathrooms = bathrooms;
@@ -47,6 +51,7 @@ public class Listing implements Serializable{
         this.fee = fee;
         this.landlordEmail = landlordEmail;
         listingID = id;
+        this.address = address;
         try {
             creationDate = Calendar.getInstance();
             rentedDate = Calendar.getInstance();
@@ -162,5 +167,9 @@ public class Listing implements Serializable{
 
     public Calendar getCreationDate() {
         return creationDate;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }

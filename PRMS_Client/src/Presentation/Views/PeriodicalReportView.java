@@ -156,7 +156,7 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         for(int i = 0; i < listings.size(); i++){
             listing = listings.get(i);
             data[i][0] = landlords.get(i).getName().toString();
-            data[i][1] = listing.getState();
+            data[i][1] = listing.getAddress();
             data[i][2] = String.valueOf(listing.getListingID());
         }
 

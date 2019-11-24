@@ -16,6 +16,8 @@ public class CreateListingView extends javax.swing.JFrame {
     private JComboBox<String> numBathroomsBox;
     private JComboBox<String> FurnishedBox;
     private JComboBox<String> cityQuadBox;
+    private JTextField addressField;
+    private JLabel addressLabel;
     private JLabel createListingLabel;
     private JLabel houseTypeLabel;
     private JLabel numBedroomsLabel;
@@ -23,7 +25,7 @@ public class CreateListingView extends javax.swing.JFrame {
     private JLabel Furnished;
     private JLabel cityQuadLabel;
     private JLabel doneStatementLabel;
-    // TODO add address to listing
+
 
     /**
      * Creates new form listing
@@ -51,6 +53,9 @@ public class CreateListingView extends javax.swing.JFrame {
         cityQuadBox = new JComboBox<>();
         createListingButton = new JButton();
         doneStatementLabel = new JLabel();
+        addressLabel = new JLabel();
+        addressField = new JTextField(10);
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,11 +97,17 @@ public class CreateListingView extends javax.swing.JFrame {
         cityQuadBox.setModel(new DefaultComboBoxModel<>(new String[] { "SW", "NW", "NE", "SE" }));
         cityQuadBox.addActionListener(this::jComboBox5ActionPerformed);
 
+        addressLabel.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
+        addressLabel.setText("Address:");
+
+        addressField.setSize(50, 10);
+        addressField.addActionListener(this::jComboBox6ActionPerformed);
+
         createListingButton.setFont(new Font("Tahoma", Font.PLAIN, 14)); // NOI18N
         createListingButton.setText("Create Listing");
 
         doneStatementLabel.setFont(new Font("Tahoma", Font.BOLD, 14)); // NOI18N
-        doneStatementLabel.setText("Click Done when finished");
+        doneStatementLabel.setText("Click create when finished");
 
         javax.swing.GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,6 +137,11 @@ public class CreateListingView extends javax.swing.JFrame {
                                                                 .addComponent(numBathroomLabel, GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(18, 18, 18)
                                                                 .addComponent(numBathroomsBox, GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(addressLabel, GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(addressField, GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+
                                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                                                 .addComponent(doneStatementLabel)
                                                                 .addGroup(layout.createSequentialGroup()
@@ -165,12 +181,15 @@ public class CreateListingView extends javax.swing.JFrame {
                                         .addComponent(cityQuadBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(cityQuadLabel))
                                 .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(addressLabel))
+                                .addGap(18, 18, 18)
                                 .addComponent(doneStatementLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(createListingButton)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -187,6 +206,9 @@ public class CreateListingView extends javax.swing.JFrame {
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
+    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+    }//GEN-LAST:event_jComboBox4ActionPerformed
+
     private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
     }//GEN-LAST:event_jComboBox5ActionPerformed
 
@@ -201,6 +223,7 @@ public class CreateListingView extends javax.swing.JFrame {
     public void addCreateListingListener(ActionListener listenForCreateListingButton){
         createListingButton.addActionListener(listenForCreateListingButton);
     }
+
 
     public boolean getFurnishedSelectorItem(){
         String furnished = (String)getFurnishedBox().getSelectedItem();
@@ -229,5 +252,9 @@ public class CreateListingView extends javax.swing.JFrame {
 
     public JComboBox<String> getCityQuadBox() {
         return cityQuadBox;
+    }
+
+    public JTextField getAddressField() {
+        return addressField;
     }
 }
