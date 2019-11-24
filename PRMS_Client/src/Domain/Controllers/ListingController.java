@@ -103,6 +103,7 @@ public class ListingController extends Controller implements Messages, ListingSt
         String[] bathrooms = { "1", "2", "3", "4", "5" };
         String[] furnished = { "Yes", "No" };
         String[] quadrant = { "SW", "NW", "NE", "SE" };
+        String[] state = {NOT_ACTIVE, ACTIVE, RENTED};
 
         String editType = (String) JOptionPane.showInputDialog(null, "Select Type:",
                                                                 editListing, JOptionPane.QUESTION_MESSAGE, null,
@@ -119,12 +120,16 @@ public class ListingController extends Controller implements Messages, ListingSt
         String editQuadrant = (String) JOptionPane.showInputDialog(null, "Select Quadrant:",
                                                                 editListing, JOptionPane.QUESTION_MESSAGE, null,
                                                                 quadrant, quadrant[getIndex(quadrant, listing.getQuadrant())]);
+        String editState = (String) JOptionPane.showInputDialog(null, "Select State:",
+                                                                editListing, JOptionPane.QUESTION_MESSAGE, null,
+                                                                state, state[getIndex(state, listing.getState())]);
 
         listing.setType(editType);
         listing.setNumOfBedrooms(Integer.parseInt(editBedrooms));
         listing.setNumOfBathrooms(Integer.parseInt(editBathrooms));
-        listing.setFurnishedString(editFurnished);
+        listing.setFurnishedString(editFurnished);g
         listing.setQuadrant(editQuadrant);
+        listing.setState(editState);
 
         return listing;
     }

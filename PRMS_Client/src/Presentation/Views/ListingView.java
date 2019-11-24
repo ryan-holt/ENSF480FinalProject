@@ -75,14 +75,23 @@ public class ListingView extends JFrame {
         if(centrePanel != null)
             remove(centrePanel);
 
+
         centrePanel = new JPanel();
         add("Center", centrePanel);
 
         listingTable = new JTable(listingTableModel);
+        listingTable.setPreferredSize(new Dimension(800, 900));
+        listingTable.setPreferredScrollableViewportSize(listingTable.getPreferredSize());
         listingTable.getTableHeader().setReorderingAllowed(false);
         listingScrollPane = new JScrollPane(listingTable);
 
         centrePanel.add(listingScrollPane, BorderLayout.LINE_END);
+        listingTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        listingTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+        listingTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+        listingTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+        listingTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+        listingTable.getColumnModel().getColumn(4).setPreferredWidth(100);
         revalidate();
     }
 
