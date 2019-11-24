@@ -2,10 +2,13 @@ package Database;
 
 public interface DatabaseAccessQueries {
 
+    // Users table
     static final String SQL_GET_USER = "SELECT * FROM users WHERE username =? and password =?";
     static final String SQL_GET_USER_BY_USERNAME = "SELECT * FROM users WHERE username =?";
+    static final String SQL_GET_USER_BY_EMAIL = "SELECT * FROM users WHERE email =?";
     static final String SQL_ADD_USER = "INSERT INTO users (username, password, firstName, " +
                                                             "lastName, userType, address, email) values(?,?,?,?,?,?,?)";
+    // Listings table
     static final String SQL_SEARCH_LISTINGS = "SELECT * FROM listings WHERE bedrooms =? AND bathrooms =? AND type =? AND quadrant =? AND furnished =?";
     static final String SQL_GET_ALL_LISTINGS = "SELECT * FROM listings";
     static final String SQL_ADD_LISTING = "INSERT INTO listings (bedrooms, bathrooms, type, quadrant, furnished, state, fee, landlordEmail, listingID, creationDate) values(?,?,?,?,?,?,?,?,?,?)";
@@ -17,5 +20,10 @@ public interface DatabaseAccessQueries {
     static final String SQL_GET_ALL_USERS = "SELECT * FROM users";
     static final String SQL_GET_ACTIVE_LISTINGS = "SELECT * FROM listings WHERE state = 'Active'";
     static final String SQL_SET_RENTED_DATE = "UPDATE listings SET rentedDate = ? WHERE listingID = ?";
+    static final String SQL_SET_EXPIRATION_DATE = "UPDATE listings SET expirationDate = ? WHERE listingID = ?";
+    static final String SQL_EXPIRE_LISTINGS = "UPDATE listings SET state = 'Not Active' WHERE expirationDate = ?";
+
+    // Queries table
+    static final String SQL_SAVE_QUERY = "INSERT INTO queries (email, type, bedrooms, bathrooms, furnished, quadrant) values (?,?,?,?,?,?)";
 
 }

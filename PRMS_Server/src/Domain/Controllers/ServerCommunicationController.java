@@ -3,6 +3,7 @@ package Domain.Controllers;
 import Database.Messages;
 import Utils.*;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -22,6 +23,8 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
     private ObjectInputStream socketIn;
     private ObjectOutputStream socketOut;
     private ManagementSystemController managementSystemController;
+    private EmailSender emailSender;
+    private User user;
 
     public ServerCommunicationController(Socket s, ManagementSystemController managementSystemController) {
         try {
@@ -35,6 +38,8 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
             System.out.println("ServerCommController: Create ServerCommController Error");
             e.printStackTrace();
         }
+
+        emailSender = new EmailSender();
     }
 
     @Override
@@ -80,10 +85,37 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                         break;
                     case GET_REPORT_DATA:
                         getReportData();
+                    case SEND_EMAIL:
+                        sendEmail();
                 }
+
+                expireListings();
             }
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println("User logged out!");
+        }
+    }
+
+    public void expireListings(){
+        // TODO expire listings not updating status
+        managementSystemController.getDatabaseController().getDatabaseModel().expireListings();
+    }
+
+    public void sendEmail(){
+        try {
+            // Receive listingID from client
+            int listingID = (Integer) socketIn.readObject();
+            // Receive clientEmail from client
+            String clientEmail = (String) socketIn.readObject();
+            // Receive clientMessage from client
+            String clientMessage = (String) socketIn.readObject();
+            // Query listing with listing ID to get landlord email
+            Listing listing = managementSystemController.getDatabaseController().getDatabaseModel().queryListingByID(listingID);
+            // Send email to landlord
+            emailSender.sendMail(listing.getLandlordEmail(), clientMessage, clientEmail, listing);
+        }catch (IOException | ClassNotFoundException | MessagingException e){
+            e.printStackTrace();
         }
     }
 
@@ -103,6 +135,14 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
             int totalActiveListingsCurr = managementSystemController.getDatabaseController().getDatabaseModel().queryNumOfActiveListings();
             // Send total number active listings currently to client
             socketOut.writeObject(totalActiveListingsCurr);
+
+            // Query landlord names for rented listings
+            ArrayList<User> landlords = new ArrayList<>();
+            for(Listing rentedListing: rentedListingsInPeriod){
+                landlords.add(managementSystemController.getDatabaseController().getDatabaseModel().getUserByEmail(rentedListing.getLandlordEmail()));
+            }
+            // Send landlords to client
+            socketOut.writeObject(landlords);
         }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
@@ -169,7 +209,7 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
             // Receive listing id from client
             int listingID = (Integer) socketIn.readObject();
             // Query database
-            double fee = managementSystemController.getDatabaseController().getDatabaseModel().queryListingFeeByID(listingID);
+            double fee = managementSystemController.getDatabaseController().getDatabaseModel().queryListingByID(listingID).getFee().getFeeAmount();
             // Send response to client
             socketOut.writeObject(fee);
         }catch (IOException | ClassNotFoundException e){
@@ -195,7 +235,7 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
             // Receive query from client
             ArrayList<String> listingsQuery = (ArrayList<String>) socketIn.readObject();
             // Query database
-            ArrayList<Listing> listings = managementSystemController.getDatabaseController().getDatabaseModel().queryListings(listingsQuery);
+            ArrayList<Listing> listings = managementSystemController.getDatabaseController().getDatabaseModel().querySearchListings(listingsQuery, user);
             // Send queried listings to client
             socketOut.writeObject(listings);
         }catch (IOException | ClassNotFoundException e){
@@ -243,6 +283,7 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                         if (databaseResponseUser != null) {
                             socketOut.writeObject(databaseResponseUser);
                             System.out.println("Login Success!");
+                            user = databaseResponseUser;
                             verified = true;
                             return;
                         } else {
@@ -287,6 +328,10 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
     // Getters and setters
     public void setManagementSystemController(ManagementSystemController managementSystemController) {
         this.managementSystemController = managementSystemController;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
 

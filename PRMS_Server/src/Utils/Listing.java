@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 public class Listing implements Serializable{
 
+    // TODO fee period
     private static final long serialVersionUID = 6L;
     private String type;
     private int numOfBedrooms;
@@ -20,6 +21,7 @@ public class Listing implements Serializable{
     private int listingID;
     private Calendar creationDate;
     private Calendar rentedDate;
+    private Calendar expirationDate;
     private DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
     public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id){
@@ -35,7 +37,7 @@ public class Listing implements Serializable{
         creationDate = Calendar.getInstance();
     }
 
-    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id, String cDate, String rDate){
+    public Listing(String type, int bedrooms, int bathrooms, boolean furnished, String quadrant, String state, Fee fee, String landlordEmail, int id, String cDate, String rDate, String eDate){
         this.type = type;
         numOfBedrooms = bedrooms;
         numOfBathrooms = bathrooms;
@@ -48,10 +50,13 @@ public class Listing implements Serializable{
         try {
             creationDate = Calendar.getInstance();
             rentedDate = Calendar.getInstance();
+            expirationDate = Calendar.getInstance();
             if(cDate != null)
                 creationDate.setTime(df.parse(cDate));
             if(rDate != null)
                 rentedDate.setTime(df.parse(rDate));
+            if(eDate != null)
+                expirationDate.setTime(df.parse(eDate));
         }catch (ParseException p){
             p.printStackTrace();
         }
@@ -69,6 +74,13 @@ public class Listing implements Serializable{
         }
 
         return creationDate.after(startDate) && creationDate.before(endDate);
+    }
+
+    public String setExpirationDate(int period){
+        System.out.println(period);
+        expirationDate = Calendar.getInstance();
+        expirationDate.set(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DATE) + period);
+        return getDateString(expirationDate);
     }
 
     public String getDateString(Calendar date){

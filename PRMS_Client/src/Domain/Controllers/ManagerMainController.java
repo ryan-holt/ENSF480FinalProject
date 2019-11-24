@@ -81,8 +81,12 @@ public class ManagerMainController extends Controller implements Messages{
            ArrayList<Listing> rentedListingsInPeriod = (ArrayList<Listing>) clientCommunicationController.getSocketIn().readObject();
            // Receive total number of current active listings
            int currActiveListings = (Integer)clientCommunicationController.getSocketIn().readObject();
+
+           // Receive landlords for each rented listing
+           ArrayList<User> landlords = (ArrayList<User>) clientCommunicationController.getSocketIn().readObject();
+
            // Update Periodical Report View
-           clientCommunicationController.getPeriodicalReportController().setPeriodicalReportView(new PeriodicalReportView(currActiveListings, numOfHousesListed, rentedListingsInPeriod.size(), rentedListingsInPeriod));
+           clientCommunicationController.getPeriodicalReportController().setPeriodicalReportView(new PeriodicalReportView(currActiveListings, numOfHousesListed, rentedListingsInPeriod.size(), rentedListingsInPeriod, landlords));
            // Display View
            clientCommunicationController.getPeriodicalReportController().displayView();
        }catch (IOException | ClassNotFoundException e) {
@@ -129,8 +133,8 @@ public class ManagerMainController extends Controller implements Messages{
        JTextField startDateField = new JTextField();
        JTextField endDateField = new JTextField();
        Object[] message = {
-               "Period Start Date: (MM/DD/YY)", startDateField,
-               "Period End Date: (MM/DD/YY)", endDateField,
+               "Period Start Date: (MM/DD/YYYY)", startDateField,
+               "Period End Date: (MM/DD/YYYY)", endDateField,
        };
        int option = JOptionPane.showConfirmDialog(null, message, "Periodical Report Criteria", JOptionPane.OK_CANCEL_OPTION);
        if (option == JOptionPane.OK_OPTION)

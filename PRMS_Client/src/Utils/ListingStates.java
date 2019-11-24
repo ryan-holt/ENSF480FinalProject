@@ -7,5 +7,6 @@ public interface ListingStates {
     static final String RENTED = "Rented";
     static final String CANCELLED = "Cancelled";
     static final String SUSPENDED = "Suspended";
+    static final String NO_INPUT = "-";
 
 }

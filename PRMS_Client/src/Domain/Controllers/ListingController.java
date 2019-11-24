@@ -127,7 +127,7 @@ public class ListingController extends Controller implements Messages, ListingSt
         listing.setType(editType);
         listing.setNumOfBedrooms(Integer.parseInt(editBedrooms));
         listing.setNumOfBathrooms(Integer.parseInt(editBathrooms));
-        listing.setFurnishedString(editFurnished);g
+        listing.setFurnishedString(editFurnished);
         listing.setQuadrant(editQuadrant);
         listing.setState(editState);
 
@@ -157,9 +157,8 @@ public class ListingController extends Controller implements Messages, ListingSt
         String quadrant = (String)listingView.getListingTableModel().getValueAt(selectedRow, 4);
         boolean furnished = listingView.getListingTableModel().getValueAt(selectedRow, 5).equals("Yes");
         String state = (String)listingView.getListingTableModel().getValueAt(selectedRow, 6);
-        String email = (String)listingView.getListingTableModel().getValueAt(selectedRow, 7);
 
-        return new Listing(type,  bedrooms, bathrooms, furnished, quadrant,  state, null, email, selectedListingID);
+        return new Listing(type,  bedrooms, bathrooms, furnished, quadrant,  state, null, null, selectedListingID);
     }
 
     public void backToMenuListen(){
@@ -174,8 +173,38 @@ public class ListingController extends Controller implements Messages, ListingSt
             JOptionPane.showMessageDialog(null, "Please select a listing!");
             return;
         }else{
-            // TODO Get input and send email
-            System.out.println("WILL SEND EMAIL AFTER IMPLEMENTATION");
+            int selectedListingID = Integer.parseInt((String)listingView.getListingTableModel().getValueAt(selectedRow, 0));
+            JTextField emailField = new JTextField();
+            JTextField messageField = new JTextField();
+            Object[] textFields = {
+                    "Your Email:", emailField,
+                    "Message:", messageField
+            };
+
+            String email = null;
+            String message = null;
+            int option = JOptionPane.showConfirmDialog(null, textFields, "Send Email", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                email = emailField.getText();
+                message = messageField.getText();
+            } else {
+                JOptionPane.showMessageDialog(null, "Email failed!");
+            }
+
+            try {
+                // Send action to server
+                clientCommunicationController.getSocketOut().writeObject(SEND_EMAIL);
+                // Send listing ID to server
+                clientCommunicationController.getSocketOut().writeObject(selectedListingID);
+                // Send email to server
+                clientCommunicationController.getSocketOut().writeObject(email);
+                // Send message to server
+                clientCommunicationController.getSocketOut().writeObject(message);
+
+                JOptionPane.showMessageDialog(null, "Email sent!");
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 

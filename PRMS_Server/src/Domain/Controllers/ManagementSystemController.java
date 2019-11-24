@@ -28,7 +28,7 @@ public class ManagementSystemController{
     public ManagementSystemController() {
         try {
             serverSocket = new ServerSocket(PORT);
-            databaseController = new DatabaseController();
+            databaseController = DatabaseController.getDatabaseControllerInstance();
             pool = Executors.newFixedThreadPool(10);
             System.out.println("Server is running");
             printIPInfo();

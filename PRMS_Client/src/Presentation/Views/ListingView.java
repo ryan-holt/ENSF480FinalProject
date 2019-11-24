@@ -96,8 +96,8 @@ public class ListingView extends JFrame {
     }
 
     public void updateListingTableModel(ArrayList<Listing> listings){
-        String[][] data = new String[listings.size()][8];
-        String[] header = {"Listing ID", "Type", "Bedrooms", "Bathrooms", "Quadrant", "Furnished", "State", "Landlord Email"};
+        String[][] data = new String[listings.size()][7];
+        String[] header = {"Listing ID", "Type", "Bedrooms", "Bathrooms", "Quadrant", "Furnished", "State"};
 
         Listing listing;
         for(int i = 0; i < listings.size(); i++){
@@ -113,7 +113,6 @@ public class ListingView extends JFrame {
                 data[i][5] = "No";
             }
             data[i][6] = listing.getState();
-            data[i][7] = listing.getLandlordEmail();
         }
 
         DefaultTableModel tableModel = new DefaultTableModel(data, header){

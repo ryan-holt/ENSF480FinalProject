@@ -1,6 +1,7 @@
 package Presentation.Views;
 
 import Utils.Listing;
+import Utils.User;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
  * @author Gary Wu
  */
 public class PeriodicalReportView extends javax.swing.JFrame {
-
 
     private javax.swing.JButton closeReportButton;
     private javax.swing.JLabel periodicalReportTitleLabel;
@@ -27,8 +27,8 @@ public class PeriodicalReportView extends javax.swing.JFrame {
     private int numOfHousesListed;
     private int numOfRentedListings;
 
-    public PeriodicalReportView(int activeListings, int housesListed, int rentedListings, ArrayList<Listing> rentedListingsArray){
-        updateTableModel(rentedListingsArray);
+    public PeriodicalReportView(int activeListings, int housesListed, int rentedListings, ArrayList<Listing> rentedListingsArray, ArrayList<User> landlords){
+        updateTableModel(rentedListingsArray, landlords);
         numOfActiveListings = activeListings;
         numOfHousesListed = housesListed;
         numOfRentedListings = rentedListings;
@@ -148,35 +148,14 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setNumOfActiveListings(int numOfActiveListings){
-        remove(numOfActiveListingsCurrentlyLabel);
-        this.numOfActiveListings = numOfActiveListings;
-        initComponents();
-        revalidate();
-    }
-
-    public void setNumOfListed(int numOfHousesListed){
-        remove(numHousesListedLabel);
-        this.numOfHousesListed = numOfHousesListed;
-        initComponents();
-        revalidate();
-    }
-
-    public void setNumOfRented(int numOfRentedListings){
-        remove(numHousesRentedLabel);
-        this.numOfRentedListings = numOfRentedListings;
-        initComponents();
-        revalidate();
-    }
-
-    public void updateTableModel(ArrayList<Listing> listings){
+    public void updateTableModel(ArrayList<Listing> listings, ArrayList<User> landlords){
         String[][] data = new String[listings.size()][3];
         String[] header = {"Landlord Name", "House Address", "House ID"};
 
         Listing listing;
         for(int i = 0; i < listings.size(); i++){
             listing = listings.get(i);
-            data[i][0] = listing.getLandlordEmail();
+            data[i][0] = landlords.get(i).getName().toString();
             data[i][1] = listing.getState();
             data[i][2] = String.valueOf(listing.getListingID());
         }

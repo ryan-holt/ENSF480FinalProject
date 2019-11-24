@@ -15,13 +15,14 @@ import java.sql.SQLException;
 public class DatabaseController implements DatabaseCredentials{
 
     //MEMBER VARIABLES
+    public static DatabaseController databaseControllerInstance;
     private Connection myConnection;
     private DatabaseModel databaseModel;
 
     /**
      * creates a database controller object
      */
-    public DatabaseController(){
+    private DatabaseController(){
         initializeConnection();
     }
 
@@ -51,6 +52,18 @@ public class DatabaseController implements DatabaseCredentials{
     }
 
     //GETTERS AND SETTERS
+
+    /**
+     * Singleton design pattern to enforce only once connection between server and database
+     * @return DatabaseController instance
+     */
+    public static DatabaseController getDatabaseControllerInstance(){
+        if(databaseControllerInstance == null){
+            databaseControllerInstance = new DatabaseController();
+        }
+        return databaseControllerInstance;
+    }
+
     /**
      * @return the databaseModel
      */

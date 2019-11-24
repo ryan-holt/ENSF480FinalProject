@@ -23,6 +23,7 @@ public class CreateListingView extends javax.swing.JFrame {
     private JLabel Furnished;
     private JLabel cityQuadLabel;
     private JLabel doneStatementLabel;
+    // TODO add address to listing
 
     /**
      * Creates new form listing

@@ -2,12 +2,12 @@ package Database;
 
 import Utils.*;
 
-import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes {
 
@@ -91,7 +91,10 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         return false;
     }
 
-    public ArrayList<Listing> queryListings(ArrayList<String> listingsQuery){
+    public ArrayList<Listing> querySearchListings(ArrayList<String> listingsQuery, User user){
+        if(user != null) {  // user == null if user is regular renter
+            saveSearchQuery(listingsQuery, user);
+        }
         ArrayList<Listing> listings = queryAllListings();
 
         listings = filterListingsByBedroom(listings, listingsQuery.get(0));
@@ -101,6 +104,20 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         listings = filterListingsByFurnishing(listings, listingsQuery.get(4));
 
         return listings;
+    }
+
+    public void saveSearchQuery(ArrayList<String> listingsQuery, User user){
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_SAVE_QUERY)) {
+            pStmt.setString(1, user.getEmail());
+            pStmt.setString(2, listingsQuery.get(2));
+            pStmt.setInt(3, Integer.parseInt(listingsQuery.get(0)));
+            pStmt.setInt(4, Integer.parseInt(listingsQuery.get(1)));
+            pStmt.setBoolean(5, listingsQuery.get(4).equals("Furnished"));
+            pStmt.setString(6, listingsQuery.get(3));
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Listing> queryAllListings(){
@@ -200,7 +217,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                             rs.getString("landlordEmail"),
                             rs.getInt("listingID"),
                             rs.getString("creationDate"),
-                            rs.getString("rentedDate")));
+                            rs.getString("rentedDate"),
+                            rs.getString("expirationDate")));
                 }
             }
 
@@ -211,6 +229,40 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         return null;
     }
 
+    public User getUserByEmail(String email){
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_GET_USER_BY_EMAIL)) {
+            pStmt.setString(1, email);
+            try (ResultSet rs = pStmt.executeQuery()) {
+                while (rs.next()) {
+                    return new User(rs.getString("username"),
+                                    rs.getString("password"),
+                                    new Name(rs.getString("firstName"), rs.getString("lastName")),
+                                    rs.getString("userType"),
+                                    rs.getString("address"),
+                                    rs.getString("email"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void expireListings(){
+        Calendar todayDate = Calendar.getInstance();
+        String todayDateString = todayDate.get(Calendar.MONTH) + "/" + todayDate.get(Calendar.DATE) + "/" + todayDate.get(Calendar.YEAR);
+
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EXPIRE_LISTINGS)) {
+            pStmt.setString(1, todayDateString);
+            pStmt.setString(1, todayDateString);
+            pStmt.setString(1, todayDateString);
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void activateListing(int id){
         try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_ACTIVATE_LISTING)) {
             pStmt.setInt(1, id);
@@ -218,20 +270,43 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        updateExpirationDate(id);
     }
 
-    public double queryListingFeeByID(int id){
+    public void updateExpirationDate(int id){
+        Listing listing = queryListingByID(id);
+        String expirationDate = listing.setExpirationDate(fee.getFeePeriod());
+
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_SET_EXPIRATION_DATE)) {
+            pStmt.setString(1, expirationDate);
+            pStmt.setInt(2, id);
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Listing queryListingByID(int id){
         try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_GET_LISTING_BY_ID)) {
             pStmt.setInt(1, id);
             try (ResultSet rs = pStmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getDouble("fee");
+                    return new Listing(rs.getString("type"),
+                            rs.getInt("bedrooms"),
+                            rs.getInt("bathrooms"),
+                            rs.getBoolean("furnished"),
+                            rs.getString("quadrant"),
+                            rs.getString("state"),
+                            new Fee(rs.getDouble("fee")),
+                            rs.getString("landlordEmail"),
+                            rs.getInt("listingID"));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return null;
     }
 
     public void createListing(Listing listing){

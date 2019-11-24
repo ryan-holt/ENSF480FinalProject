@@ -18,5 +18,6 @@ public interface Messages {
     static final String GET_ALL_USERS = "getAllUsers";
     static final String GET_NUM_ACTIVE_LISTINGS = "getNumActiveListings";
     static final String GET_REPORT_DATA = "getReportData";
+    static final String SEND_EMAIL = "sendEmail";
 
 }

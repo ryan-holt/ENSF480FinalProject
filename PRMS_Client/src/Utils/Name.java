@@ -20,4 +20,8 @@ public class Name implements Serializable {
     public String getLastName() {
         return lastName;
     }
+
+    public String toString(){
+        return firstName + " " + lastName;
+    }
 }
