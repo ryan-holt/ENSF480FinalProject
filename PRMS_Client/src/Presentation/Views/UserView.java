@@ -74,10 +74,18 @@ public class UserView extends JFrame {
         add("Center", centrePanel);
 
         userTable = new JTable(userTableModel);
+        userTable.setPreferredSize(new Dimension(800, 900));
+        userTable.setPreferredScrollableViewportSize(userTable.getPreferredSize());
         userTable.getTableHeader().setReorderingAllowed(false);
         userScrollPane = new JScrollPane(userTable);
 
         centrePanel.add(userScrollPane, BorderLayout.LINE_END);
+        userTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        userTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+        userTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+        userTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+        userTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+        userTable.getColumnModel().getColumn(4).setPreferredWidth(100);
         revalidate();
     }
 
