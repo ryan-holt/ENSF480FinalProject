@@ -16,14 +16,30 @@ public class User implements UserTypes, Serializable, Observer {
     private String address;
     private String userType;
     private String email;
+    private boolean subscribed;
 
-    public User(String username, String password, Name name, String userType, String address, String email, DatabaseModel dm){
+    public User(String username, String password, Name name, String userType, String address, String email, DatabaseModel dm, boolean sub){
         this.username = username;
         this.password = password;
         this.name = name;
         this.userType = userType;
         this.address = address;
         this.email = email;
+        subscribed = sub;
+    }
+
+    @Override
+    public void update(Listing newListing) {
+        EmailSender emailSender = new EmailSender();
+        try {
+            emailSender.sendMail(email, "New Listing matching your searches!", "PRMS_Notifier", newListing);
+        }catch (MessagingException e){
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isSubscribed() {
+        return subscribed;
     }
 
     // Getters and Setters
@@ -49,17 +65,5 @@ public class User implements UserTypes, Serializable, Observer {
 
     public String getEmail() {
         return email;
-    }
-
-    @Override
-    public void update(Listing newListing) {
-        EmailSender emailSender = new EmailSender();
-        Thread sendEmailThread = new Thread(() -> {
-            try {
-                emailSender.sendMail(email, "New Listing matching your searches!", "PRMS_Notifier", newListing);
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
-        });
     }
 }

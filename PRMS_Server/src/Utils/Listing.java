@@ -8,7 +8,6 @@ import java.util.Calendar;
 
 public class Listing implements Serializable{
 
-    // TODO fee period
     private static final long serialVersionUID = 6L;
     private String type;
     private int numOfBedrooms;

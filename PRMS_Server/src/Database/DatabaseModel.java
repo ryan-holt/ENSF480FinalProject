@@ -34,7 +34,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                     new Name(rs.getString("firstName"), rs.getString("lastName")),
                                     rs.getString("userType"),
                                     rs.getString("address"),
-                                    rs.getString("email"), this);
+                                    rs.getString("email"), this,
+                                    rs.getBoolean("subscribed"));
                 }
             }
         } catch (SQLException e) {
@@ -53,7 +54,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                             new Name(rs.getString("firstName"), rs.getString("lastName")),
                             rs.getString("userType"),
                             rs.getString("address"),
-                            rs.getString("email"), this);
+                            rs.getString("email"), this,
+                            rs.getBoolean("subscribed"));
                 }
             }
         } catch (SQLException e) {
@@ -105,7 +107,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                             new Name(rs.getString("firstName"), rs.getString("lastName")),
                             rs.getString("userType"),
                             rs.getString("address"),
-                            rs.getString("email"), this));
+                            rs.getString("email"), this,
+                            rs.getBoolean("subscribed")));
                 }
             }
             return subscribedUsers;
@@ -188,7 +191,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                         new Name(rs.getString("firstName"), rs.getString("lastName")),
                                         rs.getString("userType"),
                                         rs.getString("address"),
-                                        rs.getString("email"), this));
+                                        rs.getString("email"), this,
+                                        rs.getBoolean("subscribed")));
                 }
             }
             return users;
@@ -271,7 +275,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                     new Name(rs.getString("firstName"), rs.getString("lastName")),
                                     rs.getString("userType"),
                                     rs.getString("address"),
-                                    rs.getString("email"), this);
+                                    rs.getString("email"), this,
+                                    rs.getBoolean("subscribed"));
                 }
             }
         } catch (SQLException e) {
@@ -521,10 +526,11 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
 
     @Override
     public void notifyAllObservers(Listing newListing) {
-        ArrayList<String> subscribedUserEmails = getUsersWithMatchingQueries(newListing);
+        ArrayList<String> usersWithMatchingQueries = getUsersWithMatchingQueries(newListing);
         ArrayList<User> subscribedUsersToSendEmailTo = new ArrayList<>();
-        for(String email: subscribedUserEmails){
-            subscribedUsersToSendEmailTo.add(getUserByEmail(email));
+        for(String email: usersWithMatchingQueries){
+            if(getUserByEmail(email).isSubscribed())
+                subscribedUsersToSendEmailTo.add(getUserByEmail(email));
         }
 
         for(User user: subscribedUsersToSendEmailTo){
@@ -553,7 +559,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                     if(queryBathrooms != newListing.getNumOfBathrooms() && queryBathrooms != -1){
                         continue;
                     }
-                    // TODO furnishing
+                    // TODO furnishing check
                     if(!queryQuadrant.equals(newListing.getQuadrant()) && !queryQuadrant.equals(NO_INPUT)){
                         continue;
                     }

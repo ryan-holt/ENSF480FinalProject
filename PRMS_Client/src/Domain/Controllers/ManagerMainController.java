@@ -5,6 +5,7 @@ import Presentation.Views.PeriodicalReportView;
 import Utils.Listing;
 import Utils.User;
 
+import javax.naming.PartialResultException;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class ManagerMainController extends Controller implements Messages{
        // Get input from user
        ArrayList<String> dates = getPeriodicalReportDates();
        if(dates == null){
+           JOptionPane.showMessageDialog(null, "Invalid date format");
            clientCommunicationController.getMainController().displayView();
            return;
        }
@@ -145,7 +147,28 @@ public class ManagerMainController extends Controller implements Messages{
            return null;
        }
 
-       return dates;
+       if(validDate(dates.get(0)) && validDate(dates.get(1))){
+           return dates;
+       }else {
+           return null;
+       }
+
+    }
+
+    public boolean validDate(String date){
+       String[] dateArray = date.split("/");
+       if(dateArray.length != 3){
+           return false;
+       }
+
+        try {
+            Integer.parseInt(dateArray[0]);
+            Integer.parseInt(dateArray[1]);
+            Integer.parseInt(dateArray[2]);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 
     @Override

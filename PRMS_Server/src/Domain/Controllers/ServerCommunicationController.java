@@ -85,16 +85,19 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
                         break;
                     case GET_REPORT_DATA:
                         getReportData();
-                    case SEND_EMAIL:
-                        Thread sendEmailThread = new Thread(() -> sendEmail());
-                        sendEmail();
+                        break;
+                    case SEND_EMAIL_TO_LANDLORD:
+                        sendEmailToLandlord();
+                        break;
                     case UNSUBSCRIBE:
                         unsubscribe();
+                        break;
                 }
 
                 expireListings();
             }
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println("User logged out!");
         }
     }
@@ -108,7 +111,7 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         managementSystemController.getDatabaseController().getDatabaseModel().expireListings();
     }
 
-    public void sendEmail(){
+    public void sendEmailToLandlord(){
         try {
             // Receive listingID from client
             int listingID = (Integer) socketIn.readObject();
