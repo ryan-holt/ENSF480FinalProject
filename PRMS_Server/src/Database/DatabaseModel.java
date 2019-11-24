@@ -2,14 +2,11 @@ package Database;
 
 import Utils.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes {
+public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes, Observable {
 
     private Connection myConnection;
     private Fee fee;
@@ -37,7 +34,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                     new Name(rs.getString("firstName"), rs.getString("lastName")),
                                     rs.getString("userType"),
                                     rs.getString("address"),
-                                    rs.getString("email"));
+                                    rs.getString("email"), this);
                 }
             }
         } catch (SQLException e) {
@@ -56,7 +53,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                             new Name(rs.getString("firstName"), rs.getString("lastName")),
                             rs.getString("userType"),
                             rs.getString("address"),
-                            rs.getString("email"));
+                            rs.getString("email"), this);
                 }
             }
         } catch (SQLException e) {
@@ -70,6 +67,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
 
         if(queriedUser == null) {   // user does not exists already
             try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_ADD_USER)) {
+
                 pStmt.setString(1, user.getUsername());
                 pStmt.setString(2, user.getPassword());
                 pStmt.setString(3, user.getName().getFirstName());
@@ -80,6 +78,11 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                 pStmt.executeUpdate();
 
                 System.out.println("New User " + user.getUsername() + " created!");
+
+                if(user.getUserType().equals(REG_RENTER.toLowerCase())) {
+                    addObserver(user);
+                }
+
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -89,6 +92,27 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         }
 
         return false;
+    }
+
+    public ArrayList<User> querySubscribedUsers(){
+        ArrayList<User> subscribedUsers = new ArrayList<>();
+
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_GET_SUBSCRIBED_USERS)){
+            try (ResultSet rs = pStmt.executeQuery()) {
+                while (rs.next()) {
+                    subscribedUsers.add(new User(rs.getString("username"),
+                            rs.getString("password"),
+                            new Name(rs.getString("firstName"), rs.getString("lastName")),
+                            rs.getString("userType"),
+                            rs.getString("address"),
+                            rs.getString("email"), this));
+                }
+            }
+            return subscribedUsers;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public ArrayList<Listing> querySearchListings(ArrayList<String> listingsQuery, User user){
@@ -110,8 +134,14 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_SAVE_QUERY)) {
             pStmt.setString(1, user.getEmail());
             pStmt.setString(2, listingsQuery.get(2));
-            pStmt.setInt(3, Integer.parseInt(listingsQuery.get(0)));
-            pStmt.setInt(4, Integer.parseInt(listingsQuery.get(1)));
+            if(!listingsQuery.get(0).equals(NO_INPUT))
+                pStmt.setInt(3, Integer.parseInt(listingsQuery.get(0)));
+            else
+                pStmt.setInt(3, -1);
+            if(!listingsQuery.get(1).equals(NO_INPUT))
+                pStmt.setInt(4, Integer.parseInt(listingsQuery.get(1)));
+            else
+                pStmt.setInt(4, -1);
             pStmt.setBoolean(5, listingsQuery.get(4).equals("Furnished"));
             pStmt.setString(6, listingsQuery.get(3));
             pStmt.executeUpdate();
@@ -157,7 +187,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                         new Name(rs.getString("firstName"), rs.getString("lastName")),
                                         rs.getString("userType"),
                                         rs.getString("address"),
-                                        rs.getString("email")));
+                                        rs.getString("email"), this));
                 }
             }
             return users;
@@ -239,7 +269,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                                     new Name(rs.getString("firstName"), rs.getString("lastName")),
                                     rs.getString("userType"),
                                     rs.getString("address"),
-                                    rs.getString("email"));
+                                    rs.getString("email"), this);
                 }
             }
         } catch (SQLException e) {
@@ -310,6 +340,8 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
     }
 
     public void createListing(Listing listing){
+        notifyAllObservers(listing);
+
         ArrayList<Listing> allListings = queryAllListings();
         int newListingID = 1;
         if(allListings != null){
@@ -459,6 +491,80 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
         }
 
         return filteredListings;
+    }
+
+    @Override
+    public void addObserver(User user) {
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_SUBSCRIBE_USER)) {
+            pStmt.setBoolean(1, true);
+            pStmt.setString(2, user.getEmail());
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void removeObserver(User user) {
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_UNSUBSCRIBE_USER)) {
+            pStmt.setBoolean(1, false);
+            pStmt.setString(2, user.getEmail());
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void notifyAllObservers(Listing newListing) {
+        ArrayList<String> subscribedUserEmails = getUsersWithMatchingQueries(newListing);
+        ArrayList<User> subscribedUsersToSendEmailTo = new ArrayList<>();
+        for(String email: subscribedUserEmails){
+            subscribedUsersToSendEmailTo.add(getUserByEmail(email));
+        }
+
+        for(User user: subscribedUsersToSendEmailTo){
+            System.out.println(user.getEmail());
+            user.update(newListing);
+        }
+    }
+
+    public ArrayList<String> getUsersWithMatchingQueries(Listing newListing) {
+        ArrayList<String> userEmails = new ArrayList<>();
+        try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_GET_ALL_QUERIES)) {
+            try (ResultSet rs = pStmt.executeQuery()) {
+                while (rs.next()) {
+                    String queryType = rs.getString("type");
+                    int queryBedrooms = rs.getInt("bedrooms");
+                    int queryBathrooms = rs.getInt("bathrooms");
+                    boolean queryFurnishing = rs.getBoolean("furnished");
+                    String queryQuadrant = rs.getString("quadrant");
+
+                    if(!queryType.equals(newListing.getType()) && !queryType.equals(NO_INPUT)){
+                        continue;
+                    }
+                    if(queryBedrooms != newListing.getNumOfBedrooms() && queryBedrooms != -1){
+                        continue;
+                    }
+                    if(queryBathrooms != newListing.getNumOfBathrooms() && queryBathrooms != -1){
+                        continue;
+                    }
+                    // TODO furnishing
+                    if(!queryQuadrant.equals(newListing.getQuadrant()) && !queryQuadrant.equals(NO_INPUT)){
+                        continue;
+                    }
+
+                    userEmails.add(rs.getString("email"));
+                }
+            }
+
+            return userEmails;
+        } catch (SQLException e) {
+            System.out.println("Getting items from DB error");
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public Fee getFee() {

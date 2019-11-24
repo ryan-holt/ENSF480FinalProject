@@ -6,8 +6,11 @@ public interface DatabaseAccessQueries {
     static final String SQL_GET_USER = "SELECT * FROM users WHERE username =? and password =?";
     static final String SQL_GET_USER_BY_USERNAME = "SELECT * FROM users WHERE username =?";
     static final String SQL_GET_USER_BY_EMAIL = "SELECT * FROM users WHERE email =?";
+    static final String SQL_GET_SUBSCRIBED_USERS = "SELECT * FROM users WHERE subscribed = TRUE";
     static final String SQL_ADD_USER = "INSERT INTO users (username, password, firstName, " +
                                                             "lastName, userType, address, email) values(?,?,?,?,?,?,?)";
+    static final String SQL_SUBSCRIBE_USER = "UPDATE users SET subscribed = ? WHERE email = ?";
+    static final String SQL_UNSUBSCRIBE_USER = "UPDATE users SET subscribed = ? WHERE email = ?";
     // Listings table
     static final String SQL_SEARCH_LISTINGS = "SELECT * FROM listings WHERE bedrooms =? AND bathrooms =? AND type =? AND quadrant =? AND furnished =?";
     static final String SQL_GET_ALL_LISTINGS = "SELECT * FROM listings";
@@ -25,5 +28,6 @@ public interface DatabaseAccessQueries {
 
     // Queries table
     static final String SQL_SAVE_QUERY = "INSERT INTO queries (email, type, bedrooms, bathrooms, furnished, quadrant) values (?,?,?,?,?,?)";
+    static final String SQL_GET_ALL_QUERIES = "SELECT * FROM queries";
 
 }
