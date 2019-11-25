@@ -1,5 +1,8 @@
 package Domain.Controllers;
 
+/**
+ * Interface that holds message strings to communicate with the server
+ */
 public interface Messages {
 
     static final String SUCCESS = "success";

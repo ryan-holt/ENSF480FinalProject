@@ -17,7 +17,6 @@ import java.io.IOException;
 public class LoginController extends Controller implements Messages, UserTypes{
 
     //MEMBER VARIABLES
-
     private LoginView loginView;
     private AccountCreationView accountCreationView;
     private boolean verified;
@@ -70,6 +69,9 @@ public class LoginController extends Controller implements Messages, UserTypes{
         }
     }
 
+    /**
+     * Allows the renter into the system without login if regular renter button pressed
+     */
     public void regularRenterListen(){
         try {
             // Send action to server that no verification is needed
@@ -81,6 +83,9 @@ public class LoginController extends Controller implements Messages, UserTypes{
         clientCommunicationController.showMainWindow();
     }
 
+    /**
+     * Prompts the create account view if register button pressed
+     */
     public void registerListen(){
         this.hideView();
         accountCreationView = new AccountCreationView();
@@ -91,12 +96,18 @@ public class LoginController extends Controller implements Messages, UserTypes{
         accountCreationView.display();
     }
 
+    /**
+     * Returns user to login if back to login button pressed
+     */
     public void backToLoginListen(){
         accountCreationView.setVisible(false);
         accountCreationView = null;
         this.displayView();
     }
 
+    /**
+     *
+     */
     public void createAccountListen(){
         try {
             // Sending action to server

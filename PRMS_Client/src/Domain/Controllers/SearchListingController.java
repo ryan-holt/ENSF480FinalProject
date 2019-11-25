@@ -7,10 +7,22 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for controlling the search listing view
+ * @author Harsohail Brar
+ * @version 4.10.0
+ * @since November 25, 2019
+ */
 public class SearchListingController extends Controller implements Messages{
 
+    // Search Listing View
     private SearchListingView searchListingView;
 
+    /**
+     * Constructor to create the SearchListingController object
+     * @param clv SearchListingView object
+     * @param ccc ClientCommunicationController object
+     */
     public SearchListingController(SearchListingView slv, ClientCommunicationController ccc){
         super(ccc);
         searchListingView = slv;
@@ -19,11 +31,17 @@ public class SearchListingController extends Controller implements Messages{
         searchListingView.addSearchForListingsListener(e -> searchForListingsListen());
     }
 
+    /**
+     * Prompts menu for user when back to menu button is clicked
+     */
     public void backToMenuListen(){
         searchListingView.setVisible(false);
         clientCommunicationController.getMainController().displayView();
     }
 
+    /**
+     * Gets listings from server and creates listings view for the user using their search query
+     */
     public void searchForListingsListen() {
         // Create listings query from selectors in GUI
         ArrayList<String> listingsQuery = new ArrayList<>();
@@ -54,6 +72,7 @@ public class SearchListingController extends Controller implements Messages{
         }
     }
 
+    // Visibility functions
     @Override
     public void displayView() {
         searchListingView.display();

@@ -5,15 +5,26 @@ import Presentation.Views.PeriodicalReportView;
 import Utils.Listing;
 import Utils.User;
 
-import javax.naming.PartialResultException;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for controlling the manager main view
+ * @author Harsohail Brar
+ * @version 4.10.0
+ * @since November 25, 2019
+ */
 public class ManagerMainController extends Controller implements Messages{
 
+    // Manager Main View
    private ManagerMainView managerMainView;
 
+    /**
+     * Constructor to create the ManagerMainController object
+     * @param clv ManagerMainView object
+     * @param ccc ClientCommunicationController object
+     */
    public ManagerMainController(ManagerMainView mmv, ClientCommunicationController ccc){
        super(ccc);
        managerMainView = mmv;
@@ -25,6 +36,9 @@ public class ManagerMainController extends Controller implements Messages{
        managerMainView.addLogoutListener(e -> logoutListen());
    }
 
+    /**
+     * Prompts and changes fee upon change fee button click
+     */
    public void changeFeeListen(){
        double newFeeAmount = doubleInputPrompt("Please enter new fee amount:");
        int newFeePeriod = intInputPrompt("Please enter new fee period:");
@@ -42,6 +56,9 @@ public class ManagerMainController extends Controller implements Messages{
        }
    }
 
+    /**
+     * Prompts and edits listing state upon press of edit listing button
+     */
    public void editListingStateListen(){
        getListingViewForManager();
    }
@@ -61,6 +78,9 @@ public class ManagerMainController extends Controller implements Messages{
        }
    }
 
+    /**
+     * Prompts and gets report upon pressing get report button
+     */
    public void getReportListen(){
        clientCommunicationController.getMainController().hideView();
 
@@ -96,6 +116,9 @@ public class ManagerMainController extends Controller implements Messages{
        }
    }
 
+    /**
+     * Gets all listings from server and displays in the listing view for the manager
+     */
     public void getListingViewForManager(){
         clientCommunicationController.getMainController().hideView();
         try {
@@ -111,6 +134,9 @@ public class ManagerMainController extends Controller implements Messages{
         clientCommunicationController.getListingController().displayView();
     }
 
+    /**
+     * Gets all users from server and displays in the users view for the manager
+     */
     public void getUsersViewForManager(){
         clientCommunicationController.getMainController().hideView();
         try{
@@ -125,10 +151,17 @@ public class ManagerMainController extends Controller implements Messages{
         }
     }
 
+    /**
+     * Exists program when logout button is pressed
+     */
     public void logoutListen(){
         System.exit(1);
     }
 
+    /**
+     * Prompts manager to get dates for periodical report
+     * @return Array list of dates
+     */
     public ArrayList<String> getPeriodicalReportDates(){
        ArrayList<String> dates = new ArrayList<>();
 
@@ -155,6 +188,11 @@ public class ManagerMainController extends Controller implements Messages{
 
     }
 
+    /**
+     * Error checking for inputted dates
+     * @param date date inputted
+     * @return true if date format is correct, false otherwise
+     */
     public boolean validDate(String date){
        String[] dateArray = date.split("/");
        if(dateArray.length != 3){
@@ -171,6 +209,7 @@ public class ManagerMainController extends Controller implements Messages{
         }
     }
 
+    // Visibility functions
     @Override
     public void displayView() {
         managerMainView.display();

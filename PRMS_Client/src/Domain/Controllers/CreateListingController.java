@@ -1,18 +1,28 @@
 package Domain.Controllers;
 
 import Presentation.Views.CreateListingView;
-import Utils.Fee;
 import Utils.Listing;
 import Utils.ListingStates;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.ArrayList;
 
+/**
+ * This class is responsible for controlling the create listing view
+ * @author Harsohail Brar
+ * @version 4.10.0
+ * @since November 25, 2019
+ */
 public class CreateListingController extends Controller implements Messages, ListingStates {
 
+    // Create Listing View
     private CreateListingView createListingView;
 
+    /**
+     * Constructor to create the CreateListingController object
+     * @param clv CreateListingView object
+     * @param ccc ClientCommunicationController object
+     */
     public CreateListingController(CreateListingView clv, ClientCommunicationController ccc){
         super(ccc);
         createListingView = clv;
@@ -20,6 +30,9 @@ public class CreateListingController extends Controller implements Messages, Lis
         createListingView.addCreateListingListener(e -> createListingListen());
     }
 
+    /**
+     * Sends create listing view field info to the server when the create listing button is pressed
+     */
     public void createListingListen(){
         String houseType = (String)createListingView.getHouseTypeJBox().getSelectedItem();
         int numOfBedrooms = Integer.parseInt((String)createListingView.getNumBedroomsBox().getSelectedItem());
@@ -45,6 +58,7 @@ public class CreateListingController extends Controller implements Messages, Lis
         clientCommunicationController.getMainController().displayView();
     }
 
+    // View visibility functions
     @Override
     public void displayView() {
         createListingView.display();
