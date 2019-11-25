@@ -30,7 +30,8 @@ java -jar PRMS_Server.jar
 * Note: the IP address should be changed to the server's external IP in the ClientCommunicationController.java to connect the client to the server
 
 Same machine: (IP Address: 'localhost')
-External Machine: (IP Address: 'Server external IP Address');
+
+External Machine: (IP Address: 'Server external IP Address')
 
 ```
 java -jar PRMS_Client.jar
