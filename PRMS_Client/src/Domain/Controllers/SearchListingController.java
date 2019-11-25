@@ -20,7 +20,7 @@ public class SearchListingController extends Controller implements Messages{
 
     /**
      * Constructor to create the SearchListingController object
-     * @param clv SearchListingView object
+     * @param slv SearchListingView object
      * @param ccc ClientCommunicationController object
      */
     public SearchListingController(SearchListingView slv, ClientCommunicationController ccc){

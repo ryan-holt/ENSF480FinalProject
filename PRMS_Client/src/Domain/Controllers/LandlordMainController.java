@@ -19,7 +19,7 @@ public class LandlordMainController extends Controller implements Messages{
 
     /**
      * Constructor to create the LandlordMainController object
-     * @param clv LandlordMainView object
+     * @param slv LandlordMainView object
      * @param ccc ClientCommunicationController object
      */
     public LandlordMainController(LandlordMainView lmv, ClientCommunicationController ccc){
