@@ -5,10 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
- * This class is responsible for the Main GUIs
- * @author  Harsohail Brar
- * @version 1.0.0
- * @since November 10, 2019
+ * This class is responsible for the Main view GUIs
+ * and is essentially the base view which will be
+ * extended by the main views for the renters, managers
+ * and landlords
+ * @author  Gary Wu
+ * @since November 25, 2019
  */
 public abstract class MainView extends JFrame{
 
@@ -17,6 +19,13 @@ public abstract class MainView extends JFrame{
 
     protected JButton logoutButton;
 
+    /**
+     * The constructor for the main view which
+     * makes essentially creates the title and center panel
+     * with the login button
+     * @param width the width of the view
+     * @param height the height of the view
+     */
     public MainView(int width, int height){
         titlePanel = new JPanel();
         centerPanel = new JPanel();

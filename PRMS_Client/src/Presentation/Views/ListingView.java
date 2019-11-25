@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * different buttons
  * @author  Gary Wu
  * @version 4.10.0
- * @since April 5, 2019
+ * @since November 25, 2019
  */
 public class ListingView extends JFrame {
 

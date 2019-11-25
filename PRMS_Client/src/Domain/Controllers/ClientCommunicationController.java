@@ -2,7 +2,6 @@ package Domain.Controllers;
 
 import Presentation.Views.*;
 import Utils.*;
-import com.sun.tools.javac.Main;
 
 import java.io.*;
 import java.net.*;
@@ -14,7 +13,6 @@ import java.util.Date;
  * and holding the LoginController
  * Overall the client controller is used for communication with
  * the server
- *
  * @author Ryan Holt
  * @version 4.10.0
  * @since April 5, 2019
@@ -68,7 +66,7 @@ public class ClientCommunicationController implements UserTypes{
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        ClientCommunicationController ccc = new ClientCommunicationController("localhost", 7000);
+        ClientCommunicationController ccc = new ClientCommunicationController("10.13.176.67", 7000);
     }
 
     public void showMainWindow(){

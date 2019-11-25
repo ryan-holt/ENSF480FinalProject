@@ -6,9 +6,8 @@ import java.awt.event.ActionListener;
 
 /**
  * This class is responsible for the Search Listing GUI
- * @author  Harsohail Brar
- * @version 1.0.0
- * @since November 10, 2019
+ * @author  Gary Wu
+ * @since November 25, 2019
  */
 public class SearchListingView extends JFrame {
 
@@ -23,6 +22,10 @@ public class SearchListingView extends JFrame {
     private final int width = 275;
     private final int height = 250;
 
+    /**
+     * Constructor for the SearchlistingView and essentially this is the
+     * view the user will see when they search listings
+     */
     public SearchListingView(){
         titlePanel = new JPanel();
         centerPanel = new JPanel();
@@ -74,7 +77,10 @@ public class SearchListingView extends JFrame {
         addQuadrantSelector();
     }
 
-    /****** Adding all selectors ********/
+    /**
+     * The following functions add the different parameters that are
+     * available for each specifier
+     */
 
     public void addHouseTypeSelector(){
         String[] typeOfHouses = {"-", "Apartment", "Attached", "Detached", "Townhouse"};
@@ -111,7 +117,6 @@ public class SearchListingView extends JFrame {
         centerPanel.add(quadrantList);
     }
 
-    /************************************/
 
     /**
      * Creates a list selector

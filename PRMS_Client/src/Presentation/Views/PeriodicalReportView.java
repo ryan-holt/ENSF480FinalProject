@@ -8,11 +8,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- *
+ * The perioidcal report GUI shows the
+ * layout of the report that can be requested
+ * by the manager
  * @author Gary Wu
  */
 public class PeriodicalReportView extends javax.swing.JFrame {
 
+    //Member variables
     private javax.swing.JButton closeReportButton;
     private javax.swing.JLabel periodicalReportTitleLabel;
     private javax.swing.JLabel numHousesListedLabel;
@@ -27,6 +30,15 @@ public class PeriodicalReportView extends javax.swing.JFrame {
     private int numOfHousesListed;
     private int numOfRentedListings;
 
+    /**
+     * Constructor for the Periodical report view and it requires the following
+     * parameters in order to generate this report
+     * @param activeListings number of active listings
+     * @param housesListed number of houses listed
+     * @param rentedListings number of listings that are rented
+     * @param rentedListingsArray the array of these rented listings
+     * @param landlords all the landlords
+     */
     public PeriodicalReportView(int activeListings, int housesListed, int rentedListings, ArrayList<Listing> rentedListingsArray, ArrayList<User> landlords){
         updateTableModel(rentedListingsArray, landlords);
         numOfActiveListings = activeListings;
@@ -46,6 +58,9 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * Displays the view
+     */
     public void display() {
         setVisible(true);
     }
@@ -148,6 +163,12 @@ public class PeriodicalReportView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Updates the table model to what we need with the the following
+     * parameters
+     * @param listings All the listings we currently have
+     * @param landlords all the landlords we currently have on system
+     */
     public void updateTableModel(ArrayList<Listing> listings, ArrayList<User> landlords){
         String[][] data = new String[listings.size()][3];
         String[] header = {"Landlord Name", "House Address", "House ID"};

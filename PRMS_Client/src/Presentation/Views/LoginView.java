@@ -6,9 +6,10 @@ import java.awt.event.ActionListener;
 
 /**
  * This class is responsible for the Login GUI
- * @author  Harsohail Brar
- * @version 1.0.0
- * @since November 10, 2019
+ * and is essentially what the user sees when they
+ * first load our application and attempt to log in
+ * @author  Gary Wu
+ * @since November 25, 2019
  */
 public class LoginView extends JFrame {
 
@@ -25,7 +26,8 @@ public class LoginView extends JFrame {
     private final int height = 180;
 
     /**
-     * Creates a LoginView object
+     * The constructor for the login view object that
+     * creates a LoginView object
      */
     public LoginView(){
         titlePanel = new JPanel();

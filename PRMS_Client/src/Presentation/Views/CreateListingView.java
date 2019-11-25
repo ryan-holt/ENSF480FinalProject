@@ -5,8 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
- *
+ * The CreateListingView holds the gui for the
+ * create listing which is used by the landlord.
+ * The main purpose is to create the GUI and
+ * also the different buttons
  * @author Gary Wu
+ * @vsince November 25, 2019
  */
 public class CreateListingView extends javax.swing.JFrame {
 
@@ -35,7 +39,8 @@ public class CreateListingView extends javax.swing.JFrame {
     }
 
     /**
-     * Inits all the different components
+     * Inits all the different components of the
+     * listing view
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {
