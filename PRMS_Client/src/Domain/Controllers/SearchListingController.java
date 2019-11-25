@@ -60,11 +60,17 @@ public class SearchListingController extends Controller implements Messages{
             // Receive listings from server
             ArrayList<Listing> listings = (ArrayList<Listing>) clientCommunicationController.getSocketIn().readObject();
 
+            ArrayList<Listing> activeListings = new ArrayList<>();
+            for(Listing listing: listings){
+                if(listing.getState().equals("Active"))
+                    activeListings.add(listing);
+            }
+
             if(listings.size() == 0){
                 JOptionPane.showMessageDialog(null, "No listings found...");
             }else{
                 clientCommunicationController.getSearchListingController().hideView();
-                clientCommunicationController.getListingController().getListingView().updateListingTable(listings);
+                clientCommunicationController.getListingController().getListingView().updateListingTable(activeListings);
                 clientCommunicationController.getListingController().displayView();
             }
         }catch (IOException | ClassNotFoundException e){
