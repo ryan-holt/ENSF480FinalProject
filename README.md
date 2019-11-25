@@ -131,8 +131,6 @@ java -jar PRMS_Client.jar
 	* Computing periodical report
 
 
-
-ENSF480FinalProject
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTE4NzY2NjQyNzRdfQ==
 -->
