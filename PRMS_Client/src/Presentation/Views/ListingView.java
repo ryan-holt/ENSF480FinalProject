@@ -95,6 +95,9 @@ public class ListingView extends JFrame {
         revalidate();
     }
 
+    /**
+     * Updates the listing table model
+     */
     public void updateListingTableModel(ArrayList<Listing> listings){
         String[][] data = new String[listings.size()][7];
         String[] header = {"Listing ID", "Type", "Bedrooms", "Bathrooms", "Quadrant", "Furnished", "State"};
@@ -123,6 +126,9 @@ public class ListingView extends JFrame {
         setListingTableModel(tableModel);
     }
 
+    /**
+     * Updates listing view for landlord by adding necessary button
+     */
     public void updateListingViewForLandlord(){
         buttonPanel.remove(emailLandlordButton);
         buttonPanel.add(editListingButton);
@@ -130,6 +136,9 @@ public class ListingView extends JFrame {
         revalidate();
     }
 
+    /**
+     * Updates listing view for manager by adding necessary button
+     */
     public void updateListingViewForManager(){
         buttonPanel.remove(emailLandlordButton);
         buttonPanel.add(editListingStateButton);

@@ -5,16 +5,18 @@ import java.awt.event.ActionListener;
 
 /**
  * This class is responsible for the Landlord Main View GUI
- * @author  Harsohail Brar
- * @version 1.0.0
- * @since November 10, 2019
+ * @author  Gary Wu
+ * @since November 25, 2019
  */
 public class LandlordMainView extends MainView{
 
     // Member Variables
-
     private JButton createListingButton, makePaymentButton, editListingButton;
 
+    /**
+     * Constructor for the LandlordMainView and makes
+     * the Buttons and sets the panels
+     */
     public LandlordMainView(){
         super(200, 200);
 

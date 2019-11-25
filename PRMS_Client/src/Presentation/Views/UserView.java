@@ -89,6 +89,10 @@ public class UserView extends JFrame {
         revalidate();
     }
 
+    /**
+     * Updates the table model with needed users
+     * @param users All the people who have accounts
+     */
     public void updateUserTableModel(ArrayList<User> users){
         String[][] data = new String[users.size()][7];
         String[] header = {"Username", "Password", "First Name", "Last Name", "User Type", "Address", "Email"};

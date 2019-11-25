@@ -4,6 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The AccountCreationView class holds the GUI for the
+ * account creation view and its purpose to to provide the
+ * view for creating accounts as well as the buttons and
+ * different functionality and listeners of them
+ * @author Gary Wu
+ * @vsince November 25, 2019
+ */
 public class AccountCreationView extends JFrame{
 
     //MEMBER VARIABLES
@@ -19,6 +27,12 @@ public class AccountCreationView extends JFrame{
     private final int width = 225;
     private final int height = 325;
 
+    /**
+     * This is the constructor for the AccountCreationView
+     * which starts by making the JPanels and then
+     * adding different aspects such as the title, layout
+     * and buttons
+     */
     public AccountCreationView(){
         titlePanel = new JPanel();
         centerPanel = new JPanel();
@@ -89,6 +103,9 @@ public class AccountCreationView extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Adds account type selector to the center panel
+     */
     public void addAccountTypeSelector(){
         String[] typeOfAccounts = {"RegisteredRenter", "Landlord"};
         accountTypeList = createSelector(typeOfAccounts, "Type of Account:");
@@ -114,10 +131,18 @@ public class AccountCreationView extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * Adds an actionlistener for create button
+     * @param listenForCreateAccountButton
+     */
     public void addCreateAccountListener(ActionListener listenForCreateAccountButton){
         createAccountButton.addActionListener(listenForCreateAccountButton);
     }
 
+    /**
+     * Adds an action listener for back to login button
+     * @param listenForBackToLoginButton
+     */
     public void addBackToLoginListener(ActionListener listenForBackToLoginButton){
         backToLoginButton.addActionListener(listenForBackToLoginButton);
     }

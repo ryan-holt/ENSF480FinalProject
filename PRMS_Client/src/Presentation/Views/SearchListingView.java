@@ -6,14 +6,12 @@ import java.awt.event.ActionListener;
 
 /**
  * This class is responsible for the Search Listing GUI
- * @author  Harsohail Brar
- * @version 1.0.0
- * @since November 10, 2019
+ * @author  Gary Wu
+ * @since November 25, 2019
  */
 public class SearchListingView extends JFrame {
 
     //MEMBER VARIABLES
-
     private JPanel titlePanel, centerPanel, buttonPanel;
 
     private JButton searchForListingsButton, backToMenuButton;
@@ -23,6 +21,10 @@ public class SearchListingView extends JFrame {
     private final int width = 275;
     private final int height = 250;
 
+    /**
+     * Constructor for the SearchlistingView and essentially this is the
+     * view the user will see when they search listings
+     */
     public SearchListingView(){
         titlePanel = new JPanel();
         centerPanel = new JPanel();

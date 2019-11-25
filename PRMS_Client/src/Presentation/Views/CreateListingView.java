@@ -5,8 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
- *
+ * The CreateListingView holds the gui for the
+ * create listing which is used by the landlord.
+ * The main purpose is to create the GUI and
+ * also the different buttons
  * @author Gary Wu
+ * @vsince November 25, 2019
  */
 public class CreateListingView extends javax.swing.JFrame {
 
@@ -224,7 +228,9 @@ public class CreateListingView extends javax.swing.JFrame {
         createListingButton.addActionListener(listenForCreateListingButton);
     }
 
-
+    /**
+     * Returns the selected string in the furnished selector
+     */
     public boolean getFurnishedSelectorItem(){
         String furnished = (String)getFurnishedBox().getSelectedItem();
         if(furnished.equals("Yes"))

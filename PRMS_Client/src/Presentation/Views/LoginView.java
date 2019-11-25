@@ -91,6 +91,10 @@ public class LoginView extends JFrame {
         regularRenterButton.addActionListener(listenForRegularRenterButton);
     }
 
+    /**
+     * adds action listener to the create account button
+     * @param listenForCreateAccountButton
+     */
     public void addCreateAccountListener(ActionListener listenForCreateAccountButton){
         createAccountButton.addActionListener(listenForCreateAccountButton);
     }

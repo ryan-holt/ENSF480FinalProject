@@ -1,5 +1,10 @@
 package Utils;
 
+/**
+ * Interface for the different types of users
+ * @author  Gary Wu
+ * @since November 25, 2019
+ */
 public interface UserTypes {
 
     static final String REG_RENTER = "registeredRenter";
