@@ -50,6 +50,10 @@ java -jar PRMS_Client.jar
 
 * Be sure to enter your email address when creating an account to receive email notificaitons
 
+2. Post Login
+
+* After logging in, the client will be prompted with the main menu view where they can navigate the system
+
 ## Tasks
 
 * A complete list of systems actors: people, other systems, devices (if applies)
