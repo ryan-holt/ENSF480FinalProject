@@ -1,6 +1,42 @@
 
 # Property Rental Management System (PRMS)
 
+## Instructions
+
+4 Files are provided to run the PRMS on your local PC
+
+* .tar files contain .java files
+* .jar files contain .class files
+
+**Files Submitted:**
+
+* PRMS_Server.jar
+* PRSM_Server.tar
+* PRMS_Client.jar
+* PRMS_Client.tar
+
+**How to run the PRMS:**
+
+1. Run the server on a machine using the following command: 
+
+* Note: the PC must contain the database alongside the server
+
+```
+java -jar PRMS_Server.jar
+```
+
+2. Run the client on the same machine or a seperate machine using the following command:
+
+* Note: the IP address should be changed to the server's external IP in the ClientCommunicationController.java to connect the client to the server
+
+Same machine: (IP Address: 'localhost')
+External Machine: (IP Address: 'Server external IP Address');
+
+```
+java -jar PRMS_Client.jar
+```
+
+
 ## Tasks
 
 * A complete list of systems actors: people, other systems, devices (if applies)
