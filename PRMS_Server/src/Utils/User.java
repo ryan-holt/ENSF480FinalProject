@@ -7,8 +7,14 @@ import Domain.Controllers.EmailSender;
 import javax.mail.MessagingException;
 import java.io.Serializable;
 
+/**
+ * User class that holds all user information and
+ * acts as the observer in the observer pattern used to notify users for
+ * new created listings that match their queries
+ */
 public class User implements UserTypes, Serializable, Observer {
 
+    // Member Variables
     private static final long serialVersionUID = 3L;
     private String username;
     private String password;
@@ -18,6 +24,7 @@ public class User implements UserTypes, Serializable, Observer {
     private String email;
     private boolean subscribed;
 
+    // Constructors
     public User(String username, String password, Name name, String userType, String address, String email, DatabaseModel dm, boolean sub){
         this.username = username;
         this.password = password;
@@ -28,6 +35,11 @@ public class User implements UserTypes, Serializable, Observer {
         subscribed = sub;
     }
 
+    /**
+     * Called from notify all observers in the database model
+     * Sends email with the new listing info to the user
+     * @param newListing new listing that has to be emailed
+     */
     @Override
     public void update(Listing newListing) {
         EmailSender emailSender = new EmailSender();
@@ -38,6 +50,10 @@ public class User implements UserTypes, Serializable, Observer {
         }
     }
 
+    /**
+     * check if used is subscribed to emails
+     * @return true if user is subscribed, false otherwise
+     */
     public boolean isSubscribed() {
         return subscribed;
     }

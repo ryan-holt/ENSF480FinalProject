@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class ServerCommunicationController implements Runnable, Messages, UserTypes{
 
+    // Member Variables
     private Socket aSocket;
     private ObjectInputStream socketIn;
     private ObjectOutputStream socketOut;
@@ -26,6 +27,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
     private EmailSender emailSender;
     private User user;
 
+    /**
+     * Creates a new ServerCommunicationController object for each new client in a new thread
+     */
     public ServerCommunicationController(Socket s, ManagementSystemController managementSystemController) {
         try {
             aSocket = s;
@@ -42,6 +46,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         emailSender = new EmailSender();
     }
 
+    /**
+     * Run functions that is ran by the new thread delegated to each new client
+     */
     @Override
     public void run() {
         createInputStream();
@@ -49,6 +56,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         communicate();
     }
 
+    /**
+     * Forever loop to receive and send messages to clients until client logs off
+     */
     public void communicate(){
         try {
             String action;
@@ -102,15 +112,23 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Unsubscribes client's from email notifications in database
+     */
     public void unsubscribe(){
         managementSystemController.getDatabaseController().getDatabaseModel().removeObserver(user);
     }
 
+    /**
+     * Expires listings with expiration date as today in database
+     */
     public void expireListings(){
-        // TODO expire listings not updating status
         managementSystemController.getDatabaseController().getDatabaseModel().expireListings();
     }
 
+    /**
+     * Sends email to landlord by receiving listing, email, and message from client
+     */
     public void sendEmailToLandlord(){
         try {
             // Receive listingID from client
@@ -128,6 +146,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Gets and sends report data from database to the client
+     */
     public void getReportData(){
         try {
             // Receive dates from client
@@ -157,6 +178,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Gets all users from the database
+     */
     public void getAllUsers(){
         //Query database
         ArrayList<User> users = managementSystemController.getDatabaseController().getDatabaseModel().queryAllUsers();
@@ -168,6 +192,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Gets all listings from the database
+     */
     public void getAllListings(){
         //Query database
         ArrayList<Listing> listings = managementSystemController.getDatabaseController().getDatabaseModel().queryAllListings();
@@ -178,6 +205,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Edits the fee object used in creation of new listings
+     */
     public void editFee(){
         try{
             // Receive fee variables from client
@@ -191,6 +221,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Activates listing in database after payment is made
+     */
     public void activateListing(){
         try{
             // Receive listing id from client
@@ -202,6 +235,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Edits listing requested by client in the database
+     */
     public void editListing(){
         try{
             // Receive listing from client
@@ -213,6 +249,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Gets listing fee from the database
+     */
     public void getListingFee(){
         try{
             // Receive listing id from client
@@ -226,6 +265,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Searches for a listings using landlord's email
+     */
     public void searchListingsByLandlord(){
         try {
             // Receive landlord email from client
@@ -239,6 +281,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Searches for a listing using a search query from the client
+     */
     public void searchListings(){
         try {
             // Receive query from client
@@ -252,6 +297,9 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         }
     }
 
+    /**
+     * Creates a listing requested by a landlord client
+     */
     public void createListing(){
         try{
             // Receive listing from client
@@ -327,7 +375,7 @@ public class ServerCommunicationController implements Runnable, Messages, UserTy
         InetAddress ip;
         try {
             ip = InetAddress.getLocalHost();
-            System.out.println("You current IP address: " + ip);
+            System.out.println("Your current IP address: " + ip);
         } catch (UnknownHostException e) {
             System.out.println("IP Print error");
             e.printStackTrace();

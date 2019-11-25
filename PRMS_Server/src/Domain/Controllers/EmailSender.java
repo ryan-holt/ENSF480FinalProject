@@ -2,17 +2,28 @@ package Domain.Controllers;
 
 import Utils.Listing;
 
-import java.net.InetAddress;
-import java.util.*;
-import java.util.logging.Logger;
 import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
+ /** This class is responsible for sending emails to given email addresses
+ * @author Harsohail Brar
+ * @version 4.10.0
+ * @since November 25, 2019
+ */
 public class EmailSender {
 
     private static int num = 0;
 
+     /**
+      * Sets up PRMS email account that will send emails
+      * @param recepient email for recepient
+      * @param clientMessage message from sender
+      * @param clientEmail email of sender
+      * @param listing  listing info contained in email
+      * @throws MessagingException
+      */
     public void sendMail(String recepient, String clientMessage, String clientEmail, Listing listing)throws MessagingException {
         System.out.println("Preparing to send email");
         Properties properties = new Properties();
@@ -38,6 +49,9 @@ public class EmailSender {
         System.out.println("Message sent successfully!");
     }
 
+     /**
+      * Sends email to the recepient email
+      */
     public Message prepareMessage(Session session, String myAccountEmail, String recepient, String clientMessage, String clientEmail, Listing listing){
         try{
             Message message = new MimeMessage(session);
