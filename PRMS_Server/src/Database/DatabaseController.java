@@ -1,7 +1,5 @@
 package Database;
 
-import Utils.Listing;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,7 +8,7 @@ import java.sql.SQLException;
  * This class is responsible for the connection to the database and
  * the database model
  * @author Ryan Holt
- * @since April 12, 2019
+ * @since November 25, 2019
  */
 public class DatabaseController implements DatabaseCredentials{
 

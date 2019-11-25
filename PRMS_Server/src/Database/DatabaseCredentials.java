@@ -1,5 +1,8 @@
 package Database;
 
+/**
+ * The driver credentials needed to start and access the database.
+ */
 public interface DatabaseCredentials {
 
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";

@@ -1,5 +1,9 @@
 package Database;
 
+/**
+ * This interface stores the messages to be used in communication.
+ * Each message corresponds to database actions or a database flag.
+ */
 public interface Messages {
 
     static final String SUCCESS = "success";
@@ -16,7 +20,6 @@ public interface Messages {
     static final String EDIT_LISTING = "editListing";
     static final String EDIT_FEE = "editFee";
     static final String GET_ALL_USERS = "getAllUsers";
-    static final String GET_NUM_ACTIVE_LISTINGS = "getNumActiveListings";
     static final String GET_REPORT_DATA = "getReportData";
     static final String SEND_EMAIL_TO_LANDLORD = "sendEmail";
     static final String UNSUBSCRIBE = "unsubscribe";
