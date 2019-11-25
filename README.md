@@ -36,6 +36,19 @@ External Machine: (IP Address: 'Server external IP Address');
 java -jar PRMS_Client.jar
 ```
 
+**Instructions for the Client**
+
+1. Login
+
+* the client can enter the system as a regular renter, registered renter, landlord, or a manager using thier username and password
+* the client can also register a new account as registered renter or landlord (managers are predefined by server)
+
+	* Predefined Manager: 
+	
+		* Username: testManager
+		* Password: 123
+
+* Be sure to enter your email address when creating an account to receive email notificaitons
 
 ## Tasks
 
