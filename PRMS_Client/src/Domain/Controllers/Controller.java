@@ -1,5 +1,12 @@
 package Domain.Controllers;
 
+/**
+ * This class is an abstract class which provides the connection between
+ * the view controllers so they can access the sockets
+ * @author Harsohail Brar
+ *  * @version 4.10.0
+ *  * @since November 25, 2019
+ */
 public abstract class Controller {
 
     /**
@@ -15,6 +22,7 @@ public abstract class Controller {
         setClientCommunicationController(c);
     }
 
+    // Visibility of view functions
     public abstract void displayView();
     public abstract void hideView();
 

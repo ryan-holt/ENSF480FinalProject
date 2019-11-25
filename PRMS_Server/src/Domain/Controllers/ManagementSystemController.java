@@ -20,11 +20,15 @@ import java.util.concurrent.Executors;
  */
 public class ManagementSystemController{
 
+    // Member Variables
     private static final int PORT = 7000;
     private ServerSocket serverSocket;
     private DatabaseController databaseController;
     private ExecutorService pool;
 
+    /**
+     * Creates a ManagementSystemController that holds the main() function and starts the server
+     */
     public ManagementSystemController() {
         try {
             serverSocket = new ServerSocket(PORT);
@@ -39,11 +43,18 @@ public class ManagementSystemController{
         }
     }
 
+    /**
+     * Main Functions that starts the server
+     * @param args string arguments from command line
+     */
     public static void main(String[] args) {
         ManagementSystemController myServer = new ManagementSystemController();
         myServer.communicateWithClient();
     }
 
+    /**
+     * Forever loop to accept new connection from clients
+     */
     public void communicateWithClient() {
         try {
             while (true) {
@@ -59,6 +70,9 @@ public class ManagementSystemController{
         }
     }
 
+    /**
+     * Prints server IP Info
+     */
     public void printIPInfo() {
         InetAddress ip;
         try {

@@ -2,12 +2,9 @@ package Domain.Controllers;
 
 import Presentation.Views.*;
 import Utils.*;
-import com.sun.tools.javac.Main;
 
 import java.io.*;
 import java.net.*;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * This class is responsible for communicating with the server
@@ -71,6 +68,9 @@ public class ClientCommunicationController implements UserTypes{
         ClientCommunicationController ccc = new ClientCommunicationController("localhost", 7000);
     }
 
+    /**
+     *  displays the main window for the respective user
+     */
     public void showMainWindow(){
         String userType;
         if(user != null) {
@@ -95,14 +95,24 @@ public class ClientCommunicationController implements UserTypes{
         mainController.displayView();
     }
 
+    /**
+     * Creates a renter main view
+     * @param registeredRenter registered renter user
+     */
     public void createRenterMainWindow(boolean registeredRenter){
         setMainController(new RenterMainController(new RenterMainView(registeredRenter), this));
     }
 
+    /**
+     * Creates a manager main view
+     */
     public void createManagerMainWindow(){
         setMainController(new ManagerMainController(new ManagerMainView(), this));
     }
 
+    /**
+     * Creates a landlord main view
+     */
     public void createLandlordMainWindow(){
         setMainController(new LandlordMainController(new LandlordMainView(), this));
     }

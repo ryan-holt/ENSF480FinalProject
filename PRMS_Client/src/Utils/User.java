@@ -2,8 +2,14 @@ package Utils;
 
 import java.io.Serializable;
 
+/**
+ * User class that holds all user information and
+ * acts as the observer in the observer pattern used to notify users for
+ * new created listings that match their queries
+ */
 public class User implements UserTypes, Serializable {
 
+    // Member Functions
     private static final long serialVersionUID = 3L;
     private String username;
     private String password;
@@ -12,6 +18,7 @@ public class User implements UserTypes, Serializable {
     private String userType;
     private String email;
 
+    // Constructors
     public User(String username, String password){
         this.username = username;
         this.password = password;

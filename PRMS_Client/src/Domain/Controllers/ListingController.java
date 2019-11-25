@@ -1,20 +1,28 @@
 package Domain.Controllers;
 
-import Presentation.Views.*;
+import Presentation.Views.ListingView;
 import Utils.Listing;
 import Utils.ListingStates;
-import javafx.scene.control.ComboBox;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Calendar;
 
+/**
+ * This class is responsible for controlling the listing view
+ * @author Harsohail Brar
+ * @version 4.10.0
+ * @since November 25, 2019
+ */
 public class ListingController extends Controller implements Messages, ListingStates {
 
+    // Listing View
     private ListingView listingView;
 
+    /**
+     * Constructor to create the ListingController object
+     * @param clv LandlordMainView object
+     * @param ccc ClientCommunicationController object
+     */
     public ListingController(ListingView lv, ClientCommunicationController ccc){
         super(ccc);
         listingView = lv;
@@ -26,6 +34,9 @@ public class ListingController extends Controller implements Messages, ListingSt
         listingView.addEditListingStateListener(e -> editListingListen(true));
     }
 
+    /**
+     * Prompts and makes payment for the selected listing in the listing view
+     */
     public void makePaymentListen(){
         int selectedRow = listingView.getListingTable().getSelectedRow();
 
@@ -69,6 +80,10 @@ public class ListingController extends Controller implements Messages, ListingSt
         }
     }
 
+    /**
+     * Prompts and edits the listings from the listing view
+     * @param editStateOnly if true, only prompts edit state
+     */
     public void editListingListen(boolean editStateOnly){
         int selectedRow = listingView.getListingTable().getSelectedRow();
 
@@ -96,6 +111,11 @@ public class ListingController extends Controller implements Messages, ListingSt
         }
     }
 
+    /**
+     * Edits the listings object using the edit listing query from the user
+     * @param listing listing being edited
+     * @return edited listing
+     */
     public Listing editListing(Listing listing){
         String editListing = "Edit listing";
         String[] type = new String[]{"Apartment", "Attached", "Detached", "Townhouse"};
@@ -134,6 +154,11 @@ public class ListingController extends Controller implements Messages, ListingSt
         return listing;
     }
 
+    /**
+     * Edits the listing state requested by the user
+     * @param listing listing being edited
+     * @return edited listing
+     */
     public Listing editListingState(Listing listing){
         String editListingState = "Edit Listing State";
         String[] listingStates = new String[]{NOT_ACTIVE, ACTIVE, RENTED, CANCELLED, SUSPENDED};
@@ -149,6 +174,11 @@ public class ListingController extends Controller implements Messages, ListingSt
         return listing;
     }
 
+    /**
+     * Returns the selected listing in the listings view
+     * @param selectedRow row of listing selected
+     * @return listing selected
+     */
     public Listing getSelectedListing(int selectedRow){
         int selectedListingID = Integer.parseInt((String)listingView.getListingTableModel().getValueAt(selectedRow, 0));
         String type = (String)listingView.getListingTableModel().getValueAt(selectedRow, 1);
@@ -161,11 +191,17 @@ public class ListingController extends Controller implements Messages, ListingSt
         return new Listing(type,  bedrooms, bathrooms, furnished, quadrant,  state, null, null, selectedListingID, null);
     }
 
+    /**
+     * Return user to the menu
+     */
     public void backToMenuListen(){
         listingView.setVisible(false);
         clientCommunicationController.getMainController().displayView();
     }
 
+    /**
+     * Prompts and sends email to landlord
+     */
     public void emailLandlordListen(){
         int selectedRow = listingView.getListingTable().getSelectedRow();
 
@@ -208,6 +244,7 @@ public class ListingController extends Controller implements Messages, ListingSt
         }
     }
 
+    // Visibility functions
     @Override
     public void displayView() {
         listingView.display();
@@ -242,6 +279,12 @@ public class ListingController extends Controller implements Messages, ListingSt
         return num;
     }
 
+    /**
+     * Get index of selected string in selector
+     * @param list selector
+     * @param s string selected
+     * @return index of string selected
+     */
     public int getIndex(String[] list, String s){
         for(int i = 0; i < list.length; i++){
             if(s.equals(list[i])){

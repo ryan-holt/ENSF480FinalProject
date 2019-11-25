@@ -289,10 +289,7 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
     public void expireListings(){
         Calendar todayDate = Calendar.getInstance();
         String todayDateString = todayDate.get(Calendar.MONTH) + "/" + todayDate.get(Calendar.DATE) + "/" + todayDate.get(Calendar.YEAR);
-
         try (PreparedStatement pStmt = myConnection.prepareStatement(SQL_EXPIRE_LISTINGS)) {
-            pStmt.setString(1, todayDateString);
-            pStmt.setString(1, todayDateString);
             pStmt.setString(1, todayDateString);
             pStmt.executeUpdate();
         } catch (SQLException e) {
@@ -559,12 +556,12 @@ public class DatabaseModel implements DatabaseAccessQueries, Messages, UserTypes
                     if(queryBathrooms != newListing.getNumOfBathrooms() && queryBathrooms != -1){
                         continue;
                     }
-                    // TODO furnishing check
                     if(!queryQuadrant.equals(newListing.getQuadrant()) && !queryQuadrant.equals(NO_INPUT)){
                         continue;
                     }
 
-                    userEmails.add(rs.getString("email"));
+                    if(!userEmails.contains(rs.getString("email")))
+                        userEmails.add(rs.getString("email"));
                 }
             }
 
