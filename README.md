@@ -1,6 +1,60 @@
 
 # Property Rental Management System (PRMS)
 
+## Instructions
+
+4 Files are provided to run the PRMS on your local PC
+
+* .tar files contain .java files
+* .jar files contain .class files
+
+**Files Submitted:**
+
+* PRMS_Server.jar
+* PRSM_Server.tar
+* PRMS_Client.jar
+* PRMS_Client.tar
+
+**How to run the PRMS:**
+
+1. Run the server on a machine using the following command: 
+
+* Note: the PC must contain the database alongside the server
+
+```
+java -jar PRMS_Server.jar
+```
+
+2. Run the client on the same machine or a seperate machine using the following command:
+
+* Note: the IP address should be changed to the server's external IP in the ClientCommunicationController.java to connect the client to the server
+
+Same machine: (IP Address: 'localhost')
+
+External Machine: (IP Address: 'Server external IP Address')
+
+```
+java -jar PRMS_Client.jar
+```
+
+**Instructions for the Client**
+
+1. Login
+
+* the client can enter the system as a regular renter, registered renter, landlord, or a manager using thier username and password
+* the client can also register a new account as registered renter or landlord (managers are predefined by server)
+
+	* Predefined Manager: 
+	
+		* Username: testManager
+		* Password: 123
+
+* Be sure to enter your email address when creating an account to receive email notificaitons
+
+2. Post Login
+
+* After logging in, the client will be prompted with the main menu view where they can navigate the system
+
 ## Tasks
 
 * A complete list of systems actors: people, other systems, devices (if applies)
@@ -82,8 +136,6 @@
 	* Computing periodical report
 
 
-
-ENSF480FinalProject
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTE4NzY2NjQyNzRdfQ==
 -->
