@@ -123,7 +123,7 @@ public class ListingController extends Controller implements Messages, ListingSt
         String[] bathrooms = { "1", "2", "3", "4", "5" };
         String[] furnished = { "Yes", "No" };
         String[] quadrant = { "SW", "NW", "NE", "SE" };
-        String[] state = {NOT_ACTIVE, ACTIVE, RENTED};
+        String[] state = {NOT_ACTIVE, ACTIVE, RENTED, SUSPENDED, CANCELLED};
 
         String editType = (String) JOptionPane.showInputDialog(null, "Select Type:",
                                                                 editListing, JOptionPane.QUESTION_MESSAGE, null,
