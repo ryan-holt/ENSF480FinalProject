@@ -5,16 +5,19 @@ import java.awt.event.ActionListener;
 
 /**
  * This class is responsible for the Manager Main View GUI
- * @author  Harsohail Brar
- * @version 1.0.0
+ * and extends the MainView class
+ * @author  Gary Wu
  * @since November 10, 2019
  */
 public class ManagerMainView extends MainView{
 
     // Member Variables
-
     private JButton changeFeeButton, getReportButton, getEntityInfoButton, editListingStateButton;
 
+    /**
+     * ManagerView constructor which creates what the manager
+     * sees when they login and thus has corresponding buttons
+     */
     public ManagerMainView(){
         super(200, 250);
 
